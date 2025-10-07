@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "./brand.css";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+  }
+
+  ::selection {
+    @apply bg-brand-primary/30;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-gradient-brand px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:shadow-brand-glow hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-brand-primary/30 px-5 py-2 text-sm font-semibold text-brand-primary transition-all duration-300 hover:border-brand-primary hover:bg-brand-primary/10 hover:shadow-brand-glow;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition-all duration-300 hover:bg-brand-accent/80 hover:shadow-brand-glow;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-brand bg-clip-text text-transparent;
+  }
+
+  .card-brand {
+    @apply rounded-2xl border border-brand-primary/20 bg-slate-900/50 backdrop-blur-sm transition-all duration-300 hover:border-brand-primary/40 hover:shadow-brand-glow;
+  }
+
+  .section-title {
+    @apply text-4xl font-bold text-gradient md:text-5xl lg:text-6xl;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-slate-300 md:text-xl;
+  }
+}

@@ -1,0 +1,24 @@
+---
+import type { Locale } from '../i18n/config';
+import { locales, localeLabels } from '../i18n/config';
+
+interface Props {
+  readonly activeLocale: Locale;
+}
+
+const { activeLocale } = Astro.props as Props;
+---
+<nav aria-label="Language selector" class="flex items-center gap-3 text-sm">
+  {locales.map((locale) => (
+    <a
+      href={`/${locale}/`}
+      class={`uppercase tracking-wide transition-colors ${
+        locale === activeLocale
+          ? 'text-sky-300'
+          : 'text-slate-400 hover:text-slate-200'
+      }`}
+    >
+      {localeLabels[locale]}
+    </a>
+  ))}
+</nav>

@@ -1,0 +1,72 @@
+/* Automatycznie wygenerowane z logo - 2025-10-07T20:41:08.634Z */
+
+:root {
+  /* Główne kolory brandu */
+  --brand-primary: #2b6ef9;
+  --brand-primary-rgb: 43 110 249;
+  --brand-secondary: #3a166b;
+  --brand-secondary-rgb: 58 22 107;
+  --brand-accent: #bbb1cc;
+  --brand-accent-rgb: 187 177 204;
+  
+  /* Skala primary */
+  --brand-primary-50: #eaeffb;
+  --brand-primary-100: #d7e2f8;
+  --brand-primary-200: #b0c7f4;
+  --brand-primary-300: #86aaf3;
+  --brand-primary-400: #5a8df4;
+  --brand-primary-500: #2a6ff8;
+  --brand-primary-600: #064dda;
+  --brand-primary-700: #04369a;
+  --brand-primary-800: #021f59;
+  --brand-primary-900: #010919;
+  
+  /* Skala secondary */
+  --brand-secondary-50: #f1ecf8;
+  --brand-secondary-100: #dccfee;
+  --brand-secondary-200: #b091dd;
+  --brand-secondary-300: #844fcf;
+  --brand-secondary-400: #5d28a7;
+  --brand-secondary-500: #39166a;
+  --brand-secondary-600: #2d1056;
+  --brand-secondary-700: #220c41;
+  --brand-secondary-800: #16072c;
+  --brand-secondary-900: #0b0316;
+  
+  /* Skala accent */
+  --brand-accent-50: #f2f0f4;
+  --brand-accent-100: #eceaef;
+  --brand-accent-200: #e0dce6;
+  --brand-accent-300: #d4cedd;
+  --brand-accent-400: #c8c0d5;
+  --brand-accent-500: #bcb2cd;
+  --brand-accent-600: #8b78ae;
+  --brand-accent-700: #5e4983;
+  --brand-accent-800: #34274c;
+  --brand-accent-900: #0b0811;
+  
+  /* Gradienty */
+  --brand-gradient-from: var(--brand-primary);
+  --brand-gradient-via: var(--brand-secondary);
+  --brand-gradient-to: var(--brand-accent);
+  --brand-glow: drop-shadow(0 0 16px color-mix(in oklab, var(--brand-primary), white 20%));
+  
+  /* Light mode adjustments */
+  --brand-primary-light: color-mix(in oklab, var(--brand-primary), black 20%);
+  --brand-secondary-light: color-mix(in oklab, var(--brand-secondary), black 20%);
+  --brand-accent-light: color-mix(in oklab, var(--brand-accent), black 20%);
+}
+
+/* Dark mode (domyślny) */
+.dark {
+  --brand-primary-current: var(--brand-primary);
+  --brand-secondary-current: var(--brand-secondary);
+  --brand-accent-current: var(--brand-accent);
+}
+
+/* Light mode */
+.light {
+  --brand-primary-current: var(--brand-primary-light);
+  --brand-secondary-current: var(--brand-secondary-light);
+  --brand-accent-current: var(--brand-accent-light);
+}
