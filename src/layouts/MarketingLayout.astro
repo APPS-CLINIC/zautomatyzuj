@@ -15,6 +15,7 @@ import type { Locale } from '../i18n/config';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import ThemeToggle from '../components/ui/ThemeToggle.astro';
 import Button from '../components/ui/Button.astro';
+import CommandPalette from '../components/ui/CommandPalette.astro';
 
 interface Props {
   readonly title: string;
@@ -204,6 +205,9 @@ const navT = navTranslations[lang as keyof typeof navTranslations] || navTransla
     </footer>
 
     <slot name="footer" />
+    
+    <!-- Command Palette -->
+    <CommandPalette />
   </body>
 </html>
 
@@ -224,8 +228,11 @@ const navT = navTranslations[lang as keyof typeof navTranslations] || navTransla
     
     quickContactBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        // TODO: Implement Command Palette
-        console.log('Quick contact clicked');
+        // Dispatch custom event to open Command Palette
+        const event = new CustomEvent('openCommandPalette', {
+          detail: { source: 'button' }
+        });
+        document.dispatchEvent(event);
       });
     });
   }

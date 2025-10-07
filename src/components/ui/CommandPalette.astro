@@ -1,0 +1,51 @@
+---
+/**
+ * CommandPalette.astro - Astro wrapper dla React Command Palette
+ * 
+ * Funkcje:
+ * - Integracja React island z Astro
+ * - Client-side hydration
+ * - i18n integration
+ * - Global keyboard shortcuts
+ */
+
+import CommandPalette from './CommandPalette.tsx';
+import CommandPaletteProvider from '../providers/CommandPaletteProvider.tsx';
+---
+
+<!-- Command Palette React Island -->
+<CommandPaletteProvider client:load>
+  <CommandPalette />
+</CommandPaletteProvider>
+
+<script>
+  // Global keyboard shortcut handler
+  function initCommandPalette() {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cmd/Ctrl + K
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        
+        // Dispatch custom event to open Command Palette
+        const event = new CustomEvent('openCommandPalette', {
+          detail: { source: 'keyboard' }
+        });
+        document.dispatchEvent(event);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    
+    // Cleanup
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCommandPalette);
+  } else {
+    initCommandPalette();
+  }
+</script>
