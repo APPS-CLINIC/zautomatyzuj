@@ -1,0 +1,142 @@
+---
+/**
+ * AnimatedText.astro - Komponent animowanego tekstu z różnymi efektami
+ * 
+ * Efekty:
+ * - fade-in: Pojawianie się z fade
+ * - slide-up: Wsuwanie z dołu
+ * - slide-down: Wsuwanie z góry
+ * - scale-in: Skalowanie z małego do normalnego
+ * - typewriter: Efekt maszyny do pisania
+ * - gradient-flow: Płynący gradient
+ * 
+ * Opóźnienia:
+ * - delay-0: Bez opóźnienia (domyślne)
+ * - delay-100: 100ms opóźnienia
+ * - delay-200: 200ms opóźnienia
+ * - delay-300: 300ms opóźnienia
+ */
+
+interface Props {
+  effect?: 'fade-in' | 'slide-up' | 'slide-down' | 'scale-in' | 'typewriter' | 'gradient-flow';
+  delay?: 'delay-0' | 'delay-100' | 'delay-200' | 'delay-300';
+  duration?: 'fast' | 'normal' | 'slow';
+  class?: string;
+}
+
+const { 
+  effect = 'fade-in', 
+  delay = 'delay-0',
+  duration = 'normal',
+  class: className = '',
+  ...rest 
+} = Astro.props as Props;
+
+// Klasy dla efektów
+const effectClasses = {
+  'fade-in': 'animate-fade-in',
+  'slide-up': 'animate-slide-up',
+  'slide-down': 'animate-slide-down',
+  'scale-in': 'animate-scale-in',
+  'typewriter': 'typewriter-effect',
+  'gradient-flow': 'gradient-flow-effect'
+};
+
+// Klasy dla opóźnień
+const delayClasses = {
+  'delay-0': 'delay-0',
+  'delay-100': 'delay-100',
+  'delay-200': 'delay-200',
+  'delay-300': 'delay-300'
+};
+
+// Klasy dla czasu trwania
+const durationClasses = {
+  'fast': 'duration-300',
+  'normal': 'duration-500',
+  'slow': 'duration-700'
+};
+
+// Połącz klasy
+const textClasses = [
+  effectClasses[effect],
+  delayClasses[delay],
+  durationClasses[duration],
+  className
+].filter(Boolean).join(' ');
+---
+
+<span 
+  class={textClasses}
+  {...rest}
+>
+  <slot />
+</span>
+
+<style>
+  /* Typewriter effect */
+  .typewriter-effect {
+    overflow: hidden;
+    border-right: 2px solid var(--brand-primary);
+    white-space: nowrap;
+    animation: typewriter 2s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+  
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--brand-primary); }
+  }
+  
+  /* Gradient flow effect */
+  .gradient-flow-effect {
+    background: linear-gradient(45deg, var(--brand-primary), var(--brand-secondary), var(--brand-accent), var(--brand-primary));
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientFlow 3s ease infinite;
+  }
+  
+  @keyframes gradientFlow {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  /* Hover effects */
+  .animate-fade-in:hover {
+    animation-duration: 0.3s;
+  }
+  
+  .animate-slide-up:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+  
+  .animate-scale-in:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+  
+  /* Responsive adjustments */
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-effect {
+      animation: none;
+      border-right: none;
+    }
+    
+    .gradient-flow-effect {
+      animation: none;
+      background: var(--brand-primary);
+      color: white;
+    }
+  }
+</style>

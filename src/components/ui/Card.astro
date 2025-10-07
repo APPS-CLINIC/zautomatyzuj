@@ -1,0 +1,99 @@
+---
+/**
+ * Card.astro - Komponent karty z wariantami i animacjami
+ * 
+ * Warianty:
+ * - default: Standardowa karta z brand border
+ * - elevated: Karta z cieniem i glow efektem
+ * - glass: Szkło efekt z backdrop blur
+ * - gradient: Karta z gradient background
+ * 
+ * Rozmiary:
+ * - sm: Mała karta
+ * - md: Standardowa (domyślna)
+ * - lg: Duża karta
+ */
+
+interface Props {
+  variant?: 'default' | 'elevated' | 'glass' | 'gradient';
+  size?: 'sm' | 'md' | 'lg';
+  hover?: boolean;
+  class?: string;
+}
+
+const { 
+  variant = 'default', 
+  size = 'md', 
+  hover = true,
+  class: className = '',
+  ...rest 
+} = Astro.props as Props;
+
+// Klasy dla wariantów
+const variantClasses = {
+  default: 'card-brand',
+  elevated: 'rounded-2xl border border-brand-primary/20 bg-slate-900/80 backdrop-blur-sm shadow-brand-glow transition-all duration-300 hover:border-brand-primary/40 hover:shadow-brand-glow-lg',
+  glass: 'rounded-2xl border border-brand-primary/10 bg-slate-900/30 backdrop-blur-md transition-all duration-300 hover:border-brand-primary/30 hover:bg-slate-900/50',
+  gradient: 'rounded-2xl border border-brand-primary/20 bg-gradient-to-br from-slate-900/80 via-slate-800/60 to-slate-900/80 backdrop-blur-sm transition-all duration-300 hover:border-brand-primary/40 hover:shadow-brand-glow'
+};
+
+// Klasy dla rozmiarów
+const sizeClasses = {
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8'
+};
+
+// Połącz klasy
+const cardClasses = [
+  variantClasses[variant],
+  sizeClasses[size],
+  hover ? 'hover:scale-[1.02]' : '',
+  className
+].filter(Boolean).join(' ');
+---
+
+<div 
+  class={cardClasses}
+  {...rest}
+>
+  <slot />
+</div>
+
+<style>
+  /* Dodatkowe animacje */
+  .card-brand {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-brand::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(43, 110, 249, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .card-brand:hover::before {
+    left: 100%;
+  }
+  
+  /* Gradient variant animations */
+  .gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+</style>

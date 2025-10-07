@@ -1,0 +1,83 @@
+---
+/**
+ * Button.astro - Podstawowy komponent przycisku z wariantami
+ * 
+ * Warianty:
+ * - primary: Gradient brand z glow efektem
+ * - secondary: Outline z brand colors
+ * - accent: Accent color background
+ * - ghost: Przezroczysty z hover efektem
+ * 
+ * Rozmiary:
+ * - sm: Mały przycisk
+ * - md: Standardowy (domyślny)
+ * - lg: Duży przycisk
+ */
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'accent' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  disabled?: boolean;
+  class?: string;
+}
+
+const { 
+  variant = 'primary', 
+  size = 'md', 
+  href, 
+  disabled = false,
+  class: className = '',
+  ...rest 
+} = Astro.props as Props;
+
+// Klasy dla wariantów
+const variantClasses = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary', 
+  accent: 'btn-accent',
+  ghost: 'inline-flex items-center justify-center rounded-full border border-transparent px-5 py-2 text-sm font-semibold text-brand-primary transition-all duration-300 hover:border-brand-primary/30 hover:bg-brand-primary/5 hover:shadow-brand-glow'
+};
+
+// Klasy dla rozmiarów
+const sizeClasses = {
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-5 py-2 text-sm',
+  lg: 'px-6 py-3 text-base'
+};
+
+// Połącz klasy
+const buttonClasses = [
+  variantClasses[variant],
+  sizeClasses[size],
+  disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '',
+  className
+].filter(Boolean).join(' ');
+
+// Element HTML
+const Element = href ? 'a' : 'button';
+const elementProps = href ? { href } : { disabled };
+---
+
+<Element 
+  class={buttonClasses}
+  {...elementProps}
+  {...rest}
+>
+  <slot />
+</Element>
+
+<style>
+  /* Dodatkowe style dla animacji */
+  .btn-primary:hover {
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+  }
+  
+  .btn-accent:hover {
+    transform: translateY(-1px);
+  }
+</style>
