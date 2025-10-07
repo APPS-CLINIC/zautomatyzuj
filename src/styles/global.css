@@ -1,6 +1,89 @@
 @import "tailwindcss";
 @import "./brand.css";
 
+@theme {
+  /* Brand colors with alpha support */
+  --color-brand-primary: rgb(var(--brand-primary-rgb) / <alpha-value>);
+  --color-brand-secondary: rgb(var(--brand-secondary-rgb) / <alpha-value>);
+  --color-brand-accent: rgb(var(--brand-accent-rgb) / <alpha-value>);
+  
+  /* Brand color scales */
+  --color-brand-primary-50: var(--brand-primary-50);
+  --color-brand-primary-100: var(--brand-primary-100);
+  --color-brand-primary-200: var(--brand-primary-200);
+  --color-brand-primary-300: var(--brand-primary-300);
+  --color-brand-primary-400: var(--brand-primary-400);
+  --color-brand-primary-500: var(--brand-primary-500);
+  --color-brand-primary-600: var(--brand-primary-600);
+  --color-brand-primary-700: var(--brand-primary-700);
+  --color-brand-primary-800: var(--brand-primary-800);
+  --color-brand-primary-900: var(--brand-primary-900);
+  
+  --color-brand-secondary-50: var(--brand-secondary-50);
+  --color-brand-secondary-100: var(--brand-secondary-100);
+  --color-brand-secondary-200: var(--brand-secondary-200);
+  --color-brand-secondary-300: var(--brand-secondary-300);
+  --color-brand-secondary-400: var(--brand-secondary-400);
+  --color-brand-secondary-500: var(--brand-secondary-500);
+  --color-brand-secondary-600: var(--brand-secondary-600);
+  --color-brand-secondary-700: var(--brand-secondary-700);
+  --color-brand-secondary-800: var(--brand-secondary-800);
+  --color-brand-secondary-900: var(--brand-secondary-900);
+  
+  --color-brand-accent-50: var(--brand-accent-50);
+  --color-brand-accent-100: var(--brand-accent-100);
+  --color-brand-accent-200: var(--brand-accent-200);
+  --color-brand-accent-300: var(--brand-accent-300);
+  --color-brand-accent-400: var(--brand-accent-400);
+  --color-brand-accent-500: var(--brand-accent-500);
+  --color-brand-accent-600: var(--brand-accent-600);
+  --color-brand-accent-700: var(--brand-accent-700);
+  --color-brand-accent-800: var(--brand-accent-800);
+  --color-brand-accent-900: var(--brand-accent-900);
+  
+  /* Brand gradients */
+  --gradient-brand: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));
+  --gradient-brand-radial: radial-gradient(circle, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));
+  --gradient-brand-conic: conic-gradient(from 180deg at 50% 50%, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));
+  
+  /* Brand shadows */
+  --shadow-brand-glow: var(--brand-glow);
+  --shadow-brand-glow-lg: 0 0 40px rgba(0, 212, 255, 0.3);
+  --shadow-brand-glow-xl: 0 0 80px rgba(0, 212, 255, 0.2);
+  --shadow-brand-glow-pink: var(--brand-glow-pink);
+  --shadow-brand-glow-purple: var(--brand-glow-purple);
+  --shadow-brand-glow-teal: var(--brand-glow-teal);
+  --shadow-brand-glow-cyan: var(--brand-glow-cyan);
+  
+  /* Brand animations */
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  --animate-slide-down: slideDown 0.5s ease-out;
+  --animate-scale-in: scaleIn 0.3s ease-out;
+  --animate-pulse-brand: pulseBrand 2s ease-in-out infinite;
+  --animate-gradient-x: gradientX 3s ease infinite;
+  --animate-gradient-y: gradientY 3s ease infinite;
+  --animate-gradient-xy: gradientXY 3s ease infinite;
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @layer base {
   :root {
     color-scheme: dark;
@@ -11,29 +94,45 @@
   }
 
   ::selection {
-    @apply bg-brand-primary/30;
+    background-color: rgb(var(--brand-primary-rgb) / 0.3);
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-gradient-brand px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:shadow-brand-glow hover:scale-105;
+    @apply inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105;
+    background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));
+  }
+  
+  .btn-primary:hover {
+    box-shadow: var(--brand-glow);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-brand-primary/30 px-5 py-2 text-sm font-semibold text-brand-primary transition-all duration-300 hover:border-brand-primary hover:bg-brand-primary/10 hover:shadow-brand-glow;
+    @apply inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-brand-primary transition-all duration-300 hover:border-brand-primary;
+    border: 1px solid rgb(var(--brand-primary-rgb) / 0.3);
+    background-color: rgb(var(--brand-primary-rgb) / 0.1);
+  }
+  
+  .btn-secondary:hover {
+    box-shadow: var(--brand-glow);
   }
 
   .btn-accent {
-    @apply inline-flex items-center justify-center rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition-all duration-300 hover:bg-brand-accent/80 hover:shadow-brand-glow;
+    @apply inline-flex items-center justify-center rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition-all duration-300 hover:bg-brand-accent/80;
+  }
+  
+  .btn-accent:hover {
+    box-shadow: var(--brand-glow);
   }
 
-  .text-gradient {
-    @apply bg-gradient-brand bg-clip-text text-transparent;
-  }
 
   .card-brand {
-    @apply rounded-2xl border border-brand-primary/20 bg-slate-900/50 backdrop-blur-sm transition-all duration-300 hover:border-brand-primary/40 hover:shadow-brand-glow;
+    @apply rounded-2xl border border-brand-primary/20 bg-slate-900/50 backdrop-blur-sm transition-all duration-300 hover:border-brand-primary/40;
+  }
+  
+  .card-brand:hover {
+    box-shadow: var(--brand-glow);
   }
 
   .section-title {
@@ -42,5 +141,97 @@
 
   .section-subtitle {
     @apply text-lg text-slate-300 md:text-xl;
+  }
+
+  /* Glass effect cards - inspirowane obrazami */
+  .card-glass {
+    @apply rounded-xl border border-white/10 bg-black/20 backdrop-blur-xl transition-all duration-300 hover:border-white/20;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  }
+  
+  .card-glass:hover {
+    box-shadow: var(--shadow-brand-glow-lg);
+    transform: translateY(-4px);
+  }
+
+  /* Intensywne efekty świecenia */
+  .glow-blue {
+    box-shadow: var(--shadow-brand-glow);
+  }
+  
+  .glow-pink {
+    box-shadow: var(--shadow-brand-glow-pink);
+  }
+  
+  .glow-purple {
+    box-shadow: var(--shadow-brand-glow-purple);
+  }
+  
+  .glow-teal {
+    box-shadow: var(--shadow-brand-glow-teal);
+  }
+
+  .glow-cyan {
+    box-shadow: var(--shadow-brand-glow-cyan);
+  }
+
+  /* Efekty świecenia dla tekstu */
+  .text-glow-blue {
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+  }
+  
+  .text-glow-pink {
+    text-shadow: 0 0 20px rgba(244, 114, 182, 0.6);
+  }
+  
+  .text-glow-purple {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+  }
+
+  .text-glow-teal {
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+  }
+
+  /* Futurystyczne tło z gradientami */
+  .futuristic-bg {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+  }
+  
+  .futuristic-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, rgba(244, 114, 182, 0.15) 0%, transparent 50%);
+    animation: gradientFloat 15s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes gradientFloat {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(-30px) scale(1.1);
+      opacity: 1;
+    }
+  }
+
+  /* Glassmorphism buttons */
+  .btn-glass {
+    @apply rounded-lg border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:border-white/30;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-glass:hover {
+    box-shadow: var(--shadow-brand-glow-lg);
   }
 }

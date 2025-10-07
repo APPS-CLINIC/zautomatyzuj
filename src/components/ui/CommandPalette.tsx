@@ -304,14 +304,16 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
                 <button
                   type="button"
                   onClick={() => setSelectedAction(null)}
-                  className="flex-1 px-4 py-3 text-slate-300 border border-brand-primary/30 rounded-lg hover:border-brand-primary hover:bg-brand-primary/10 transition-all duration-300"
+                  className="flex-1 px-4 py-3 text-slate-300 border rounded-lg hover:border-brand-primary transition-all duration-300"
+                  style={{ borderColor: 'rgb(var(--brand-primary-rgb) / 0.3)', backgroundColor: 'rgb(var(--brand-primary-rgb) / 0.1)' }}
                 >
                   {t('commandPalette.form.cancel')}
                 </button>
                 <button
                   type="submit"
                   disabled={!isFormValid() || isSubmitting}
-                  className="flex-1 px-4 py-3 bg-gradient-brand text-white rounded-lg hover:shadow-brand-glow disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                  className="flex-1 px-4 py-3 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                  style={{ background: 'linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to))' }}
                 >
                   {isSubmitting ? t('commandPalette.form.submitting') : t('commandPalette.form.submit')}
                 </button>

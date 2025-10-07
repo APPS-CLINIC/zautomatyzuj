@@ -37,9 +37,9 @@ const levelClasses = {
 
 // Klasy dla stylów
 const styleClasses = {
-  gradient: 'bg-gradient-brand bg-clip-text text-transparent',
+  gradient: 'bg-clip-text text-transparent',
   solid: 'text-brand-primary',
-  outline: 'text-transparent bg-clip-text bg-gradient-brand [-webkit-text-stroke:2px_rgb(43_110_249)]'
+  outline: 'text-transparent bg-clip-text [-webkit-text-stroke:2px_rgb(43_110_249)]'
 };
 
 // Klasy dla wyrównania
@@ -59,16 +59,20 @@ const titleClasses = [
 ].filter(Boolean).join(' ');
 ---
 
-<{level} 
-  class={titleClasses}
-  {...rest}
->
-  <slot />
-</{level}>
+{level === 'h1' && <h1 class={titleClasses} {...rest}><slot /></h1>}
+{level === 'h2' && <h2 class={titleClasses} {...rest}><slot /></h2>}
+{level === 'h3' && <h3 class={titleClasses} {...rest}><slot /></h3>}
 
 <style>
   /* Animacje dla gradient text */
   .bg-gradient-brand {
+    background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));
+    background-size: 200% 200%;
+    animation: gradientMove 3s ease infinite;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));
     background-size: 200% 200%;
     animation: gradientMove 3s ease infinite;
   }

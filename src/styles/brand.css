@@ -1,13 +1,17 @@
 /* Automatycznie wygenerowane z logo - 2025-10-07T20:41:08.634Z */
 
 :root {
-  /* Główne kolory brandu */
-  --brand-primary: #2b6ef9;
-  --brand-primary-rgb: 43 110 249;
-  --brand-secondary: #3a166b;
-  --brand-secondary-rgb: 58 22 107;
-  --brand-accent: #bbb1cc;
-  --brand-accent-rgb: 187 177 204;
+  /* Kolory inspirowane obrazami - ciemny motyw z intensywnymi akcentami */
+  --brand-primary: #00d4ff; /* Electric blue/teal */
+  --brand-primary-rgb: 0 212 255;
+  --brand-secondary: #8b5cf6; /* Purple */
+  --brand-secondary-rgb: 139 92 246;
+  --brand-accent: #f472b6; /* Pink */
+  --brand-accent-rgb: 244 114 182;
+  --brand-teal: #06b6d4; /* Teal */
+  --brand-teal-rgb: 6 182 212;
+  --brand-cyan: #22d3ee; /* Cyan */
+  --brand-cyan-rgb: 34 211 238;
   
   /* Skala primary */
   --brand-primary-50: #eaeffb;
@@ -49,7 +53,11 @@
   --brand-gradient-from: var(--brand-primary);
   --brand-gradient-via: var(--brand-secondary);
   --brand-gradient-to: var(--brand-accent);
-  --brand-glow: drop-shadow(0 0 16px color-mix(in oklab, var(--brand-primary), white 20%));
+  --brand-glow: 0 0 20px rgba(0, 212, 255, 0.4);
+  --brand-glow-pink: 0 0 20px rgba(244, 114, 182, 0.4);
+  --brand-glow-purple: 0 0 20px rgba(139, 92, 246, 0.4);
+  --brand-glow-teal: 0 0 20px rgba(6, 182, 212, 0.4);
+  --brand-glow-cyan: 0 0 20px rgba(34, 211, 238, 0.4);
   
   /* Light mode adjustments */
   --brand-primary-light: color-mix(in oklab, var(--brand-primary), black 20%);

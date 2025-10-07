@@ -44,142 +44,79 @@ const t = i18n.getFixedT(lang);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   </head>
-  <body class="flex min-h-screen flex-col bg-slate-950 text-slate-100">
-    <!-- Navbar -->
-    <header class="navbar fixed top-0 left-0 right-0 z-50 border-b border-brand-primary/20 bg-slate-950/80 backdrop-blur-md">
-      <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4">
-        <!-- Logo -->
-        <a href={`/${lang}/`} class="logo-link group flex items-center gap-3">
-          <div class="logo-icon h-8 w-8 rounded-lg bg-gradient-brand flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-            </svg>
-          </div>
-          <span class="text-xl font-bold text-gradient">ZautomatyzujAI</span>
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="#services" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {t('nav.services')}
-          </a>
-          <a href="#process" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {t('nav.process')}
-          </a>
-          <a href="#cases" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {t('nav.cases')}
-          </a>
-          <a href="#training" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {t('nav.training')}
-          </a>
-          <a href="#contact" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {t('nav.contact')}
-          </a>
-        </nav>
-
-        <!-- Right side controls -->
-        <div class="flex items-center gap-3">
-          <!-- Quick Contact Button -->
-          <Button variant="ghost" size="sm" class="hidden sm:inline-flex" id="quick-contact-btn">
-            {t('nav.quickContact')}
-          </Button>
-          
-          <!-- Language Switcher -->
-          <LanguageSwitcher activeLocale={lang} />
-          
-          <!-- Theme Toggle -->
-          <ThemeToggle />
-          
-          <!-- Mobile Menu Button -->
-          <button class="md:hidden p-2 text-slate-300 hover:text-brand-primary transition-colors" id="mobile-menu-btn" aria-label="Toggle menu">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile Navigation -->
-      <div class="mobile-nav hidden md:hidden border-t border-brand-primary/20 bg-slate-900/95 backdrop-blur-md" id="mobile-nav">
-        <div class="px-4 py-4 space-y-3">
-          <a href="#services" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
-            {navT.services}
-          </a>
-          <a href="#process" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
-            {navT.process}
-          </a>
-          <a href="#cases" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
-            {navT.cases}
-          </a>
-          <a href="#training" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
-            {navT.training}
-          </a>
-          <a href="#contact" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
-            {navT.contact}
-          </a>
-          <div class="pt-3 border-t border-brand-primary/20">
-            <Button variant="primary" size="sm" class="w-full" id="mobile-quick-contact-btn">
-              {navT.quickContact}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </header>
+  <body class="flex min-h-screen flex-col bg-slate-950 text-slate-100 relative">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 z-0 overflow-hidden">
+      <div class="bg-gradient"></div>
+      <div class="bg-grid"></div>
+    </div>
 
     <!-- Main Content -->
-    <main class="flex-1 pt-20">
+    <main class="flex-1 relative z-10">
       <slot />
     </main>
 
     <!-- Footer -->
-    <footer class="footer border-t border-brand-primary/20 bg-slate-900/60 backdrop-blur-sm">
-      <div class="mx-auto w-full max-w-7xl px-4 py-12">
-        <div class="grid gap-8 md:grid-cols-4">
+    <footer class="footer border-t border-slate-800/50 bg-slate-950/60 backdrop-blur-md relative z-10">
+      <div class="mx-auto w-full max-w-7xl px-4 py-16">
+        <div class="grid gap-12 md:grid-cols-4">
           <!-- Company Info -->
           <div class="md:col-span-2">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="logo-icon h-8 w-8 rounded-lg bg-gradient-brand flex items-center justify-center">
-                <svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-                </svg>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="logo-icon h-10 w-10 rounded-xl flex items-center justify-center glow-blue" style="background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));">
+                <img src="/logo.svg" alt="ZautomatyzujAI" class="h-6 w-6" />
               </div>
-              <span class="text-xl font-bold text-gradient">ZautomatyzujAI</span>
+              <span class="text-2xl font-bold text-gradient text-glow-blue">ZautomatyzujAI</span>
             </div>
-            <p class="text-slate-400 max-w-md">
+            <p class="text-slate-300 text-lg leading-relaxed max-w-lg">
               Projektujemy odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka.
             </p>
+            <div class="mt-6">
+              <button class="btn-primary text-sm px-6 py-3">
+                Rozpocznij projekt
+                <svg class="btn-icon ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           <!-- Quick Links -->
           <div>
-            <h3 class="text-lg font-semibold text-white mb-4">Szybkie linki</h3>
-            <ul class="space-y-2">
-              <li><a href="#services" class="text-slate-400 hover:text-brand-primary transition-colors">Usługi</a></li>
-              <li><a href="#process" class="text-slate-400 hover:text-brand-primary transition-colors">Proces</a></li>
-              <li><a href="#cases" class="text-slate-400 hover:text-brand-primary transition-colors">Przypadki</a></li>
-              <li><a href="#training" class="text-slate-400 hover:text-brand-primary transition-colors">Szkolenia</a></li>
+            <h3 class="text-xl font-semibold text-white mb-6">Szybkie linki</h3>
+            <ul class="space-y-3">
+              <li><a href="#services" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Usługi</a></li>
+              <li><a href="#process" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Proces</a></li>
+              <li><a href="#cases" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Przypadki</a></li>
+              <li><a href="#training" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Szkolenia</a></li>
             </ul>
           </div>
 
           <!-- Contact -->
           <div>
-            <h3 class="text-lg font-semibold text-white mb-4">Kontakt</h3>
-            <ul class="space-y-2">
-              <li><a href="#contact" class="text-slate-400 hover:text-brand-primary transition-colors">Napisz do nas</a></li>
-              <li><a href="#contact" class="text-slate-400 hover:text-brand-primary transition-colors">Umów audyt</a></li>
-              <li><a href="#contact" class="text-slate-400 hover:text-brand-primary transition-colors">Zarezerwuj demo</a></li>
+            <h3 class="text-xl font-semibold text-white mb-6">Kontakt</h3>
+            <ul class="space-y-3">
+              <li><a href="#contact" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Napisz do nas</a></li>
+              <li><a href="#contact" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Umów audyt</a></li>
+              <li><a href="#contact" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Zarezerwuj demo</a></li>
             </ul>
+            <div class="mt-6">
+              <div class="flex items-center gap-3">
+                <LanguageSwitcher activeLocale={lang} />
+                <ThemeToggle />
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Bottom -->
-        <div class="mt-8 pt-8 border-t border-brand-primary/20 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-sm text-slate-500">
+        <div class="mt-12 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p class="text-sm text-slate-400">
             &copy; {currentYear} ZautomatyzujAI. Wszelkie prawa zastrzeżone.
           </p>
-          <div class="flex items-center gap-4">
-            <a href="#" class="text-slate-500 hover:text-brand-primary transition-colors text-sm">Polityka prywatności</a>
-            <a href="#" class="text-slate-500 hover:text-brand-primary transition-colors text-sm">Warunki użytkowania</a>
+          <div class="flex items-center gap-6">
+            <a href="#" class="text-slate-400 hover:text-brand-primary transition-colors text-sm font-medium">Polityka prywatności</a>
+            <a href="#" class="text-slate-400 hover:text-brand-primary transition-colors text-sm font-medium">Warunki użytkowania</a>
           </div>
         </div>
       </div>
@@ -193,16 +130,6 @@ const t = i18n.getFixedT(lang);
 </html>
 
 <script>
-  // Mobile menu toggle
-  function initMobileMenu() {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileNav = document.getElementById('mobile-nav');
-    
-    mobileMenuBtn?.addEventListener('click', () => {
-      mobileNav?.classList.toggle('hidden');
-    });
-  }
-
   // Quick contact functionality
   function initQuickContact() {
     const quickContactBtns = document.querySelectorAll('#quick-contact-btn, #mobile-quick-contact-btn');
@@ -240,7 +167,6 @@ const t = i18n.getFixedT(lang);
 
   // Initialize all functionality
   function init() {
-    initMobileMenu();
     initQuickContact();
     initSmoothScrolling();
   }
@@ -254,49 +180,105 @@ const t = i18n.getFixedT(lang);
 </script>
 
 <style>
-  /* Navbar styles */
-  .navbar {
-    transition: all 0.3s ease;
-  }
-
-  .navbar.scrolled {
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(20px);
-  }
-
-  /* Logo animation */
-  .logo-link:hover .logo-icon {
-    transform: scale(1.1) rotate(5deg);
-  }
-
-  /* Nav link hover effects */
-  .nav-link {
-    position: relative;
-  }
-
-  .nav-link::after {
-    content: '';
+  /* Animated Background - same as Hero */
+  .bg-gradient {
     position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
-    transition: width 0.3s ease;
+    inset: 0;
+    background: 
+      radial-gradient(circle 800px at 50% 30%, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.06) 20%, rgba(59, 130, 246, 0.03) 40%, transparent 70%),
+      radial-gradient(circle 700px at 50% 70%, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.06) 20%, rgba(139, 92, 246, 0.03) 40%, transparent 70%);
+    animation: gradientFloat 20s ease-in-out infinite;
+    filter: blur(6px);
+    border-radius: 50%;
+    backdrop-filter: blur(8px);
+    background-clip: padding-box;
   }
 
-  .nav-link:hover::after {
-    width: 100%;
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridScroll 30s linear infinite;
   }
 
-  /* Mobile nav animation */
-  .mobile-nav {
-    transition: all 0.3s ease;
+  @keyframes gradientFloat {
+    0%, 100% { 
+      transform: translate(0, 0) scale(1); 
+      opacity: 1;
+    }
+    25% { 
+      transform: translate(20px, -15px) scale(1.1); 
+      opacity: 0.8;
+    }
+    50% { 
+      transform: translate(-10px, 25px) scale(0.9); 
+      opacity: 0.7;
+    }
+    75% { 
+      transform: translate(15px, -10px) scale(1.05); 
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes gridScroll {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .bg-gradient {
+      animation: none;
+    }
+    
+    .bg-grid {
+      animation: none;
+    }
   }
 
   /* Footer styles */
   .footer {
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+    position: relative;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border: none;
+    border-radius: 0.75rem;
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(59, 130, 246, 0.5);
+  }
+
+  .btn-icon {
+    width: 1rem;
+    height: 1rem;
   }
 
   /* Scroll behavior */
