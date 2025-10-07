@@ -1,0 +1,271 @@
+---
+/**
+ * Hero.astro - Główna sekcja strony z animacjami i CTA
+ * 
+ * Elementy:
+ * - Animowany tytuł z gradientem
+ * - Podtytuł z opisem usług
+ * - CTA przyciski (primary/secondary)
+ * - Tło z logo-image.svg jako maską/parallax
+ * - Animowane elementy z Motion One
+ * - Responsive design
+ */
+
+import SectionTitle from '../ui/SectionTitle.astro';
+import Button from '../ui/Button.astro';
+import AnimatedText from '../ui/AnimatedText.astro';
+import Card from '../ui/Card.astro';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props as Props;
+
+// Tłumaczenia (tymczasowe, później przeniesiemy do i18n)
+const translations = {
+  pl: {
+    badge: 'Playbook automatyzacji',
+    title: 'Uwolnij przepływy pracy. Zautomatyzuj firmę z klasą.',
+    subtitle: 'Projektuj odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka.',
+    primaryCta: 'Umów audyt',
+    secondaryCta: 'Zobacz jak to działa',
+    highlights: [
+      'Komponowalna architektura z jasną odpowiedzialnością',
+      'Punkty kontrolne gotowe do audytu na każdym etapie',
+      'Metryki łączące cele biznesowe i technologiczne',
+    ]
+  },
+  en: {
+    badge: 'Automation playbook',
+    title: 'Unleash your workflows. Automate your business with finesse.',
+    subtitle: 'Design resilient AI automations with modular processes, transparent quality control and human oversight.',
+    primaryCta: 'Book an audit',
+    secondaryCta: 'See how it works',
+    highlights: [
+      'Composable architecture with clear ownership',
+      'Audit-ready checkpoints for every decision',
+      'Metrics that align business and engineering goals',
+    ]
+  }
+};
+
+const t = translations[lang as keyof typeof translations] || translations.pl;
+---
+
+<section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Tło z logo jako maską -->
+  <div class="hero-background absolute inset-0 opacity-10">
+    <div class="logo-mask absolute inset-0 bg-gradient-to-br from-brand-primary/20 via-brand-secondary/10 to-brand-accent/20"></div>
+    <div class="logo-pattern absolute inset-0" style="background-image: url('/logo-image.svg'); background-size: 800px; background-position: center; background-repeat: no-repeat; mask: linear-gradient(45deg, transparent 0%, black 50%, transparent 100%);"></div>
+  </div>
+
+  <!-- Gradient overlay -->
+  <div class="gradient-overlay absolute inset-0 bg-gradient-to-br from-slate-950/80 via-slate-900/60 to-slate-950/80"></div>
+
+  <!-- Zawartość -->
+  <div class="hero-content relative z-10 mx-auto w-full max-w-6xl px-4 py-20">
+    <div class="text-center space-y-8">
+      <!-- Badge -->
+      <AnimatedText effect="fade-in" delay="delay-0">
+        <span class="inline-flex rounded-full border border-brand-primary/30 bg-brand-primary/10 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-brand-primary backdrop-blur-sm">
+          {t.badge}
+        </span>
+      </AnimatedText>
+
+      <!-- Tytuł główny -->
+      <AnimatedText effect="slide-up" delay="delay-100" duration="slow">
+        <SectionTitle level="h1" style="gradient" align="center" class="max-w-4xl mx-auto">
+          {t.title}
+        </SectionTitle>
+      </AnimatedText>
+
+      <!-- Podtytuł -->
+      <AnimatedText effect="slide-up" delay="delay-200" duration="normal">
+        <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          {t.subtitle}
+        </p>
+      </AnimatedText>
+
+      <!-- CTA przyciski -->
+      <AnimatedText effect="scale-in" delay="delay-300" duration="normal">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <Button variant="primary" size="lg" href="#contact" class="w-full sm:w-auto">
+            {t.primaryCta}
+          </Button>
+          <Button variant="secondary" size="lg" href="#process" class="w-full sm:w-auto">
+            {t.secondaryCta}
+          </Button>
+        </div>
+      </AnimatedText>
+    </div>
+
+    <!-- Highlights cards -->
+    <AnimatedText effect="fade-in" delay="delay-300" duration="slow">
+      <div class="mt-16 grid gap-6 md:grid-cols-3">
+        {t.highlights.map((highlight, index) => (
+          <Card variant="glass" hover={true} class="group">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="h-3 w-3 rounded-full bg-gradient-brand group-hover:scale-125 transition-transform duration-300"></div>
+              </div>
+              <p class="text-slate-200 group-hover:text-white transition-colors duration-300">
+                {highlight}
+              </p>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </AnimatedText>
+  </div>
+
+  <!-- Floating elements -->
+  <div class="floating-elements absolute inset-0 pointer-events-none">
+    <div class="floating-circle-1 absolute top-20 left-10 w-32 h-32 bg-brand-primary/10 rounded-full blur-xl animate-pulse"></div>
+    <div class="floating-circle-2 absolute top-40 right-20 w-24 h-24 bg-brand-secondary/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+    <div class="floating-circle-3 absolute bottom-32 left-1/4 w-40 h-40 bg-brand-accent/10 rounded-full blur-xl animate-pulse delay-2000"></div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <AnimatedText effect="fade-in" delay="delay-300" duration="slow">
+    <div class="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2">
+      <div class="flex flex-col items-center gap-2 text-brand-primary/60">
+        <span class="text-xs uppercase tracking-wider">Scroll</span>
+        <div class="w-6 h-10 border-2 border-brand-primary/30 rounded-full flex justify-center">
+          <div class="w-1 h-3 bg-brand-primary/60 rounded-full mt-2 animate-bounce"></div>
+        </div>
+      </div>
+    </div>
+  </AnimatedText>
+</section>
+
+<style>
+  /* Hero section styles */
+  .hero-section {
+    background: radial-gradient(ellipse at center, rgba(43, 110, 249, 0.1) 0%, transparent 70%);
+  }
+
+  /* Logo mask animation */
+  .logo-mask {
+    animation: logoFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes logoFloat {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(2deg);
+    }
+  }
+
+  /* Logo pattern animation */
+  .logo-pattern {
+    animation: logoPattern 8s ease-in-out infinite;
+  }
+
+  @keyframes logoPattern {
+    0%, 100% {
+      opacity: 0.1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.2;
+      transform: scale(1.05);
+    }
+  }
+
+  /* Floating elements */
+  .floating-circle-1 {
+    animation: float1 4s ease-in-out infinite;
+  }
+
+  .floating-circle-2 {
+    animation: float2 5s ease-in-out infinite;
+  }
+
+  .floating-circle-3 {
+    animation: float3 6s ease-in-out infinite;
+  }
+
+  @keyframes float1 {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    50% {
+      transform: translateY(-30px) translateX(20px);
+    }
+  }
+
+  @keyframes float2 {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    50% {
+      transform: translateY(20px) translateX(-15px);
+    }
+  }
+
+  @keyframes float3 {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    50% {
+      transform: translateY(-25px) translateX(10px);
+    }
+  }
+
+  /* Gradient overlay animation */
+  .gradient-overlay {
+    animation: gradientShift 10s ease-in-out infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background: linear-gradient(45deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 50%, rgba(15, 23, 42, 0.8) 100%);
+    }
+    50% {
+      background: linear-gradient(225deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 50%, rgba(15, 23, 42, 0.8) 100%);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-section {
+      min-height: 80vh;
+    }
+    
+    .logo-pattern {
+      background-size: 400px;
+    }
+    
+    .floating-elements {
+      display: none;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-mask,
+    .logo-pattern,
+    .floating-circle-1,
+    .floating-circle-2,
+    .floating-circle-3,
+    .gradient-overlay {
+      animation: none;
+    }
+  }
+
+  /* Hover effects for cards */
+  .group:hover .floating-circle-1 {
+    animation-duration: 2s;
+  }
+
+  .group:hover .floating-circle-2 {
+    animation-duration: 2.5s;
+  }
+
+  .group:hover .floating-circle-3 {
+    animation-duration: 3s;
+  }
+</style>

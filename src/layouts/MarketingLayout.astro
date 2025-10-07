@@ -1,0 +1,329 @@
+---
+/**
+ * MarketingLayout.astro - Layout dla strony głównej z navbar i footer
+ * 
+ * Elementy:
+ * - Navbar z logo i nawigacją
+ * - Przycisk "⌘K – Szybki kontakt"
+ * - Przełącznik języka (PL/EN)
+ * - Przełącznik motywu (Dark/Light)
+ * - Footer z linkami i informacjami
+ */
+
+import '../styles/global.css';
+import type { Locale } from '../i18n/config';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import ThemeToggle from '../components/ui/ThemeToggle.astro';
+import Button from '../components/ui/Button.astro';
+
+interface Props {
+  readonly title: string;
+  readonly description: string;
+  readonly lang: Locale;
+}
+
+const { title, description, lang } = Astro.props as Props;
+const currentYear = new Date().getFullYear();
+
+// Tłumaczenia navbar (tymczasowe)
+const navTranslations = {
+  pl: {
+    services: 'Usługi',
+    process: 'Proces',
+    cases: 'Przypadki',
+    training: 'Szkolenia',
+    contact: 'Kontakt',
+    quickContact: '⌘K – Szybki kontakt'
+  },
+  en: {
+    services: 'Services',
+    process: 'Process',
+    cases: 'Cases',
+    training: 'Training',
+    contact: 'Contact',
+    quickContact: '⌘K – Quick contact'
+  }
+};
+
+const navT = navTranslations[lang as keyof typeof navTranslations] || navTranslations.pl;
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="bg-slate-950 dark">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body class="flex min-h-screen flex-col bg-slate-950 text-slate-100">
+    <!-- Navbar -->
+    <header class="navbar fixed top-0 left-0 right-0 z-50 border-b border-brand-primary/20 bg-slate-950/80 backdrop-blur-md">
+      <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4">
+        <!-- Logo -->
+        <a href={`/${lang}/`} class="logo-link group flex items-center gap-3">
+          <div class="logo-icon h-8 w-8 rounded-lg bg-gradient-brand flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <span class="text-xl font-bold text-gradient">ZautomatyzujAI</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8">
+          <a href="#services" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
+            {navT.services}
+          </a>
+          <a href="#process" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
+            {navT.process}
+          </a>
+          <a href="#cases" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
+            {navT.cases}
+          </a>
+          <a href="#training" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
+            {navT.training}
+          </a>
+          <a href="#contact" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
+            {navT.contact}
+          </a>
+        </nav>
+
+        <!-- Right side controls -->
+        <div class="flex items-center gap-3">
+          <!-- Quick Contact Button -->
+          <Button variant="ghost" size="sm" class="hidden sm:inline-flex" id="quick-contact-btn">
+            {navT.quickContact}
+          </Button>
+          
+          <!-- Language Switcher -->
+          <LanguageSwitcher activeLocale={lang} />
+          
+          <!-- Theme Toggle -->
+          <ThemeToggle />
+          
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden p-2 text-slate-300 hover:text-brand-primary transition-colors" id="mobile-menu-btn" aria-label="Toggle menu">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav hidden md:hidden border-t border-brand-primary/20 bg-slate-900/95 backdrop-blur-md" id="mobile-nav">
+        <div class="px-4 py-4 space-y-3">
+          <a href="#services" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
+            {navT.services}
+          </a>
+          <a href="#process" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
+            {navT.process}
+          </a>
+          <a href="#cases" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
+            {navT.cases}
+          </a>
+          <a href="#training" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
+            {navT.training}
+          </a>
+          <a href="#contact" class="block text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium py-2">
+            {navT.contact}
+          </a>
+          <div class="pt-3 border-t border-brand-primary/20">
+            <Button variant="primary" size="sm" class="w-full" id="mobile-quick-contact-btn">
+              {navT.quickContact}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 pt-20">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer border-t border-brand-primary/20 bg-slate-900/60 backdrop-blur-sm">
+      <div class="mx-auto w-full max-w-7xl px-4 py-12">
+        <div class="grid gap-8 md:grid-cols-4">
+          <!-- Company Info -->
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="logo-icon h-8 w-8 rounded-lg bg-gradient-brand flex items-center justify-center">
+                <svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="text-xl font-bold text-gradient">ZautomatyzujAI</span>
+            </div>
+            <p class="text-slate-400 max-w-md">
+              Projektujemy odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Szybkie linki</h3>
+            <ul class="space-y-2">
+              <li><a href="#services" class="text-slate-400 hover:text-brand-primary transition-colors">Usługi</a></li>
+              <li><a href="#process" class="text-slate-400 hover:text-brand-primary transition-colors">Proces</a></li>
+              <li><a href="#cases" class="text-slate-400 hover:text-brand-primary transition-colors">Przypadki</a></li>
+              <li><a href="#training" class="text-slate-400 hover:text-brand-primary transition-colors">Szkolenia</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Kontakt</h3>
+            <ul class="space-y-2">
+              <li><a href="#contact" class="text-slate-400 hover:text-brand-primary transition-colors">Napisz do nas</a></li>
+              <li><a href="#contact" class="text-slate-400 hover:text-brand-primary transition-colors">Umów audyt</a></li>
+              <li><a href="#contact" class="text-slate-400 hover:text-brand-primary transition-colors">Zarezerwuj demo</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="mt-8 pt-8 border-t border-brand-primary/20 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-sm text-slate-500">
+            &copy; {currentYear} ZautomatyzujAI. Wszelkie prawa zastrzeżone.
+          </p>
+          <div class="flex items-center gap-4">
+            <a href="#" class="text-slate-500 hover:text-brand-primary transition-colors text-sm">Polityka prywatności</a>
+            <a href="#" class="text-slate-500 hover:text-brand-primary transition-colors text-sm">Warunki użytkowania</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <slot name="footer" />
+  </body>
+</html>
+
+<script>
+  // Mobile menu toggle
+  function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    
+    mobileMenuBtn?.addEventListener('click', () => {
+      mobileNav?.classList.toggle('hidden');
+    });
+  }
+
+  // Quick contact functionality
+  function initQuickContact() {
+    const quickContactBtns = document.querySelectorAll('#quick-contact-btn, #mobile-quick-contact-btn');
+    
+    quickContactBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // TODO: Implement Command Palette
+        console.log('Quick contact clicked');
+      });
+    });
+  }
+
+  // Smooth scrolling for anchor links
+  function initSmoothScrolling() {
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    
+    anchorLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.substring(1);
+        const targetElement = document.getElementById(targetId || '');
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  }
+
+  // Initialize all functionality
+  function init() {
+    initMobileMenu();
+    initQuickContact();
+    initSmoothScrolling();
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  /* Navbar styles */
+  .navbar {
+    transition: all 0.3s ease;
+  }
+
+  .navbar.scrolled {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+  }
+
+  /* Logo animation */
+  .logo-link:hover .logo-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  /* Nav link hover effects */
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Mobile nav animation */
+  .mobile-nav {
+    transition: all 0.3s ease;
+  }
+
+  /* Footer styles */
+  .footer {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+  }
+
+  /* Scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    .logo-link:hover .logo-icon {
+      transform: none;
+    }
+  }
+</style>
