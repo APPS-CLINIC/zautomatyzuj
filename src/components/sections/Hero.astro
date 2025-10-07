@@ -15,42 +15,17 @@ import SectionTitle from '../ui/SectionTitle.astro';
 import Button from '../ui/Button.astro';
 import AnimatedText from '../ui/AnimatedText.astro';
 import Card from '../ui/Card.astro';
+import { createI18nInstance } from '../../i18n/i18next';
+import type { Locale } from '../../i18n/config';
 
 interface Props {
-  lang: string;
+  lang: Locale;
 }
 
 const { lang } = Astro.props as Props;
-
-// Tłumaczenia (tymczasowe, później przeniesiemy do i18n)
-const translations = {
-  pl: {
-    badge: 'Playbook automatyzacji',
-    title: 'Uwolnij przepływy pracy. Zautomatyzuj firmę z klasą.',
-    subtitle: 'Projektuj odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka.',
-    primaryCta: 'Umów audyt',
-    secondaryCta: 'Zobacz jak to działa',
-    highlights: [
-      'Komponowalna architektura z jasną odpowiedzialnością',
-      'Punkty kontrolne gotowe do audytu na każdym etapie',
-      'Metryki łączące cele biznesowe i technologiczne',
-    ]
-  },
-  en: {
-    badge: 'Automation playbook',
-    title: 'Unleash your workflows. Automate your business with finesse.',
-    subtitle: 'Design resilient AI automations with modular processes, transparent quality control and human oversight.',
-    primaryCta: 'Book an audit',
-    secondaryCta: 'See how it works',
-    highlights: [
-      'Composable architecture with clear ownership',
-      'Audit-ready checkpoints for every decision',
-      'Metrics that align business and engineering goals',
-    ]
-  }
-};
-
-const t = translations[lang as keyof typeof translations] || translations.pl;
+const i18n = await createI18nInstance(lang);
+const t = i18n.getFixedT(lang);
+---
 ---
 
 <section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -69,21 +44,21 @@ const t = translations[lang as keyof typeof translations] || translations.pl;
       <!-- Badge -->
       <AnimatedText effect="fade-in" delay="delay-0">
         <span class="inline-flex rounded-full border border-brand-primary/30 bg-brand-primary/10 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-brand-primary backdrop-blur-sm">
-          {t.badge}
+          {t('hero.badge')}
         </span>
       </AnimatedText>
 
       <!-- Tytuł główny -->
       <AnimatedText effect="slide-up" delay="delay-100" duration="slow">
         <SectionTitle level="h1" style="gradient" align="center" class="max-w-4xl mx-auto">
-          {t.title}
+          {t('hero.title')}
         </SectionTitle>
       </AnimatedText>
 
       <!-- Podtytuł -->
       <AnimatedText effect="slide-up" delay="delay-200" duration="normal">
         <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          {t.subtitle}
+          {t('hero.subtitle')}
         </p>
       </AnimatedText>
 
@@ -91,10 +66,10 @@ const t = translations[lang as keyof typeof translations] || translations.pl;
       <AnimatedText effect="scale-in" delay="delay-300" duration="normal">
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <Button variant="primary" size="lg" href="#contact" class="w-full sm:w-auto">
-            {t.primaryCta}
+            {t('hero.primaryCta')}
           </Button>
           <Button variant="secondary" size="lg" href="#process" class="w-full sm:w-auto">
-            {t.secondaryCta}
+            {t('hero.secondaryCta')}
           </Button>
         </div>
       </AnimatedText>
@@ -103,7 +78,7 @@ const t = translations[lang as keyof typeof translations] || translations.pl;
     <!-- Highlights cards -->
     <AnimatedText effect="fade-in" delay="delay-300" duration="slow">
       <div class="mt-16 grid gap-6 md:grid-cols-3">
-        {t.highlights.map((highlight, index) => (
+        {t('hero.highlights').map((highlight: string, index: number) => (
           <Card variant="glass" hover={true} class="group">
             <div class="flex items-start gap-4">
               <div class="flex-shrink-0">

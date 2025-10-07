@@ -16,6 +16,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import ThemeToggle from '../components/ui/ThemeToggle.astro';
 import Button from '../components/ui/Button.astro';
 import CommandPalette from '../components/ui/CommandPalette.astro';
+import { createI18nInstance } from '../i18n/i18next';
 
 interface Props {
   readonly title: string;
@@ -25,28 +26,8 @@ interface Props {
 
 const { title, description, lang } = Astro.props as Props;
 const currentYear = new Date().getFullYear();
-
-// Tłumaczenia navbar (tymczasowe)
-const navTranslations = {
-  pl: {
-    services: 'Usługi',
-    process: 'Proces',
-    cases: 'Przypadki',
-    training: 'Szkolenia',
-    contact: 'Kontakt',
-    quickContact: '⌘K – Szybki kontakt'
-  },
-  en: {
-    services: 'Services',
-    process: 'Process',
-    cases: 'Cases',
-    training: 'Training',
-    contact: 'Contact',
-    quickContact: '⌘K – Quick contact'
-  }
-};
-
-const navT = navTranslations[lang as keyof typeof navTranslations] || navTranslations.pl;
+const i18n = await createI18nInstance(lang);
+const t = i18n.getFixedT(lang);
 ---
 
 <!DOCTYPE html>
@@ -80,19 +61,19 @@ const navT = navTranslations[lang as keyof typeof navTranslations] || navTransla
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center gap-8">
           <a href="#services" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {navT.services}
+            {t('nav.services')}
           </a>
           <a href="#process" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {navT.process}
+            {t('nav.process')}
           </a>
           <a href="#cases" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {navT.cases}
+            {t('nav.cases')}
           </a>
           <a href="#training" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {navT.training}
+            {t('nav.training')}
           </a>
           <a href="#contact" class="nav-link text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">
-            {navT.contact}
+            {t('nav.contact')}
           </a>
         </nav>
 
@@ -100,7 +81,7 @@ const navT = navTranslations[lang as keyof typeof navTranslations] || navTransla
         <div class="flex items-center gap-3">
           <!-- Quick Contact Button -->
           <Button variant="ghost" size="sm" class="hidden sm:inline-flex" id="quick-contact-btn">
-            {navT.quickContact}
+            {t('nav.quickContact')}
           </Button>
           
           <!-- Language Switcher -->
