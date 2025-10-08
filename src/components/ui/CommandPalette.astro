@@ -9,14 +9,11 @@
  * - Global keyboard shortcuts
  */
 
-import CommandPalette from './CommandPalette.tsx';
-import { CommandPaletteProvider } from '../providers/CommandPaletteProvider.tsx';
+import CommandPaletteWrapper from './CommandPaletteWrapper.tsx';
 ---
 
 <!-- Command Palette React Island -->
-<CommandPaletteProvider client:load>
-  <CommandPalette />
-</CommandPaletteProvider>
+<CommandPaletteWrapper client:only="react" />
 
 <script>
   // Global keyboard shortcut handler

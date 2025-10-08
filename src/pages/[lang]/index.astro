@@ -1,6 +1,7 @@
 ---
 import MarketingLayout from '../../layouts/MarketingLayout.astro';
 import Hero from '../../components/sections/Hero.astro';
+import ContactChat from '../../components/contact/ContactChat.tsx';
 import { locales, resolveLocale } from '../../i18n/config';
 
 export function getStaticPaths() {
@@ -26,4 +27,7 @@ const metaT = metaTranslations[locale as keyof typeof metaTranslations] || metaT
 
 <MarketingLayout lang={locale} title={metaT.title} description={metaT.description}>
   <Hero lang={locale} />
+  <section id="contact" aria-labelledby="contact-title" class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <ContactChat client:load />
+  </section>
 </MarketingLayout>

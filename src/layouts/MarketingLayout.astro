@@ -59,67 +59,80 @@ const t = i18n.getFixedT(lang);
     <!-- Footer -->
     <footer class="footer border-t border-slate-800/50 bg-slate-950/60 backdrop-blur-md relative z-10">
       <div class="mx-auto w-full max-w-7xl px-4 py-16">
-        <div class="grid gap-12 md:grid-cols-4">
-          <!-- Company Info -->
-          <div class="md:col-span-2">
-            <div class="flex items-center gap-3 mb-6">
-              <div class="logo-icon h-10 w-10 rounded-xl flex items-center justify-center glow-blue" style="background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-via), var(--brand-gradient-to));">
-                <img src="/logo.svg" alt="ZautomatyzujAI" class="h-6 w-6" />
-              </div>
-              <span class="text-2xl font-bold text-gradient text-glow-blue">ZautomatyzujAI</span>
-            </div>
-            <p class="text-slate-300 text-lg leading-relaxed max-w-lg">
-              Projektujemy odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka.
-            </p>
-            <div class="mt-6">
-              <button class="btn-primary text-sm px-6 py-3">
-                Rozpocznij projekt
-                <svg class="btn-icon ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Quick Links -->
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-6">Szybkie linki</h3>
-            <ul class="space-y-3">
-              <li><a href="#services" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Usługi</a></li>
-              <li><a href="#process" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Proces</a></li>
-              <li><a href="#cases" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Przypadki</a></li>
-              <li><a href="#training" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Szkolenia</a></li>
-            </ul>
-          </div>
-
-          <!-- Contact -->
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-6">Kontakt</h3>
-            <ul class="space-y-3">
-              <li><a href="#contact" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Napisz do nas</a></li>
-              <li><a href="#contact" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Umów audyt</a></li>
-              <li><a href="#contact" class="text-slate-300 hover:text-brand-primary transition-colors duration-300 font-medium">Zarezerwuj demo</a></li>
-            </ul>
-            <div class="mt-6">
-              <div class="flex items-center gap-3">
-                <LanguageSwitcher activeLocale={lang} />
-                <ThemeToggle />
-              </div>
-            </div>
+        <!-- Logo na środku -->
+        <div class="flex justify-center mb-8">
+          <div class="flex items-center gap-3 w-1/4">
+            <img src="/logo.svg" alt="ZautomatyzujAI" class="w-full" />
           </div>
         </div>
 
-        <!-- Bottom -->
-        <div class="mt-12 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p class="text-sm text-slate-400">
-            &copy; {currentYear} ZautomatyzujAI. Wszelkie prawa zastrzeżone.
-          </p>
-          <div class="flex items-center gap-6">
-            <a href="#" class="text-slate-400 hover:text-brand-primary transition-colors text-sm font-medium">Polityka prywatności</a>
-            <a href="#" class="text-slate-400 hover:text-brand-primary transition-colors text-sm font-medium">Warunki użytkowania</a>
+        <!-- Delikatna kreska -->
+        <div class="flex justify-center mb-8">
+          <div class="h-px w-24 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></div>
+        </div>
+
+        <!-- Nawigacja -->
+        <div class="flex justify-center mb-8">
+          <nav class="flex flex-wrap justify-center gap-8 text-slate-300">
+            <a href="#works" class="hover:text-brand-primary transition-colors duration-300 font-medium">Works</a>
+            <a href="#services" class="hover:text-brand-primary transition-colors duration-300 font-medium">Services</a>
+            <a href="#about" class="hover:text-brand-primary transition-colors duration-300 font-medium">About</a>
+            <a href="#pricing" class="hover:text-brand-primary transition-colors duration-300 font-medium">Pricing</a>
+            <a href="#contact" class="hover:text-brand-primary transition-colors duration-300 font-medium">Contact us</a>
+          </nav>
+        </div>
+
+        <!-- Ikony akcji -->
+        <div class="flex justify-center mb-8">
+          <div class="flex gap-4">
+            <!-- Target icon -->
+            <button class="w-12 h-12 rounded-lg bg-slate-800/50 border border-slate-700/50 flex items-center justify-center hover:bg-slate-700/50 hover:border-brand-primary/50 transition-all duration-300 group">
+              <svg class="w-5 h-5 text-slate-300 group-hover:text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            </button>
+            
+            <!-- Lightning icon -->
+            <button class="w-12 h-12 rounded-lg bg-slate-800/50 border border-slate-700/50 flex items-center justify-center hover:bg-slate-700/50 hover:border-brand-primary/50 transition-all duration-300 group">
+              <svg class="w-5 h-5 text-slate-300 group-hover:text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </button>
+            
+            <!-- Refresh icon -->
+            <button class="w-12 h-12 rounded-lg bg-slate-800/50 border border-slate-700/50 flex items-center justify-center hover:bg-slate-700/50 hover:border-brand-primary/50 transition-all duration-300 group">
+              <svg class="w-5 h-5 text-slate-300 group-hover:text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </button>
+            
+            <!-- Search icon -->
+            <button class="w-12 h-12 rounded-lg bg-slate-800/50 border border-slate-700/50 flex items-center justify-center hover:bg-slate-700/50 hover:border-brand-primary/50 transition-all duration-300 group">
+              <svg class="w-5 h-5 text-slate-300 group-hover:text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </button>
           </div>
+        </div>
+
+        <!-- Sekcja prawna -->
+        <div class="text-center">
+          <div class="flex justify-center items-center gap-4 text-sm text-slate-400 mb-2">
+            <a href="#" class="hover:text-brand-primary transition-colors duration-300">Terms & Conditions</a>
+            <span class="text-slate-600">|</span>
+            <a href="#" class="hover:text-brand-primary transition-colors duration-300">Privacy Policy</a>
+            <span class="text-slate-600">|</span>
+            <a href="#" class="hover:text-brand-primary transition-colors duration-300">Disclosures</a>
+          </div>
+          <p class="text-sm text-slate-400">
+            © {currentYear} Studio. All Rights Reserved.
+          </p>
         </div>
       </div>
+
+
     </footer>
 
     <slot name="footer" />
@@ -241,18 +254,8 @@ const t = i18n.getFixedT(lang);
 
   /* Footer styles */
   .footer {
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+    background: transparent;
     position: relative;
-  }
-
-  .footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
   }
 
   .btn-primary {

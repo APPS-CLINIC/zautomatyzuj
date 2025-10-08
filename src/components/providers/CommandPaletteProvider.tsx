@@ -38,24 +38,27 @@ export const CommandPaletteProvider: React.FC<CommandPaletteProviderProps> = ({ 
   const closeCommandPalette = () => setIsOpen(false);
   const toggleCommandPalette = () => setIsOpen(prev => !prev);
 
-  // Globalna obsługa klawiatury
+  // Globalna obsługa klawiatury i eventów
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Cmd/Ctrl + K
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        toggleCommandPalette();
-      }
-      
       // Escape
       if (e.key === 'Escape' && isOpen) {
         closeCommandPalette();
       }
     };
 
+    const handleOpenCommandPalette = () => {
+      openCommandPalette();
+    };
+
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+    document.addEventListener('openCommandPalette', handleOpenCommandPalette);
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('openCommandPalette', handleOpenCommandPalette);
+    };
+  }, [isOpen, openCommandPalette]);
 
   // Blokowanie scrollowania gdy Command Palette jest otwarty
   useEffect(() => {
