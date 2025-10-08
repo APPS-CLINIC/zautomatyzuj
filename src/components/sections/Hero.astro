@@ -117,7 +117,7 @@ const t = i18n.getFixedT(lang);
 
 
   <!-- Section 1: Expert Guidance -->
-  <section class="full-section section-guidance" data-scroll-section>
+  <section class="full-section section-guidance section-first" data-scroll-section>
     <div class="section-bg">
       <div class="bg-gradient"></div>
       <div class="bg-grid"></div>
@@ -301,8 +301,46 @@ const t = i18n.getFixedT(lang);
 
 <style>
   .landing-page {
-    background: #0B1120;
+    position: relative;
     min-height: 100vh;
+  }
+
+  .landing-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: 
+      radial-gradient(circle 1200px at 50% 40%, rgba(122, 15, 174, 0.25) 0%, rgba(122, 15, 174, 0.15) 20%, rgba(122, 15, 174, 0.08) 40%, transparent 70%),
+      radial-gradient(circle 1000px at 30% 50%, rgba(35, 83, 222, 0.2) 0%, rgba(35, 83, 222, 0.12) 25%, rgba(35, 83, 222, 0.06) 50%, transparent 75%),
+      radial-gradient(circle 900px at 70% 60%, rgba(218, 5, 229, 0.18) 0%, rgba(218, 5, 229, 0.1) 30%, rgba(218, 5, 229, 0.05) 50%, transparent 70%),
+      radial-gradient(circle 800px at 50% 20%, rgba(62, 88, 232, 0.15) 0%, rgba(62, 88, 232, 0.08) 35%, transparent 65%),
+      #0B1120;
+    background-color: #0B1120;
+    filter: blur(80px);
+    animation: gradientFloat 20s ease-in-out infinite;
+  }
+
+  @keyframes gradientFloat {
+    0%, 100% { 
+      transform: translate(0, 0) scale(1); 
+      opacity: 1;
+    }
+    25% { 
+      transform: translate(30px, -20px) scale(1.15); 
+      opacity: 0.9;
+    }
+    50% { 
+      transform: translate(-20px, 30px) scale(0.95); 
+      opacity: 0.85;
+    }
+    75% { 
+      transform: translate(20px, -15px) scale(1.08); 
+      opacity: 0.95;
+    }
   }
 
 
@@ -315,7 +353,6 @@ const t = i18n.getFixedT(lang);
     z-index: 1000;
     background: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .nav-container {
@@ -430,7 +467,7 @@ const t = i18n.getFixedT(lang);
   /* Hero Section */
   .hero-section {
     position: relative;
-    min-height: 100vh;
+    min-height: 1500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -438,56 +475,15 @@ const t = i18n.getFixedT(lang);
   }
 
   .hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+    display: none;
   }
 
   .bg-gradient {
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle 800px at 50% 30%, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.06) 20%, rgba(59, 130, 246, 0.03) 40%, transparent 70%),
-      radial-gradient(circle 700px at 50% 70%, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.06) 20%, rgba(139, 92, 246, 0.03) 40%, transparent 70%);
-    animation: gradientFloat 20s ease-in-out infinite;
-    filter: blur(6px);
-    border-radius: 50%;
-    backdrop-filter: blur(8px);
-    background-clip: padding-box;
+    display: none;
   }
 
   .bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: gridScroll 30s linear infinite;
-  }
-
-  @keyframes gradientFloat {
-    0%, 100% { 
-      transform: translate(0, 0) scale(1); 
-      opacity: 1;
-    }
-    25% { 
-      transform: translate(20px, -15px) scale(1.1); 
-      opacity: 0.8;
-    }
-    50% { 
-      transform: translate(-10px, 25px) scale(0.9); 
-      opacity: 0.7;
-    }
-    75% { 
-      transform: translate(15px, -10px) scale(1.05); 
-      opacity: 0.9;
-    }
-  }
-
-  @keyframes gridScroll {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
+    display: none;
   }
 
   .hero-container {
@@ -501,31 +497,9 @@ const t = i18n.getFixedT(lang);
 
   /* Light Render Badge */
   .light-render-badge {
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(167, 139, 250, 0.15) 50%, rgba(236, 72, 153, 0.15) 100%);
-    border: 1px solid rgba(96, 165, 250, 0.3);
-    box-shadow: 
-      0 0 20px rgba(96, 165, 250, 0.2),
-      0 0 40px rgba(167, 139, 250, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
     color: #60a5fa;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .light-render-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: shimmer 3s infinite;
-  }
-
-  @keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
   }
 
   .update-badge {
@@ -539,7 +513,6 @@ const t = i18n.getFixedT(lang);
     color: #60a5fa;
     font-size: 0.875rem;
     margin-bottom: 1.5rem;
-    margin-top: 200px;
   }
 
   .badge-icon {
@@ -556,6 +529,14 @@ const t = i18n.getFixedT(lang);
 
   .full-section.animate-in {
     opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-first {
+    margin-top: -400px
+  }
+  
+  .section-first.animate-in {
     transform: translateY(0);
   }
 
@@ -698,10 +679,30 @@ const t = i18n.getFixedT(lang);
   }
 
   .title-highlight {
-    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    background: linear-gradient(135deg, 
+      rgb(122, 15, 174) 0%, 
+      rgb(62, 88, 232) 25%,
+      rgb(35, 83, 222) 50%,
+      rgb(218, 5, 229) 75%,
+      rgb(122, 15, 174) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 200% auto;
+    animation: gradientShift 8s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(122, 15, 174, 0.6))
+            drop-shadow(0 0 40px rgba(218, 5, 229, 0.4))
+            drop-shadow(0 0 60px rgba(62, 88, 232, 0.3));
+    position: relative;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
   }
 
   .hero-subtitle {
@@ -774,10 +775,23 @@ const t = i18n.getFixedT(lang);
 
   .mockup-glow {
     position: absolute;
-    inset: -50px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
-    filter: blur(40px);
+    inset: -80px;
+    background: 
+      radial-gradient(ellipse 800px 600px at 50% 50%, rgba(122, 15, 174, 0.4) 0%, rgba(35, 83, 222, 0.3) 30%, rgba(218, 5, 229, 0.2) 60%, transparent 100%);
+    filter: blur(60px);
     z-index: -1;
+    animation: mockupGlow 8s ease-in-out infinite;
+  }
+
+  @keyframes mockupGlow {
+    0%, 100% { 
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
   }
 
   .mockup-content {
@@ -841,7 +855,6 @@ const t = i18n.getFixedT(lang);
   .trusted-section {
     padding: 3rem 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .trusted-logos {
@@ -972,29 +985,15 @@ const t = i18n.getFixedT(lang);
     position: absolute;
     inset: 0;
     z-index: 0;
+    pointer-events: none;
   }
 
   .section-bg .bg-gradient {
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle 800px at 50% 40%, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.06) 20%, rgba(59, 130, 246, 0.03) 40%, transparent 70%),
-      radial-gradient(circle 700px at 50% 60%, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.06) 20%, rgba(139, 92, 246, 0.03) 40%, transparent 70%);
-    animation: gradientFloat 20s ease-in-out infinite;
-    filter: blur(6px);
-    border-radius: 50%;
-    backdrop-filter: blur(8px);
-    background-clip: padding-box;
+    display: none;
   }
 
   .section-bg .bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: gridScroll 30s linear infinite;
+    display: none;
   }
 
   /* Full Sections */
@@ -1004,7 +1003,6 @@ const t = i18n.getFixedT(lang);
     display: flex;
     align-items: center;
     padding: 6rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
@@ -1121,7 +1119,6 @@ const t = i18n.getFixedT(lang);
     font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.8);
     padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .analytics-preview {
