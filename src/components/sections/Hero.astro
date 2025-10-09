@@ -50,9 +50,46 @@ const t = i18n.getFixedT(lang);
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
         </button>
+        <button class="mobile-menu-btn">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </div>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <img src="/logo-grey.svg" alt="ZautomatyzujAI" class="logo-img" />
+      <button class="mobile-menu-close">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <div class="mobile-nav-links">
+      <a href="#services" class="mobile-nav-link">Services</a>
+      <a href="#process" class="mobile-nav-link">Process</a>
+      <a href="#cases" class="mobile-nav-link">Cases</a>
+      <a href="#training" class="mobile-nav-link">Training</a>
+      <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+    
+    <div class="mobile-actions">
+      <button class="quick-contact">
+        <span class="shortcut">⌘K</span>
+        <span>Quick contact</span>
+      </button>
+      <div class="lang-switcher">
+        <button class="lang-btn active">POLSKI</button>
+        <span class="divider">|</span>
+        <button class="lang-btn">ENGLISH</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero-section">
@@ -70,7 +107,7 @@ const t = i18n.getFixedT(lang);
       </div>
 
         <h1 class="hero-title">
-        <span class="title-highlight">Zautomatyzuj</span> swoje<br />procesy biznesowe z AI
+        <span class="title-highlight">Zautomatyzuj</span><br class="mobile-break" /> swoje procesy biznesowe z AI
       </h1>
 
       <p class="hero-subtitle">
@@ -134,7 +171,7 @@ const t = i18n.getFixedT(lang);
               <div class="sidebar-items">
                 <div class="skeleton-item skeleton-active"></div>
                 <div class="skeleton-item"></div>
-                <div class="skeleton-item"></div>
+            
                 <div class="skeleton-item"></div>
               </div>
 
@@ -169,7 +206,6 @@ const t = i18n.getFixedT(lang);
 
               <!-- Content Cards -->
               <div class="content-grid">
-                <div class="content-card"></div>
                 <div class="content-card"></div>
                 <div class="content-card"></div>
               </div>
@@ -475,6 +511,10 @@ const t = i18n.getFixedT(lang);
     position: relative;
   }
 
+  .mobile-break {
+    display: none;
+  }
+
   @keyframes gradientShift {
     0% {
       background-position: 0% center;
@@ -485,17 +525,20 @@ const t = i18n.getFixedT(lang);
   }
 
   .hero-subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(0.875rem, 2.5vw, 1.25rem);
     color: rgba(255, 255, 255, 0.6);
     margin-bottom: 2.5rem;
     line-height: 1.6;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-cta {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
   }
 
@@ -550,6 +593,7 @@ const t = i18n.getFixedT(lang);
     position: relative;
     max-width: 1100px;
     margin: 0 auto;
+    margin-top: 1rem;
   }
 
   .mockup-glow {
@@ -807,9 +851,10 @@ const t = i18n.getFixedT(lang);
 
   .content-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin-bottom: 1.5rem;
+    margin-top: 1rem;
   }
 
   .content-card {
@@ -1671,10 +1716,86 @@ const t = i18n.getFixedT(lang);
     margin: 0 auto;
   }
 
+  /* Mobile Navigation */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    padding: 2rem;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mobile-menu.active {
+    display: flex;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-menu-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobile-nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: color 0.2s;
+  }
+
+  .mobile-nav-link:hover {
+    color: white;
+  }
+
+  .mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
   /* Responsive */
   @media (max-width: 1024px) {
     .nav-menu {
       display: none;
+    }
+
+    .mobile-menu-btn {
+      display: block;
     }
 
     .section-container {
@@ -1685,6 +1806,14 @@ const t = i18n.getFixedT(lang);
     .section-container.reverse {
       direction: ltr;
     }
+
+    .app-mockup {
+      max-width: 800px;
+    }
+
+    .app-window {
+      transform: scale(0.9);
+    }
   }
 
   @media (max-width: 768px) {
@@ -1692,71 +1821,168 @@ const t = i18n.getFixedT(lang);
       display: none;
     }
 
-    .mock-body {
-      flex-direction: column;
+    #problem-solution {
+      margin-top: 6rem;
     }
 
-    .mock-sidebar {
+    .nav-container {
+      padding: 1rem;
+    }
+
+    .hero-container {
+      padding: 2rem 1rem;
+    }
+
+    .hero-section {
+      min-height: 1200px;
+      margin-top: 4rem;
+    }
+
+    .hero-title {
+      font-size: 1.2rem;
+      width: 90%;
+      margin: 0 auto 1rem auto;
+    }
+
+    .title-highlight {
+      font-size: 2.5rem;
+    }
+
+    .mobile-break {
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.875rem, 3vw, 1rem);
+      margin-bottom: 2rem;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1rem;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
       width: 100%;
-      height: 100px;
-    }
-
-    .mock-stats {
-      grid-template-columns: 1fr;
-    }
-
-    .full-section {
-      padding: 4rem 1.5rem;
-    }
-
-    .section-stats {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-
-
-    .preview-content {
-      flex-direction: column;
-    }
-
-    .preview-sidebar {
-      width: 100%;
-      flex-direction: row;
-      overflow-x: auto;
-      padding: 0.75rem;
-    }
-
-    .sidebar-item {
-      min-width: 120px;
+      max-width: 280px;
       justify-content: center;
     }
 
-    .preview-cards {
-      grid-template-columns: 1fr;
+    /* Mobile App Mockup */
+    .app-mockup {
+      max-width: 100%;
+      margin: 0 auto;
+      transform: scale(0.8);
+      transform-origin: center;
+      margin-top: -3rem;
     }
 
-    .media-placeholder {
-      height: 150px;
+    .app-window {
+      border-radius: 0.75rem;
     }
 
-    .placeholder-content .play-icon {
+    .app-content {
+      flex-direction: column;
+      min-height: 400px;
+    }
+
+    .app-sidebar {
+      width: 100%;
+      padding: 0.75rem;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.75rem 0.75rem 0 0;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+      gap: 20px;
+    }
+
+    .sidebar-header {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding: 0;
+    }
+
+    .sidebar-section {
+      display: none;
+    }
+
+    .sidebar-items {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    .skeleton-item {
+      height: 32px;
+      width: 60px;
+      border-radius: 0.375rem;
+    }
+
+    .skeleton-item.skeleton-active {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.4), rgba(245, 158, 11, 0.4));
+    }
+
+    .sidebar-footer {
+      margin-top: 0;
+      padding: 0;
+    }
+
+    .skeleton-upgrade {
+      height: 32px;
+      width: 80px;
+    }
+
+    .app-main {
+      padding: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    .content-header {
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-display {
+      padding: 0.75rem 1rem;
+      gap: 0.5rem;
+      min-height: 60px;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
       width: 2rem;
       height: 2rem;
     }
 
-    .placeholder-content span {
-      font-size: 1rem;
+    .feature-title {
+      font-size: 1.25rem;
     }
 
+    .feature-description {
+      font-size: 0.75rem;
+    }
 
     .content-grid {
       grid-template-columns: 1fr;
-      gap: 0.75rem;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
     }
 
     .content-card {
-      height: 80px;
+      height: 60px;
     }
 
     .ai-module-content {
@@ -1764,13 +1990,14 @@ const t = i18n.getFixedT(lang);
     }
 
     .ai-module-header {
-      gap: 0.375rem;
+      gap: 0.25rem;
+      margin-bottom: 0.25rem;
     }
 
     .ai-module-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-      font-size: 0.875rem;
+      width: 1rem;
+      height: 1rem;
+      font-size: 0.75rem;
     }
 
     .ai-module-title {
@@ -1786,7 +2013,7 @@ const t = i18n.getFixedT(lang);
     }
 
     .attachment-line {
-      width: 10px;
+      width: 8px;
     }
 
     .attachment-dot {
@@ -1794,24 +2021,100 @@ const t = i18n.getFixedT(lang);
       height: 3px;
     }
 
-    .feature-display {
-      padding: 0.75rem 1rem;
+    .content-area {
+      padding: 1rem;
+    }
+
+    .skeleton-lines {
       gap: 0.5rem;
-      min-height: 70px;
     }
 
-    .feature-icon {
-      font-size: 2rem;
-      width: 2.5rem;
-      height: 2.5rem;
+    .skeleton-line {
+      height: 12px;
     }
 
-    .feature-title {
-      font-size: 1.5rem;
+    .skeleton-line-sm {
+      width: 50%;
     }
 
-    .feature-description {
+    .skeleton-line-lg {
+      width: 80%;
+    }
+
+    /* Mobile-specific adjustments */
+    .mockup-glow {
+      inset: -40px;
+      filter: blur(30px);
+    }
+
+    .app-topbar {
+      padding: 0.5rem 0.75rem;
+      gap: 0.5rem;
+    }
+
+    .workspace-icon {
+      width: 1.25rem;
+      height: 1.25rem;
       font-size: 0.75rem;
+    }
+
+    .skeleton-text {
+      height: 10px;
+    }
+
+    .skeleton-xs {
+      width: 40px;
+    }
+
+    .skeleton-sm {
+      width: 60px;
+    }
+
+    .skeleton-md {
+      width: 120px;
+    }
+
+    .skeleton-circle {
+      width: 24px;
+      height: 24px;
+    }
+
+    .topbar-center {
+      display: none;
+    }
+
+    .topbar-right {
+      gap: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-container {
+      padding: 1.5rem 0.75rem;
+    }
+
+    .hero-section {
+      min-height: 1000px;
+    }
+
+    .app-mockup {
+      transform: scale(0.8);
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+    }
+
+    .update-badge {
+      font-size: 0.75rem;
+      padding: 0.375rem 0.75rem;
+    }
+
+    .badge-icon {
+      width: 0.875rem;
+      height: 0.875rem;
     }
   }
 </style>
@@ -1820,11 +2123,38 @@ const t = i18n.getFixedT(lang);
   // Mobile menu toggle
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
   const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileMenuClose = document.querySelector('.mobile-menu-close');
 
   if (mobileMenuBtn && mobileMenu) {
     mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('active');
-      mobileMenuBtn.classList.toggle('active');
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  if (mobileMenuClose && mobileMenu) {
+    mobileMenuClose.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+
+  // Close mobile menu when clicking on links
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  if (mobileMenu) {
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
   }
 
