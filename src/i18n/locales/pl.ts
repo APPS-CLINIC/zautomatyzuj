@@ -260,7 +260,7 @@ export const dictionary = {
     terms: 'Warunki użytkowania',
   },
   problemSolution: {
-    title: 'Znasz to uczucie?',
+    title: '<span class="text-gradient">Znasz</span> to uczucie?',
     subtitle: 'Codzienne wyzwania przedsiębiorców, które zabierają czas i energię',
     problems: [
       {
@@ -301,42 +301,61 @@ export const dictionary = {
     ],
   },
   bizbeesProduct: {
-    badge: 'Produkt',
-    title: 'Bizbees.ai',
-    subtitle: 'Platforma, która łączy wszystkie Twoje automatyzacje w jedno, inteligentne centrum kontroli',
-    description: 'Zbudowana od podstaw dla firm, które myślą o przyszłości. Bizbees.ai to nie tylko narzędzie - to Twój AI-powered współpracownik, który nigdy nie śpi.',
+    badge: 'Twój cyfrowy rój AI',
+    title: 'BizBees',
+    subtitle: 'Inteligentny system AI, który przejmuje kontrolę nad Twoimi zadaniami, dokumentami, spotkaniami i planami',
+    description: 'Analizuje Twoje maile, kalendarz, notatki, wydatki i zwyczaje, a następnie sam planuje, przypomina, organizuje i reaguje. BizBees to AI-asystent, który potrafi przygotować fakturę, zapisać Cię na spotkanie, przypomnieć o terminie umowy, zaplanować zakup prezentu dla żony, zamówić kwiaty i taksówkę z odpowiednim wyprzedzeniem.',
+    philosophy: {
+      title: 'Filozofia BizBees',
+      subtitle: '„Każda pszczoła wie, co robić. BizBees to rój Twoich cyfrowych pszczół, które pracują za Ciebie."',
+      principles: [
+        '🟡 BizBees nie tylko reaguje — przewiduje',
+        '🟡 Nie tylko organizuje — dba o Ciebie',
+        '🟡 Nie tylko automatyzuje — rozumie kontekst'
+      ]
+    },
     features: [
       {
-        title: 'Inteligentny Dashboard',
-        description: 'Jeden ekran, wszystkie procesy. Zobacz na żywo, co dzieje się w Twojej firmie i podejmuj lepsze decyzje.',
-        icon: 'dashboard',
+        title: 'AI Inbox & Mail Assistant',
+        description: 'Analizuje Twoje maile, automatycznie klasyfikuje, zapisuje załączniki, tworzy przypomnienia i zadania. Faktura → folder „Faktury"; zaproszenie → wpis do kalendarza.',
+        icon: 'mail',
       },
       {
-        title: 'Agenci AI w akcji',
-        description: 'Konfiguruj, uruchamiaj i monitoruj agenty AI, które wykonują zadania w Twoim imieniu - od prostych po zaawansowane.',
-        icon: 'agents',
+        title: 'Smart Scheduler & Calendar Sync',
+        description: 'Integruje kalendarze (Google, Outlook, Apple), rozpoznaje priorytety i automatycznie planuje czas. Wstawia spotkanie w wolnym oknie, przypomina o terminach.',
+        icon: 'calendar',
       },
       {
-        title: 'Audyt w czasie rzeczywistym',
-        description: 'Każda decyzja AI jest transparentna i audytowalna. Pełna kontrola nad tym, co się dzieje i dlaczego.',
-        icon: 'audit',
+        title: 'Document & Contract Guardian',
+        description: 'Organizuje dokumenty, przypomina o terminach wygasania, podpisach i archiwizacji. Umowa kończy się za 7 dni → powiadomienie + propozycja przedłużenia.',
+        icon: 'document',
       },
       {
-        title: 'Modułowa architektura',
-        description: 'Zacznij od małego, skaluj bez granic. Dodawaj nowe moduły i integracje w kilka kliknięć, bez przepisywania od zera.',
-        icon: 'modules',
+        title: 'Personal Concierge AI',
+        description: 'Obsługuje prywatne sprawy, np. zamawia kwiaty, taksówki, bilety czy prezenty. „Zbliża się rocznica ślubu – zamówić kwiaty jak w zeszłym roku?" 💐',
+        icon: 'concierge',
+      },
+      {
+        title: 'Meeting Intelligence',
+        description: 'Analizuje spotkania (nagrania / transkrypcje), tworzy notatki i przypisuje zadania. Po spotkaniu: „Zadanie: wysłać ofertę do Marka do piątku."',
+        icon: 'meeting',
+      },
+      {
+        title: 'Financial Flow & Invoices AI',
+        description: 'Przetwarza faktury z maili, księguje je, przypomina o płatnościach. Wykrywa fakturę → zapisuje do folderu firmy → dodaje przypomnienie „płatność do 12.10".',
+        icon: 'finance',
       },
     ],
     cta: {
-      primary: 'Zobacz demo',
-      secondary: 'Dowiedz się więcej',
+      primary: 'Zacznij żyć. Resztą zajmie się BizBees',
+      secondary: 'Zobacz jak działa',
     },
-    mockupAlt: 'Interfejs platformy Bizbees.ai',
+    mockupAlt: 'Interfejs BizBees - Twój cyfrowy rój AI',
     emailPlaceholder: 'Wprowadź swój email',
     emailDisclaimer: 'Otrzymaj dostęp do najnowszych funkcjonalności za darmo na czas testów',
   },
   servicesSection: {
-    title: 'Jak możemy Ci pomóc',
+    title: 'Jak możemy Ci <span class="text-gradient">pomóc</span>',
     subtitle: 'Od audytu po wdrożenie - kompleksowe wsparcie w automatyzacji Twojego biznesu',
     services: [
       {
@@ -375,7 +394,7 @@ export const dictionary = {
     },
   },
   caseStudies: {
-    title: 'Realne rezultaty',
+    title: '<span class="text-gradient">Realne</span> rezultaty',
     subtitle: 'Liczby mówią same za siebie',
     metrics: [
       {
@@ -426,7 +445,7 @@ export const dictionary = {
     ],
   },
   whyUs: {
-    title: 'Dlaczego My',
+    title: 'Dlaczego <span class="text-gradient">My</span>',
     subtitle: 'Co nas wyróżnia na tle konkurencji',
     description: 'Nie jesteśmy kolejną agencją, która sprzedaje rozwiązania "off-the-shelf". Budujemy partnerstwa długoterminowe, oparte na zaufaniu i realnych rezultatach.',
     features: [

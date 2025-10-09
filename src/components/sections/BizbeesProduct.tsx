@@ -15,14 +15,23 @@ interface Feature {
   icon: string;
 }
 
+interface Philosophy {
+  title: string;
+  subtitle: string;
+  principles: string[];
+}
+
 interface BizbeesProductProps {
   badge: string;
   title: string;
   subtitle: string;
   description: string;
+  philosophy: Philosophy;
   features: Feature[];
-  ctaPrimary: string;
-  ctaSecondary: string;
+  cta: {
+    primary: string;
+    secondary: string;
+  };
   mockupAlt: string;
   emailPlaceholder: string;
   emailDisclaimer: string;
@@ -33,9 +42,9 @@ export default function BizbeesProduct({
   title,
   subtitle,
   description,
+  philosophy,
   features,
-  ctaPrimary,
-  ctaSecondary,
+  cta,
   mockupAlt,
   emailPlaceholder,
   emailDisclaimer
@@ -115,8 +124,38 @@ export default function BizbeesProduct({
           </p>
         </motion.div>
 
+        {/* Philosophy Section */}
+        <motion.div
+          className="text-center mb-16 max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <h3 className="text-2xl md:text-3xl font-bold mb-4 text-yellow-400">
+            {philosophy.title}
+          </h3>
+          <p className="text-lg md:text-xl text-slate-200 mb-6 italic">
+            {philosophy.subtitle}
+          </p>
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+            {philosophy.principles.map((principle, index) => (
+              <motion.div
+                key={index}
+                className="px-4 py-2 rounded-lg bg-yellow-400/10 border border-yellow-400/20 text-slate-200 text-sm md:text-base"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+              >
+                {principle}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}
@@ -186,7 +225,7 @@ export default function BizbeesProduct({
               whileTap={{ scale: 0.98 }}
             >
               <span className="relative z-10 flex items-center gap-2">
-                {ctaPrimary}
+                {cta.primary}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -208,35 +247,35 @@ export default function BizbeesProduct({
           {/* Bee-themed blur backdrop */}
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-amber-500/20 rounded-3xl blur-3xl -z-10" />
           
-          {/* Mockup container */}
-          <div className="relative rounded-3xl bg-slate-900/50 border border-white/10 backdrop-blur-xl overflow-hidden shadow-2xl">
-            {/* Browser chrome */}
-            <div className="flex items-center gap-2 px-6 py-4 border-b border-white/10 bg-slate-900/80">
+          {/* Modern Mockup container */}
+          <div className="relative rounded-2xl bg-slate-900/30 border border-white/5 backdrop-blur-xl overflow-hidden shadow-xl">
+            {/* Modern Browser chrome - thinner */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-white/5 bg-slate-900/40">
               <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-400/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-                <div className="w-3 h-3 rounded-full bg-green-400/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
               </div>
-              <div className="flex-1 mx-4">
-                <div className="h-6 bg-slate-800/50 rounded-lg max-w-md" />
+              <div className="flex-1 mx-3">
+                <div className="h-5 bg-slate-800/30 rounded-md max-w-sm border border-white/5" />
               </div>
             </div>
 
-            {/* Mockup content */}
-            <div className="aspect-[16/10] p-8 bg-gradient-to-br from-slate-900/90 to-slate-800/90">
-              <div className="h-full rounded-xl border border-white/5 bg-slate-900/50 flex items-center justify-center relative overflow-hidden">
-                {/* Grid pattern */}
-                <div className="absolute inset-0 opacity-10">
+            {/* Transparent content area */}
+            <div className="aspect-[16/10] p-6 bg-transparent">
+              <div className="h-full rounded-lg border border-white/5 bg-slate-900/20 flex items-center justify-center relative overflow-hidden backdrop-blur-sm">
+                {/* Subtle grid pattern */}
+                <div className="absolute inset-0 opacity-5">
                   <div className="absolute inset-0" style={{
-                    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
-                    backgroundSize: '40px 40px'
+                    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
+                    backgroundSize: '30px 30px'
                   }} />
                 </div>
 
                 {/* Center bee icon */}
                 <div className="relative">
                   <motion.div
-                    className="w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-400/30 to-amber-500/30 flex items-center justify-center backdrop-blur-sm border border-yellow-400/20"
+                    className="w-20 h-20 rounded-xl bg-gradient-to-br from-yellow-400/25 to-amber-500/25 flex items-center justify-center backdrop-blur-sm border border-yellow-400/15 shadow-lg"
                     animate={{
                       scale: [1, 1.05, 1],
                       rotate: [0, 5, -5, 0],
@@ -247,12 +286,12 @@ export default function BizbeesProduct({
                       ease: "easeInOut"
                     }}
                   >
-                    <svg className="w-12 h-12 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <svg className="w-10 h-10 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </motion.div>
-                  <div className="mt-6 text-center">
-                    <p className="text-slate-400 text-sm">
+                  <div className="mt-4 text-center">
+                    <p className="text-slate-300 text-sm font-medium">
                       {mockupAlt}
                     </p>
                   </div>

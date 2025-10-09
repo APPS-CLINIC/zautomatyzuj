@@ -260,7 +260,7 @@ export const dictionary = {
     terms: 'Terms of use',
   },
   problemSolution: {
-    title: 'Know the feeling?',
+    title: '<span class="text-gradient">Know</span> the feeling?',
     subtitle: 'Daily challenges that steal your time and energy',
     problems: [
       {
@@ -301,42 +301,61 @@ export const dictionary = {
     ],
   },
   bizbeesProduct: {
-    badge: 'Product',
-    title: 'Bizbees.ai',
-    subtitle: 'The platform that connects all your automations into one intelligent control center',
-    description: 'Built from the ground up for forward-thinking companies. Bizbees.ai is not just a tool - it\'s your AI-powered coworker that never sleeps.',
+    badge: 'Your Digital AI Swarm',
+    title: 'BizBees',
+    subtitle: 'Intelligent AI system that takes control of your tasks, documents, meetings, and plans',
+    description: 'Analyzes your emails, calendar, notes, expenses, and habits, then plans, reminds, organizes, and responds on its own. BizBees is an AI assistant that can prepare and send invoices, book meetings, remind you of contract deadlines, plan gift purchases for your wife, order flowers and taxis with proper advance notice.',
+    philosophy: {
+      title: 'BizBees Philosophy',
+      subtitle: '"Every bee knows what to do. BizBees is a swarm of your digital bees working for you."',
+      principles: [
+        '🟡 BizBees doesn\'t just react — it predicts',
+        '🟡 It doesn\'t just organize — it cares for you',
+        '🟡 It doesn\'t just automate — it understands context'
+      ]
+    },
     features: [
       {
-        title: 'Intelligent Dashboard',
-        description: 'One screen, all processes. See what\'s happening in your company in real-time and make better decisions.',
-        icon: 'dashboard',
+        title: 'AI Inbox & Mail Assistant',
+        description: 'Analyzes your emails, automatically classifies, saves attachments, creates reminders and tasks. Invoice → "Invoices" folder; invitation → calendar entry.',
+        icon: 'mail',
       },
       {
-        title: 'AI Agents in Action',
-        description: 'Configure, launch, and monitor AI agents that perform tasks on your behalf - from simple to advanced.',
-        icon: 'agents',
+        title: 'Smart Scheduler & Calendar Sync',
+        description: 'Integrates calendars (Google, Outlook, Apple), recognizes priorities and automatically schedules time. Inserts meetings in free slots, reminds of deadlines.',
+        icon: 'calendar',
       },
       {
-        title: 'Real-time Audit',
-        description: 'Every AI decision is transparent and auditable. Full control over what happens and why.',
-        icon: 'audit',
+        title: 'Document & Contract Guardian',
+        description: 'Organizes documents, reminds of expiration dates, signatures and archiving. Contract expires in 7 days → notification + renewal proposal.',
+        icon: 'document',
       },
       {
-        title: 'Modular Architecture',
-        description: 'Start small, scale without limits. Add new modules and integrations with a few clicks, no rewriting from scratch.',
-        icon: 'modules',
+        title: 'Personal Concierge AI',
+        description: 'Handles private matters, e.g. orders flowers, taxis, tickets or gifts. "Wedding anniversary approaching – order flowers like last year?" 💐',
+        icon: 'concierge',
+      },
+      {
+        title: 'Meeting Intelligence',
+        description: 'Analyzes meetings (recordings / transcripts), creates notes and assigns tasks. After meeting: "Task: send offer to Mark by Friday."',
+        icon: 'meeting',
+      },
+      {
+        title: 'Financial Flow & Invoices AI',
+        description: 'Processes invoices from emails, books them, reminds of payments. Detects invoice → saves to company folder → adds reminder "payment due 12.10".',
+        icon: 'finance',
       },
     ],
     cta: {
-      primary: 'See demo',
-      secondary: 'Learn more',
+      primary: 'Start living. BizBees will handle the rest',
+      secondary: 'See how it works',
     },
-    mockupAlt: 'Bizbees.ai platform interface',
+    mockupAlt: 'BizBees interface - Your digital AI swarm',
     emailPlaceholder: 'Enter your email',
     emailDisclaimer: 'Get access to the latest features for free during testing',
   },
   servicesSection: {
-    title: 'How We Can Help',
+    title: 'How We Can <span class="text-gradient">Help</span>',
     subtitle: 'From audit to implementation - comprehensive support in automating your business',
     services: [
       {
@@ -375,7 +394,7 @@ export const dictionary = {
     },
   },
   caseStudies: {
-    title: 'Real Results',
+    title: '<span class="text-gradient">Real</span> Results',
     subtitle: 'Numbers speak for themselves',
     metrics: [
       {
@@ -426,7 +445,7 @@ export const dictionary = {
     ],
   },
   whyUs: {
-    title: 'Why Us',
+    title: 'Why <span class="text-gradient">Us</span>',
     subtitle: 'What sets us apart from the competition',
     description: 'We\'re not another agency selling "off-the-shelf" solutions. We build long-term partnerships based on trust and real results.',
     features: [

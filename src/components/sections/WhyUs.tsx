@@ -42,7 +42,7 @@ export default function WhyUs({
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              {title}
+              <span dangerouslySetInnerHTML={{ __html: title }} />
             </h2>
             <p className="text-xl text-slate-300 mb-4">
               {subtitle}
