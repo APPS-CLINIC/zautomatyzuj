@@ -259,4 +259,201 @@ export const dictionary = {
     privacy: 'Polityka prywatności',
     terms: 'Warunki użytkowania',
   },
+  problemSolution: {
+    title: 'Znasz to uczucie?',
+    subtitle: 'Codzienne wyzwania przedsiębiorców, które zabierają czas i energię',
+    problems: [
+      {
+        title: 'Topicie się w e-mailach',
+        description: 'Codziennie dziesiątki e-maili czekających na odpowiedź. Zamiast rozwijać biznes, spędzasz godziny na prostej korespondencji.',
+      },
+      {
+        title: 'Chaos w procesach',
+        description: 'Każdy pracownik robi to samo na swój sposób. Brak standardów prowadzi do błędów, opóźnień i frustracji.',
+      },
+      {
+        title: 'Ręczna praca zabija wzrost',
+        description: 'Powtarzalne zadania pochłaniają 60% czasu zespołu. Brakuje rąk do pracy nad strategią i rozwojem.',
+      },
+      {
+        title: 'Nie wiesz, co się dzieje',
+        description: 'Brak przejrzystości w procesach. Nie masz pojęcia, gdzie są wąskie gardła i co naprawdę wymaga poprawy.',
+      },
+    ],
+    solutionTitle: 'Nasze rozwiązanie',
+    solutionSubtitle: 'Inteligentne automatyzacje, które działają dla Ciebie 24/7',
+    solutions: [
+      {
+        title: 'Inteligentna komunikacja',
+        description: 'AI, które rozumie kontekst, segreguje wiadomości, przygotowuje odpowiedzi i zarządza priorytetami. Ty tylko zatwierdzasz.',
+        features: ['Automatyczna kategoryzacja', 'Inteligentne odpowiedzi', 'Zarządzanie priorytetami'],
+      },
+      {
+        title: 'Audyt i optymalizacja',
+        description: 'Mapujemy Twoje procesy, identyfikujemy wąskie gardła i projektujemy automatyzacje dopasowane do Twojej firmy.',
+        features: ['Analiza procesów', 'Identyfikacja wąskich gardeł', 'Strategia automatyzacji'],
+      },
+      {
+        title: 'Agenci AI na miarę',
+        description: 'Tworzymy dedykowane agenty AI, które wykonują zadania autonomicznie - od obsługi klienta po zarządzanie dokumentami.',
+        features: ['Dedykowane rozwiązania', 'Autonomiczne działanie', 'Ciągła optymalizacja'],
+      },
+    ],
+  },
+  bizbeesProduct: {
+    badge: 'Produkt',
+    title: 'Bizbees.ai',
+    subtitle: 'Platforma, która łączy wszystkie Twoje automatyzacje w jedno, inteligentne centrum kontroli',
+    description: 'Zbudowana od podstaw dla firm, które myślą o przyszłości. Bizbees.ai to nie tylko narzędzie - to Twój AI-powered współpracownik, który nigdy nie śpi.',
+    features: [
+      {
+        title: 'Inteligentny Dashboard',
+        description: 'Jeden ekran, wszystkie procesy. Zobacz na żywo, co dzieje się w Twojej firmie i podejmuj lepsze decyzje.',
+        icon: 'dashboard',
+      },
+      {
+        title: 'Agenci AI w akcji',
+        description: 'Konfiguruj, uruchamiaj i monitoruj agenty AI, które wykonują zadania w Twoim imieniu - od prostych po zaawansowane.',
+        icon: 'agents',
+      },
+      {
+        title: 'Audyt w czasie rzeczywistym',
+        description: 'Każda decyzja AI jest transparentna i audytowalna. Pełna kontrola nad tym, co się dzieje i dlaczego.',
+        icon: 'audit',
+      },
+      {
+        title: 'Modułowa architektura',
+        description: 'Zacznij od małego, skaluj bez granic. Dodawaj nowe moduły i integracje w kilka kliknięć, bez przepisywania od zera.',
+        icon: 'modules',
+      },
+    ],
+    cta: {
+      primary: 'Zobacz demo',
+      secondary: 'Dowiedz się więcej',
+    },
+    mockupAlt: 'Interfejs platformy Bizbees.ai',
+    emailPlaceholder: 'Wprowadź swój email',
+    emailDisclaimer: 'Otrzymaj dostęp do najnowszych funkcjonalności za darmo na czas testów',
+  },
+  servicesSection: {
+    title: 'Jak możemy Ci pomóc',
+    subtitle: 'Od audytu po wdrożenie - kompleksowe wsparcie w automatyzacji Twojego biznesu',
+    services: [
+      {
+        title: 'Audyty AI',
+        description: 'Analizujemy Twoje procesy biznesowe, identyfikujemy obszary do automatyzacji i przygotowujemy strategię wdrożenia. Otrzymasz konkretny plan działania z ROI.',
+        icon: 'audit',
+        features: ['Mapowanie procesów', 'Analiza wąskich gardeł', 'Plan automatyzacji', 'Szacowanie ROI'],
+      },
+      {
+        title: 'Szkolenia i warsztaty',
+        description: 'Praktyczne szkolenia dla Twojego zespołu - od podstaw AI po zaawansowane techniki automatyzacji. Uczymy przez działanie, nie teorię.',
+        icon: 'training',
+        features: ['Podstawy AI i automatyzacji', 'Projektowanie agentów', 'Best practices', 'Certyfikaty'],
+      },
+      {
+        title: 'Agenci AI na miarę',
+        description: 'Projektujemy i wdrażamy dedykowane agenty AI dopasowane do specyfiki Twojej firmy. Od obsługi klienta po zaawansowane workflow.',
+        icon: 'agents',
+        features: ['Dedykowane rozwiązania', 'Pełna integracja', 'Ciągłe wsparcie', 'Optymalizacja'],
+      },
+    ],
+    additionalServices: {
+      title: 'Dodatkowe usługi',
+      items: [
+        'Integracje API',
+        'Optymalizacja procesów',
+        'Konsulting techniczny',
+        'Audyty bezpieczeństwa',
+        'Migration support',
+        'Wsparcie techniczne 24/7',
+      ],
+    },
+    cta: {
+      text: 'Umów bezpłatną konsultację',
+      description: 'Porozmawiajmy o Twoich wyzwaniach',
+    },
+  },
+  caseStudies: {
+    title: 'Realne rezultaty',
+    subtitle: 'Liczby mówią same za siebie',
+    metrics: [
+      {
+        value: '50+',
+        label: 'Procesów zautomatyzowanych',
+        description: 'Od prostych workflow po złożone systemy',
+      },
+      {
+        value: '4h',
+        label: 'Oszczędności dziennie',
+        description: 'Średnio na zespół 10-osobowy',
+      },
+      {
+        value: '25+',
+        label: 'Audytów przeprowadzonych',
+        description: 'Dla firm od startupów po korporacje',
+      },
+    ],
+    testimonials: [
+      {
+        quote: 'Dzięki automatyzacjom od ZautomatyzujAI zyskaliśmy 15 godzin tygodniowo. To czas, który teraz przeznaczamy na rozwój produktu i rozmowy z klientami.',
+        author: 'Michał Kowalski',
+        position: 'CEO',
+        company: 'TechStart Poland',
+        initials: 'MK',
+      },
+      {
+        quote: 'Audyt procesów otworzył nam oczy na to, ile czasu tracimy na powtarzalne zadania. Wdrożenie agentów AI było płynne, a ROI osiągnęliśmy w 3 miesiące.',
+        author: 'Anna Nowak',
+        position: 'COO',
+        company: 'Marketing Pro',
+        initials: 'AN',
+      },
+      {
+        quote: 'Współpraca z ZautomatyzujAI to inwestycja, nie koszt. Mamy pełną transparentność procesów i wreszcie rozumiemy, gdzie tracimy czas i pieniądze.',
+        author: 'Piotr Wiśniewski',
+        position: 'Founder',
+        company: 'E-commerce Solutions',
+        initials: 'PW',
+      },
+      {
+        quote: 'Szkolenia były praktyczne i od razu zastosowaliśmy wiedzę w praktyce. Teraz nasz zespół samodzielnie projektuje proste automatyzacje.',
+        author: 'Katarzyna Zielińska',
+        position: 'Head of Operations',
+        company: 'Digital Agency',
+        initials: 'KZ',
+      },
+    ],
+  },
+  whyUs: {
+    title: 'Dlaczego My',
+    subtitle: 'Co nas wyróżnia na tle konkurencji',
+    description: 'Nie jesteśmy kolejną agencją, która sprzedaje rozwiązania "off-the-shelf". Budujemy partnerstwa długoterminowe, oparte na zaufaniu i realnych rezultatach.',
+    features: [
+      {
+        title: 'Własna technologia',
+        description: 'Bizbees.ai to nasza autorska platforma, która ewoluuje razem z potrzebami klientów. Nie jesteśmy ograniczeni przez gotowe rozwiązania.',
+        icon: 'technology',
+      },
+      {
+        title: 'Holistyczne podejście',
+        description: 'Od audytu, przez wdrożenie, po szkolenia i wsparcie. Jesteśmy z Tobą na każdym etapie transformacji AI.',
+        icon: 'holistic',
+      },
+      {
+        title: 'Skalowalność',
+        description: 'Modułowa architektura pozwala zacząć od małego i rosnąć bez granic. Bez locka-in, bez rewolucji - tylko ewolucja.',
+        icon: 'scalability',
+      },
+      {
+        title: 'Partnerstwo',
+        description: 'Nie znikamy po wdrożeniu. Jesteśmy Twoim długoterminowym partnerem technologicznym, który rozwija rozwiązania wraz z Tobą.',
+        icon: 'partnership',
+      },
+    ],
+    cta: {
+      text: 'Porozmawiajmy o współpracy',
+      description: 'Bezpłatna 30-minutowa konsultacja',
+    },
+  },
 } as const;

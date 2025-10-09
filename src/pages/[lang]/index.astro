@@ -1,8 +1,14 @@
 ---
 import MarketingLayout from '../../layouts/MarketingLayout.astro';
 import Hero from '../../components/sections/Hero.astro';
+import ProblemSolution from '../../components/sections/ProblemSolution.tsx';
+import BizbeesProduct from '../../components/sections/BizbeesProduct.tsx';
+import Services from '../../components/sections/Services.tsx';
+import CaseStudies from '../../components/sections/CaseStudies.tsx';
+import WhyUs from '../../components/sections/WhyUs.tsx';
 import ContactChat from '../../components/contact/ContactChat.tsx';
 import { locales, resolveLocale } from '../../i18n/config';
+import { createI18nInstance } from '../../i18n/i18next';
 
 export function getStaticPaths() {
   return locales.map((lang) => ({ params: { lang } }));
@@ -23,10 +29,62 @@ const metaTranslations = {
 };
 
 const metaT = metaTranslations[locale as keyof typeof metaTranslations] || metaTranslations.pl;
+
+// Load translations for sections
+const i18n = await createI18nInstance(locale);
+const t = i18n.getFixedT(locale);
 ---
 
 <MarketingLayout lang={locale} title={metaT.title} description={metaT.description}>
   <Hero lang={locale} />
+  <ProblemSolution 
+    client:load
+    title={t('problemSolution.title')}
+    subtitle={t('problemSolution.subtitle')}
+    problems={t('problemSolution.problems', { returnObjects: true })}
+    solutionTitle={t('problemSolution.solutionTitle')}
+    solutionSubtitle={t('problemSolution.solutionSubtitle')}
+    solutions={t('problemSolution.solutions', { returnObjects: true })}
+  />
+  <BizbeesProduct 
+    client:load
+    badge={t('bizbeesProduct.badge')}
+    title={t('bizbeesProduct.title')}
+    subtitle={t('bizbeesProduct.subtitle')}
+    description={t('bizbeesProduct.description')}
+    features={t('bizbeesProduct.features', { returnObjects: true })}
+    ctaPrimary={t('bizbeesProduct.cta.primary')}
+    ctaSecondary={t('bizbeesProduct.cta.secondary')}
+    mockupAlt={t('bizbeesProduct.mockupAlt')}
+    emailPlaceholder={t('bizbeesProduct.emailPlaceholder')}
+    emailDisclaimer={t('bizbeesProduct.emailDisclaimer')}
+  />
+  <Services 
+    client:load
+    title={t('servicesSection.title')}
+    subtitle={t('servicesSection.subtitle')}
+    services={t('servicesSection.services', { returnObjects: true })}
+    additionalServicesTitle={t('servicesSection.additionalServices.title')}
+    additionalServices={t('servicesSection.additionalServices.items', { returnObjects: true })}
+    ctaText={t('servicesSection.cta.text')}
+    ctaDescription={t('servicesSection.cta.description')}
+  />
+  <CaseStudies 
+    client:load
+    title={t('caseStudies.title')}
+    subtitle={t('caseStudies.subtitle')}
+    metrics={t('caseStudies.metrics', { returnObjects: true })}
+    testimonials={t('caseStudies.testimonials', { returnObjects: true })}
+  />
+  <WhyUs 
+    client:load
+    title={t('whyUs.title')}
+    subtitle={t('whyUs.subtitle')}
+    description={t('whyUs.description')}
+    features={t('whyUs.features', { returnObjects: true })}
+    ctaText={t('whyUs.cta.text')}
+    ctaDescription={t('whyUs.cta.description')}
+  />
   <section id="contact" aria-labelledby="contact-title" class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
     <ContactChat client:load />
   </section>

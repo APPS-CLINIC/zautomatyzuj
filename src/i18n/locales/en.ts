@@ -259,6 +259,203 @@ export const dictionary = {
     privacy: 'Privacy policy',
     terms: 'Terms of use',
   },
+  problemSolution: {
+    title: 'Know the feeling?',
+    subtitle: 'Daily challenges that steal your time and energy',
+    problems: [
+      {
+        title: 'Drowning in emails',
+        description: 'Dozens of emails waiting for response every day. Instead of growing your business, you spend hours on simple correspondence.',
+      },
+      {
+        title: 'Process chaos',
+        description: 'Every employee does the same thing their own way. Lack of standards leads to errors, delays, and frustration.',
+      },
+      {
+        title: 'Manual work kills growth',
+        description: 'Repetitive tasks consume 60% of team time. No hands left for strategy and development work.',
+      },
+      {
+        title: 'No visibility',
+        description: 'Lack of process transparency. You have no idea where bottlenecks are and what really needs improvement.',
+      },
+    ],
+    solutionTitle: 'Our Solution',
+    solutionSubtitle: 'Intelligent automations working for you 24/7',
+    solutions: [
+      {
+        title: 'Intelligent Communication',
+        description: 'AI that understands context, categorizes messages, prepares responses, and manages priorities. You just approve.',
+        features: ['Automatic categorization', 'Intelligent responses', 'Priority management'],
+      },
+      {
+        title: 'Audit & Optimization',
+        description: 'We map your processes, identify bottlenecks, and design automations tailored to your company.',
+        features: ['Process analysis', 'Bottleneck identification', 'Automation strategy'],
+      },
+      {
+        title: 'Custom AI Agents',
+        description: 'We create dedicated AI agents that perform tasks autonomously - from customer service to document management.',
+        features: ['Dedicated solutions', 'Autonomous operation', 'Continuous optimization'],
+      },
+    ],
+  },
+  bizbeesProduct: {
+    badge: 'Product',
+    title: 'Bizbees.ai',
+    subtitle: 'The platform that connects all your automations into one intelligent control center',
+    description: 'Built from the ground up for forward-thinking companies. Bizbees.ai is not just a tool - it\'s your AI-powered coworker that never sleeps.',
+    features: [
+      {
+        title: 'Intelligent Dashboard',
+        description: 'One screen, all processes. See what\'s happening in your company in real-time and make better decisions.',
+        icon: 'dashboard',
+      },
+      {
+        title: 'AI Agents in Action',
+        description: 'Configure, launch, and monitor AI agents that perform tasks on your behalf - from simple to advanced.',
+        icon: 'agents',
+      },
+      {
+        title: 'Real-time Audit',
+        description: 'Every AI decision is transparent and auditable. Full control over what happens and why.',
+        icon: 'audit',
+      },
+      {
+        title: 'Modular Architecture',
+        description: 'Start small, scale without limits. Add new modules and integrations with a few clicks, no rewriting from scratch.',
+        icon: 'modules',
+      },
+    ],
+    cta: {
+      primary: 'See demo',
+      secondary: 'Learn more',
+    },
+    mockupAlt: 'Bizbees.ai platform interface',
+    emailPlaceholder: 'Enter your email',
+    emailDisclaimer: 'Get access to the latest features for free during testing',
+  },
+  servicesSection: {
+    title: 'How We Can Help',
+    subtitle: 'From audit to implementation - comprehensive support in automating your business',
+    services: [
+      {
+        title: 'AI Audits',
+        description: 'We analyze your business processes, identify areas for automation, and prepare an implementation strategy. You receive a concrete action plan with ROI.',
+        icon: 'audit',
+        features: ['Process mapping', 'Bottleneck analysis', 'Automation plan', 'ROI estimation'],
+      },
+      {
+        title: 'Training & Workshops',
+        description: 'Practical training for your team - from AI basics to advanced automation techniques. We teach through action, not theory.',
+        icon: 'training',
+        features: ['AI & automation basics', 'Agent design', 'Best practices', 'Certificates'],
+      },
+      {
+        title: 'Custom AI Agents',
+        description: 'We design and implement dedicated AI agents tailored to your company\'s specifics. From customer service to advanced workflows.',
+        icon: 'agents',
+        features: ['Dedicated solutions', 'Full integration', 'Continuous support', 'Optimization'],
+      },
+    ],
+    additionalServices: {
+      title: 'Additional Services',
+      items: [
+        'API Integrations',
+        'Process Optimization',
+        'Technical Consulting',
+        'Security Audits',
+        'Migration Support',
+        '24/7 Technical Support',
+      ],
+    },
+    cta: {
+      text: 'Book a free consultation',
+      description: 'Let\'s talk about your challenges',
+    },
+  },
+  caseStudies: {
+    title: 'Real Results',
+    subtitle: 'Numbers speak for themselves',
+    metrics: [
+      {
+        value: '50+',
+        label: 'Processes Automated',
+        description: 'From simple workflows to complex systems',
+      },
+      {
+        value: '4h',
+        label: 'Daily Time Savings',
+        description: 'Average for a 10-person team',
+      },
+      {
+        value: '25+',
+        label: 'Audits Conducted',
+        description: 'For companies from startups to corporations',
+      },
+    ],
+    testimonials: [
+      {
+        quote: 'Thanks to automations from ZautomatyzujAI, we gained 15 hours weekly. That\'s time we now spend on product development and customer conversations.',
+        author: 'Michael Smith',
+        position: 'CEO',
+        company: 'TechStart Poland',
+        initials: 'MS',
+      },
+      {
+        quote: 'The process audit opened our eyes to how much time we waste on repetitive tasks. AI agent implementation was smooth, and we achieved ROI in 3 months.',
+        author: 'Anna Johnson',
+        position: 'COO',
+        company: 'Marketing Pro',
+        initials: 'AJ',
+      },
+      {
+        quote: 'Working with ZautomatyzujAI is an investment, not a cost. We have full process transparency and finally understand where we lose time and money.',
+        author: 'Peter Williams',
+        position: 'Founder',
+        company: 'E-commerce Solutions',
+        initials: 'PW',
+      },
+      {
+        quote: 'The training was practical and we immediately applied the knowledge. Now our team independently designs simple automations.',
+        author: 'Kate Brown',
+        position: 'Head of Operations',
+        company: 'Digital Agency',
+        initials: 'KB',
+      },
+    ],
+  },
+  whyUs: {
+    title: 'Why Us',
+    subtitle: 'What sets us apart from the competition',
+    description: 'We\'re not another agency selling "off-the-shelf" solutions. We build long-term partnerships based on trust and real results.',
+    features: [
+      {
+        title: 'Proprietary Technology',
+        description: 'Bizbees.ai is our proprietary platform that evolves with client needs. We\'re not limited by ready-made solutions.',
+        icon: 'technology',
+      },
+      {
+        title: 'Holistic Approach',
+        description: 'From audit through implementation to training and support. We\'re with you at every stage of AI transformation.',
+        icon: 'holistic',
+      },
+      {
+        title: 'Scalability',
+        description: 'Modular architecture lets you start small and grow without limits. No lock-in, no revolution - just evolution.',
+        icon: 'scalability',
+      },
+      {
+        title: 'Partnership',
+        description: 'We don\'t disappear after implementation. We\'re your long-term technology partner, evolving solutions with you.',
+        icon: 'partnership',
+      },
+    ],
+    cta: {
+      text: 'Let\'s talk about cooperation',
+      description: 'Free 30-minute consultation',
+    },
+  },
 } as const;
 
 export type Dictionary = typeof dictionary;
