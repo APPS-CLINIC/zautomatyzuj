@@ -129,7 +129,8 @@ const t = i18n.getFixedT(lang);
         </button>
       </div>
 
-      <div class="app-mockup">
+      <!-- Desktop Mockup -->
+      <div class="app-mockup desktop-mockup">
         <div class="mockup-glow"></div>
         <div class="app-window">
           <!-- Top Bar -->
@@ -205,7 +206,7 @@ const t = i18n.getFixedT(lang);
               </div>
 
               <!-- Content Cards -->
-              <div class="content-grid">
+              <div class="content-grid" id="content-grid">
                 <div class="content-card"></div>
                 <div class="content-card"></div>
               </div>
@@ -219,6 +220,88 @@ const t = i18n.getFixedT(lang);
                   <div class="skeleton-line skeleton-line-lg"></div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Phone Mockup -->
+      <div class="app-mockup mobile-mockup">
+        <div class="phone-frame">
+          <!-- Phone Status Bar -->
+          <div class="phone-status-bar">
+            <div class="status-left">
+              <span class="time">9:41</span>
+            </div>
+            <div class="status-right">
+              <div class="signal-bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+              <div class="battery">
+                <div class="battery-level"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone App Header -->
+          <div class="phone-header">
+            <div class="phone-logo">
+              <BizbeesLogo size="sm" />
+            </div>
+            <div class="phone-title">Bizbees</div>
+            <div class="phone-menu">
+              <div class="menu-dot"></div>
+              <div class="menu-dot"></div>
+              <div class="menu-dot"></div>
+            </div>
+          </div>
+
+          <!-- Phone Content -->
+          <div class="phone-content">
+            <!-- Mobile Feature Display -->
+            <div class="mobile-feature-display" id="mobile-feature-display-1">
+              <div class="mobile-feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div class="mobile-feature-content">
+                <div class="mobile-feature-title">Poczta AI</div>
+                <div class="mobile-feature-description">Inteligentne zarządzanie korespondencją</div>
+              </div>
+            </div>
+
+            <!-- Mobile Content Cards -->
+            <div class="mobile-content-grid" id="mobile-content-grid">
+              <div class="mobile-content-card"></div>
+              <div class="mobile-content-card"></div>
+              <div class="mobile-content-card"></div>
+            </div>
+
+            <!-- Mobile Bottom Area -->
+            <div class="mobile-bottom-area">
+              <div class="mobile-skeleton-lines">
+                <div class="mobile-skeleton-line"></div>
+                <div class="mobile-skeleton-line mobile-skeleton-line-sm"></div>
+                <div class="mobile-skeleton-line"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone Bottom Navigation -->
+          <div class="phone-bottom-nav">
+            <div class="nav-item active">
+              <div class="nav-icon">🏠</div>
+            </div>
+            <div class="nav-item">
+              <div class="nav-icon">📊</div>
+            </div>
+            <div class="nav-item">
+              <div class="nav-icon">⚙️</div>
+            </div>
+            <div class="nav-item">
+              <div class="nav-icon">👤</div>
             </div>
           </div>
         </div>
@@ -404,6 +487,18 @@ const t = i18n.getFixedT(lang);
     align-items: center;
     justify-content: center;
     overflow: hidden;
+  }
+
+  /* Mniejszy odstęp od góry w orientacji poziomej */
+  @media (orientation: landscape) and (max-height: 600px) {
+    .hero-section {
+      min-height: 100vh;
+      padding-top: 2rem;
+    }
+    
+    .hero-container {
+      padding-top: 2rem;
+    }
   }
 
   .hero-bg {
@@ -596,6 +691,16 @@ const t = i18n.getFixedT(lang);
     margin-top: 1rem;
   }
 
+  /* Desktop Mockup - Default */
+  .desktop-mockup {
+    display: block;
+  }
+
+  /* Mobile Mockup - Hidden by default */
+  .mobile-mockup {
+    display: none;
+  }
+
   .mockup-glow {
     position: absolute;
     inset: -80px;
@@ -623,6 +728,453 @@ const t = i18n.getFixedT(lang);
     border-radius: 1rem;
     backdrop-filter: blur(10px);
     overflow: hidden;
+  }
+
+  /* Phone Frame Styles */
+  .phone-frame {
+    width: 320px;
+    height: 640px;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 23, 42, 0.8) 0%,
+      rgba(15, 23, 42, 0.8) 40%,
+      rgba(15, 23, 42, 0.6) 50%,
+      rgba(15, 23, 42, 0.3) 60%,
+      rgba(15, 23, 42, 0.1) 70%,
+      rgba(15, 23, 42, 0.05) 80%,
+      rgba(15, 23, 42, 0.02) 90%,
+      rgba(15, 23, 42, 0) 100%
+    );
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 60px rgba(0, 212, 255, 0.1);
+    /* Mask dla dolnej części - sprawia że dolna część jest całkowicie przezroczysta */
+    mask: linear-gradient(
+      to bottom,
+      black 0%,
+      black 50%,
+      rgba(0, 0, 0, 0.8) 70%,
+      rgba(0, 0, 0, 0.4) 80%,
+      rgba(0, 0, 0, 0.1) 90%,
+      transparent 100%
+    );
+    -webkit-mask: linear-gradient(
+      to bottom,
+      black 0%,
+      black 50%,
+      rgba(0, 0, 0, 0.8) 70%,
+      rgba(0, 0, 0, 0.4) 80%,
+      rgba(0, 0, 0, 0.1) 90%,
+      transparent 100%
+    );
+  }
+
+  /* Dodatkowy efekt przeźroczystości dla dolnej części - zaczyna się od połowy */
+  .phone-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(15, 23, 42, 0.05) 10%,
+      rgba(15, 23, 42, 0.1) 20%,
+      rgba(15, 23, 42, 0.2) 30%,
+      rgba(15, 23, 42, 0.4) 50%,
+      rgba(15, 23, 42, 0.6) 70%,
+      rgba(15, 23, 42, 0.8) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Phone Status Bar */
+  .phone-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.75rem;
+    color: white;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+  }
+
+  .status-left .time {
+    color: white;
+  }
+
+  .status-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .signal-bars {
+    display: flex;
+    gap: 2px;
+    align-items: end;
+  }
+
+  .signal-bars .bar {
+    width: 3px;
+    background: white;
+    border-radius: 1px;
+  }
+
+  .signal-bars .bar:nth-child(1) { height: 4px; }
+  .signal-bars .bar:nth-child(2) { height: 6px; }
+  .signal-bars .bar:nth-child(3) { height: 8px; }
+  .signal-bars .bar:nth-child(4) { height: 10px; }
+
+  .battery {
+    width: 20px;
+    height: 10px;
+    border: 1px solid white;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .battery::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 2px;
+    width: 2px;
+    height: 6px;
+    background: white;
+    border-radius: 0 1px 1px 0;
+  }
+
+  .battery-level {
+    width: 80%;
+    height: 100%;
+    background: white;
+    border-radius: 1px;
+  }
+
+  /* Phone Header */
+  .phone-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 2;
+  }
+
+  .phone-logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .phone-title {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+  }
+
+  .phone-menu {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .menu-dot {
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+  }
+
+  /* Phone Content */
+  .phone-content {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Mobile Feature Display */
+  .mobile-feature-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .mobile-feature-display.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-feature-display.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  .mobile-feature-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 0.5rem;
+    color: #f59e0b;
+  }
+
+  .mobile-feature-content {
+    flex: 1;
+  }
+
+  .mobile-feature-title {
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .mobile-feature-description {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  /* Mobile Content Grid */
+  .mobile-content-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .mobile-content-card {
+    height: 60px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    animation: skeletonPulse 2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-content-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(245, 158, 11, 0.1) 0%, 
+      rgba(245, 158, 11, 0.05) 50%, 
+      rgba(245, 158, 11, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .mobile-content-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Mobile Bottom Area */
+  .mobile-bottom-area {
+    margin-top: auto;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .mobile-skeleton-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-skeleton-line {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.25rem;
+    animation: skeletonPulse 2s ease-in-out infinite;
+  }
+
+  .mobile-skeleton-line-sm {
+    width: 60%;
+  }
+
+  /* Phone Bottom Navigation */
+  .phone-bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 2;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .nav-item.active {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+  }
+
+  .nav-item:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-icon {
+    font-size: 1.25rem;
+  }
+
+  /* Mobile AI Module Content Styles */
+  .mobile-ai-module-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    transform: scale(0.8) rotate(-2deg);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+  }
+
+  .mobile-ai-module-content.animate-in {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .mobile-ai-module-header {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .mobile-ai-module-icon {
+    font-size: 0.875rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245, 158, 11, 0.2);
+    border-radius: 0.25rem;
+  }
+
+  .mobile-ai-module-title {
+    color: white;
+    font-weight: 600;
+    font-size: 0.625rem;
+    flex: 1;
+  }
+
+  .mobile-attachment-indicator {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-attachment-line {
+    width: 8px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.6), transparent);
+    border-radius: 1px;
+  }
+
+  .mobile-attachment-dot {
+    width: 3px;
+    height: 3px;
+    background: #f59e0b;
+    border-radius: 50%;
+    margin-left: 1px;
+  }
+
+  .mobile-attachment-dot.pulsing {
+    animation: attachmentPulse 2s ease-in-out infinite;
+  }
+
+  .mobile-ai-module-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .mobile-ai-module-value {
+    color: white;
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  .mobile-ai-module-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.5rem;
+  }
+
+  .mobile-ai-module-chart {
+    height: 16px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    margin-top: 0.125rem;
+  }
+
+  .mobile-mini-chart {
+    display: flex;
+    align-items: end;
+    gap: 1px;
+    height: 100%;
+  }
+
+  .mobile-mini-chart .chart-bar {
+    width: 2px;
+    background: linear-gradient(to top, 
+      rgba(245, 158, 11, 0.4), 
+      rgba(245, 158, 11, 0.8));
+    border-radius: 1px 1px 0 0;
+    animation: chartGrow 1s ease-out;
   }
 
   /* Top Bar */
@@ -1821,10 +2373,6 @@ const t = i18n.getFixedT(lang);
       display: none;
     }
 
-    #problem-solution {
-      margin-top: 6rem;
-    }
-
     .nav-container {
       padding: 1rem;
     }
@@ -1834,18 +2382,19 @@ const t = i18n.getFixedT(lang);
     }
 
     .hero-section {
-      min-height: 1200px;
+      min-height: 100vh;
+      height: auto;
       margin-top: 4rem;
     }
 
     .hero-title {
-      font-size: 1.2rem;
+      font-size: clamp(1.5rem, 4vw, 2rem);
       width: 90%;
       margin: 0 auto 1rem auto;
     }
 
     .title-highlight {
-      font-size: 2.5rem;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
     }
 
     .mobile-break {
@@ -1871,220 +2420,85 @@ const t = i18n.getFixedT(lang);
     .btn-primary,
     .btn-secondary {
       width: 100%;
-      max-width: 280px;
+      max-width: 320px;
       justify-content: center;
     }
 
-    /* Mobile App Mockup */
+    /* Mobile Mockup Visibility */
+    .desktop-mockup {
+      display: none;
+    }
+
+    .mobile-mockup {
+      display: block;
+    }
+
+    /* Mobile Phone Mockup Adjustments */
     .app-mockup {
       max-width: 100%;
       margin: 0 auto;
-      transform: scale(0.8);
-      transform-origin: center;
-      margin-top: -3rem;
+      margin-top: 1rem;
     }
 
-    .app-window {
-      border-radius: 0.75rem;
+    .phone-frame {
+      width: 300px;
+      height: 600px;
+      margin: 0 auto;
     }
 
-    .app-content {
-      flex-direction: column;
-      min-height: 400px;
+    /* Mobile Feature Display Animation */
+    .mobile-feature-display {
+      animation: mobileFeatureFadeIn 0.8s ease-out forwards;
     }
 
-    .app-sidebar {
-      width: 100%;
-      padding: 0.75rem;
-      border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 0.75rem 0.75rem 0 0;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 60px;
-      gap: 20px;
+    @keyframes mobileFeatureFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .sidebar-header {
-      margin-bottom: 0;
-      border-bottom: none;
-      padding: 0;
+    /* Mobile Content Cards Animation */
+    .mobile-content-card {
+      animation: mobileCardSlideIn 0.6s ease-out forwards;
     }
 
-    .sidebar-section {
-      display: none;
+    .mobile-content-card:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-content-card:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-content-card:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes mobileCardSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
-    .sidebar-items {
-      display: flex;
-      flex-direction: row;
-      gap: 0.5rem;
-      margin-bottom: 0;
+    /* Mobile Bottom Navigation Animation */
+    .phone-bottom-nav {
+      animation: mobileNavSlideUp 0.8s ease-out forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+      transform: translateY(20px);
     }
 
-    .skeleton-item {
-      height: 32px;
-      width: 60px;
-      border-radius: 0.375rem;
-    }
-
-    .skeleton-item.skeleton-active {
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.4), rgba(245, 158, 11, 0.4));
-    }
-
-    .sidebar-footer {
-      margin-top: 0;
-      padding: 0;
-    }
-
-    .skeleton-upgrade {
-      height: 32px;
-      width: 80px;
-    }
-
-    .app-main {
-      padding: 1rem;
-      padding-top: 0.5rem;
-    }
-
-    .content-header {
-      margin-bottom: 0.75rem;
-    }
-
-    .feature-display {
-      padding: 0.75rem 1rem;
-      gap: 0.5rem;
-      min-height: 60px;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .feature-icon {
-      font-size: 1.5rem;
-      width: 2rem;
-      height: 2rem;
-    }
-
-    .feature-title {
-      font-size: 1.25rem;
-    }
-
-    .feature-description {
-      font-size: 0.75rem;
-    }
-
-    .content-grid {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .content-card {
-      height: 60px;
-    }
-
-    .ai-module-content {
-      padding: 0.5rem;
-    }
-
-    .ai-module-header {
-      gap: 0.25rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .ai-module-icon {
-      width: 1rem;
-      height: 1rem;
-      font-size: 0.75rem;
-    }
-
-    .ai-module-title {
-      font-size: 0.625rem;
-    }
-
-    .ai-module-value {
-      font-size: 0.75rem;
-    }
-
-    .ai-module-label {
-      font-size: 0.5rem;
-    }
-
-    .attachment-line {
-      width: 8px;
-    }
-
-    .attachment-dot {
-      width: 3px;
-      height: 3px;
-    }
-
-    .content-area {
-      padding: 1rem;
-    }
-
-    .skeleton-lines {
-      gap: 0.5rem;
-    }
-
-    .skeleton-line {
-      height: 12px;
-    }
-
-    .skeleton-line-sm {
-      width: 50%;
-    }
-
-    .skeleton-line-lg {
-      width: 80%;
-    }
-
-    /* Mobile-specific adjustments */
-    .mockup-glow {
-      inset: -40px;
-      filter: blur(30px);
-    }
-
-    .app-topbar {
-      padding: 0.5rem 0.75rem;
-      gap: 0.5rem;
-    }
-
-    .workspace-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-      font-size: 0.75rem;
-    }
-
-    .skeleton-text {
-      height: 10px;
-    }
-
-    .skeleton-xs {
-      width: 40px;
-    }
-
-    .skeleton-sm {
-      width: 60px;
-    }
-
-    .skeleton-md {
-      width: 120px;
-    }
-
-    .skeleton-circle {
-      width: 24px;
-      height: 24px;
-    }
-
-    .topbar-center {
-      display: none;
-    }
-
-    .topbar-right {
-      gap: 0.5rem;
+    @keyframes mobileNavSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 
@@ -2358,16 +2772,88 @@ const t = i18n.getFixedT(lang);
       }
     ];
 
+    // Check if we're on mobile or desktop
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+      // Initialize mobile AI modules
+      initializeMobileAIModules(modulesData);
+    } else {
+      // Initialize desktop AI modules
+      modulesData.forEach((moduleData, index) => {
+        setTimeout(() => {
+          attachAIModuleToCard(moduleData, index, index === modulesData.length - 1);
+        }, moduleData.delay);
+      });
+
+      // Add more modules periodically
+      setTimeout(() => {
+        addAdditionalAIModules();
+      }, 12000);
+    }
+  }
+
+  // Mobile AI Modules Animation Controller
+  function initializeMobileAIModules(modulesData: any[]) {
     modulesData.forEach((moduleData, index) => {
       setTimeout(() => {
-        attachAIModuleToCard(moduleData, index, index === modulesData.length - 1);
+        attachMobileAIModuleToCard(moduleData, index, index === modulesData.length - 1);
       }, moduleData.delay);
     });
+  }
 
-    // Add more modules periodically
+  function attachMobileAIModuleToCard(moduleData: any, cardIndex: number, isLast: boolean = false) {
+    const mobileContentGrid = document.getElementById('mobile-content-grid');
+    
+    if (!mobileContentGrid) return;
+
+    const cards = mobileContentGrid.querySelectorAll('.mobile-content-card');
+    const targetCard = cards[cardIndex] as HTMLElement;
+    
+    if (!targetCard) return;
+
+    // Add attaching animation to the card
+    targetCard.classList.add('attaching');
+
+    const chartBars = moduleData.chartHeights.map((height: number) => 
+      `<div class="chart-bar" style="height: ${height}%"></div>`
+    ).join('');
+
+    // Create mobile AI module content
+    const mobileAIModuleContent = document.createElement('div');
+    mobileAIModuleContent.className = 'mobile-ai-module-content';
+    mobileAIModuleContent.innerHTML = `
+      <div class="mobile-ai-module-header">
+        <div class="mobile-ai-module-icon">${moduleData.icon}</div>
+        <div class="mobile-ai-module-title">${moduleData.title}</div>
+        <div class="mobile-attachment-indicator">
+          <div class="mobile-attachment-line"></div>
+          <div class="mobile-attachment-dot ${isLast ? 'pulsing' : ''}"></div>
+        </div>
+      </div>
+      <div class="mobile-ai-module-body">
+        <div class="mobile-ai-module-value">${moduleData.value}</div>
+        <div class="mobile-ai-module-label">${moduleData.label}</div>
+        <div class="mobile-ai-module-chart">
+          <div class="mobile-mini-chart">
+            ${chartBars}
+          </div>
+        </div>
+      </div>
+    `;
+
+    targetCard.appendChild(mobileAIModuleContent);
+
+    // Add click handler
+    targetCard.addEventListener('click', () => {
+      showNotification(`Otwieranie ${moduleData.title}...`, 'success');
+    });
+
+    // Animate mobile AI content in after card animation
     setTimeout(() => {
-      addAdditionalAIModules();
-    }, 12000);
+      targetCard.classList.remove('attaching');
+      mobileAIModuleContent.classList.add('animate-in');
+    }, 2000);
   }
 
   function attachAIModuleToCard(moduleData: any, cardIndex: number, isLast: boolean = false) {
@@ -2521,6 +3007,17 @@ const t = i18n.getFixedT(lang);
       }
     ];
 
+    // Check if we're on mobile or desktop
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+      initializeMobileFeatureDisplay(features);
+    } else {
+      initializeDesktopFeatureDisplay(features);
+    }
+  }
+
+  function initializeDesktopFeatureDisplay(features: any[]) {
     const featureDisplay = document.getElementById('feature-display-1');
     if (!featureDisplay) return;
 
@@ -2594,6 +3091,84 @@ const t = i18n.getFixedT(lang);
       // Continue cycling every 3-5 seconds
       setInterval(() => {
         showNextFeature();
+      }, 3000 + Math.random() * 2000);
+    }, 4000);
+  }
+
+  function initializeMobileFeatureDisplay(features: any[]) {
+    const mobileFeatureDisplay = document.getElementById('mobile-feature-display-1');
+    if (!mobileFeatureDisplay) return;
+
+    let currentFeatureIndex = 0;
+    let isTransitioning = false;
+
+    function showNextMobileFeature() {
+      if (isTransitioning || !mobileFeatureDisplay) return;
+      
+      isTransitioning = true;
+      
+      // Fade out current feature
+      mobileFeatureDisplay.classList.remove('fade-in');
+      mobileFeatureDisplay.classList.add('fade-out');
+      
+      setTimeout(() => {
+        if (!mobileFeatureDisplay) return;
+        
+        // Select random feature (different from current)
+        let nextIndex;
+        do {
+          nextIndex = Math.floor(Math.random() * features.length);
+        } while (nextIndex === currentFeatureIndex && features.length > 1);
+        
+        currentFeatureIndex = nextIndex;
+        const feature = features[currentFeatureIndex];
+        
+        // Update content
+        const iconElement = mobileFeatureDisplay.querySelector('.mobile-feature-icon');
+        const titleElement = mobileFeatureDisplay.querySelector('.mobile-feature-title');
+        const descriptionElement = mobileFeatureDisplay.querySelector('.mobile-feature-description');
+        
+        if (iconElement && titleElement && descriptionElement) {
+          iconElement.innerHTML = feature.icon;
+          titleElement.textContent = feature.title;
+          descriptionElement.textContent = feature.description;
+        }
+        
+        // Fade in new feature
+        mobileFeatureDisplay.classList.remove('fade-out');
+        mobileFeatureDisplay.classList.add('fade-in');
+        
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 600);
+        
+      }, 600);
+    }
+
+    // Start with first feature
+    const firstFeature = features[0];
+    const iconElement = mobileFeatureDisplay.querySelector('.mobile-feature-icon');
+    const titleElement = mobileFeatureDisplay.querySelector('.mobile-feature-title');
+    const descriptionElement = mobileFeatureDisplay.querySelector('.mobile-feature-description');
+    
+    if (iconElement && titleElement && descriptionElement) {
+      iconElement.innerHTML = firstFeature.icon;
+      titleElement.textContent = firstFeature.title;
+      descriptionElement.textContent = firstFeature.description;
+    }
+    
+    // Fade in initial feature
+    setTimeout(() => {
+      mobileFeatureDisplay.classList.add('fade-in');
+    }, 1000);
+
+    // Start cycling through features
+    setTimeout(() => {
+      showNextMobileFeature();
+      
+      // Continue cycling every 3-5 seconds
+      setInterval(() => {
+        showNextMobileFeature();
       }, 3000 + Math.random() * 2000);
     }, 4000);
   }
