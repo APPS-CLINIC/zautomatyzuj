@@ -274,9 +274,49 @@ const t = i18n.getFixedT(lang);
 
             <!-- Mobile Content Cards -->
             <div class="mobile-content-grid" id="mobile-content-grid">
-              <div class="mobile-content-card"></div>
-              <div class="mobile-content-card"></div>
-              <div class="mobile-content-card"></div>
+              <div class="mobile-content-card">
+                <div class="mobile-skeleton-content">
+                  <div class="mobile-skeleton-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                      <path d="M2 17l10 5 10-5"></path>
+                      <path d="M2 12l10 5 10-5"></path>
+                    </svg>
+                  </div>
+                  <div class="mobile-skeleton-text">
+                    <div class="mobile-skeleton-line mobile-skeleton-title"></div>
+                    <div class="mobile-skeleton-line mobile-skeleton-value mobile-skeleton-orange"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mobile-content-card">
+                <div class="mobile-skeleton-content">
+                  <div class="mobile-skeleton-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  </div>
+                  <div class="mobile-skeleton-text">
+                    <div class="mobile-skeleton-line mobile-skeleton-title"></div>
+                    <div class="mobile-skeleton-line mobile-skeleton-value"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mobile-content-card">
+                <div class="mobile-skeleton-content">
+                  <div class="mobile-skeleton-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                  </div>
+                  <div class="mobile-skeleton-text">
+                    <div class="mobile-skeleton-line mobile-skeleton-title"></div>
+                    <div class="mobile-skeleton-line mobile-skeleton-value"></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- Mobile Bottom Area -->
@@ -1175,6 +1215,83 @@ const t = i18n.getFixedT(lang);
       rgba(245, 158, 11, 0.8));
     border-radius: 1px 1px 0 0;
     animation: chartGrow 1s ease-out;
+  }
+
+  /* Mobile Skeleton Content Styles */
+  .mobile-skeleton-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 1;
+  }
+
+  .mobile-skeleton-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .mobile-skeleton-icon svg {
+    color: rgba(255, 255, 255, 0.4);
+    width: 16px;
+    height: 16px;
+  }
+
+  .mobile-skeleton-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-skeleton-line {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+    animation: skeletonPulse 2s ease-in-out infinite;
+  }
+
+  .mobile-skeleton-title {
+    width: 80%;
+  }
+
+  .mobile-skeleton-value {
+    width: 60%;
+    height: 14px;
+  }
+
+  .mobile-skeleton-orange {
+    background: linear-gradient(135deg, 
+      rgba(245, 158, 11, 0.3), 
+      rgba(245, 158, 11, 0.5));
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    animation: skeletonPulseOrange 2s ease-in-out infinite;
+  }
+
+  @keyframes skeletonPulseOrange {
+    0%, 100% {
+      opacity: 1;
+      background: linear-gradient(135deg, 
+        rgba(245, 158, 11, 0.3), 
+        rgba(245, 158, 11, 0.5));
+    }
+    50% {
+      opacity: 0.7;
+      background: linear-gradient(135deg, 
+        rgba(245, 158, 11, 0.5), 
+        rgba(245, 158, 11, 0.7));
+    }
   }
 
   /* Top Bar */
@@ -2793,13 +2910,10 @@ const t = i18n.getFixedT(lang);
     }
   }
 
-  // Mobile AI Modules Animation Controller
+  // Mobile AI Modules Animation Controller - wyłączone, używamy skeleton loaderów
   function initializeMobileAIModules(modulesData: any[]) {
-    modulesData.forEach((moduleData, index) => {
-      setTimeout(() => {
-        attachMobileAIModuleToCard(moduleData, index, index === modulesData.length - 1);
-      }, moduleData.delay);
-    });
+    // Skeleton loadery są już w HTML, nie potrzebujemy dynamicznego dodawania treści
+    console.log('Mobile AI modules: using skeleton loaders instead of dynamic content');
   }
 
   function attachMobileAIModuleToCard(moduleData: any, cardIndex: number, isLast: boolean = false) {
