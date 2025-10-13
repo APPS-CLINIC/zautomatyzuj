@@ -1,7 +1,34 @@
 ---
 import { defaultLocale } from '../i18n/config';
-
-export async function GET() {
-  return Astro.redirect(`/${defaultLocale}/`);
-}
 ---
+
+<script>
+  // Wykryj preferowany język użytkownika
+  function detectLanguage() {
+    const languages = navigator.languages || [navigator.language];
+    
+    // Sprawdź czy pierwszy język to polski
+    for (const lang of languages) {
+      if (lang.startsWith('pl')) {
+        return 'pl';
+      }
+      if (lang.startsWith('en')) {
+        return 'en';
+      }
+    }
+    
+    // Domyślnie polski
+    return 'pl';
+  }
+  
+  // Przekieruj na odpowiednią wersję językową
+  const preferredLang = detectLanguage();
+  window.location.href = `/${preferredLang}/`;
+</script>
+
+<!-- Fallback dla użytkowników bez JavaScript -->
+<meta http-equiv="refresh" content={`0; url=/${defaultLocale}/`}>
+<div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+  <p>Przekierowywanie na odpowiednią wersję językową...</p>
+  <p><a href={`/${defaultLocale}/`}>Kliknij tutaj, jeśli przekierowanie nie działa</a></p>
+</div>

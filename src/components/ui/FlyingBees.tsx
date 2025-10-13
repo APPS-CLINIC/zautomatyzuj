@@ -3,21 +3,60 @@
  */
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 interface FlyingBeesProps {
   count?: number;
   className?: string;
 }
 
+interface Bee {
+  id: number;
+  size: number;
+  delay: number;
+  duration: number;
+  startX: number;
+  startY: number;
+  animationX: number[];
+  animationY: number[];
+  animationRotate: number[];
+}
+
 export default function FlyingBees({ count = 8, className = '' }: FlyingBeesProps) {
-  const bees = Array.from({ length: count }, (_, i) => ({
-    id: i,
-    size: Math.random() * 0.4 + 0.6, // 0.6 to 1.0
-    delay: Math.random() * 2,
-    duration: Math.random() * 3 + 4, // 4 to 7 seconds
-    startX: Math.random() * 80 + 10, // 10-90%
-    startY: Math.random() * 80 + 10, // 10-90%
-  }));
+  const [bees, setBees] = useState<Bee[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Generate deterministic but varied bee data
+    const generatedBees = Array.from({ length: count }, (_, i) => {
+      // Use a simple seed based on index for deterministic randomness
+      const seed = i * 12345;
+      const random = (seed: number) => {
+        const x = Math.sin(seed) * 10000;
+        return x - Math.floor(x);
+      };
+      
+      return {
+        id: i,
+        size: random(seed) * 0.4 + 0.6, // 0.6 to 1.0
+        delay: random(seed + 1) * 2,
+        duration: random(seed + 2) * 3 + 4, // 4 to 7 seconds
+        startX: random(seed + 3) * 80 + 10, // 10-90%
+        startY: random(seed + 4) * 80 + 10, // 10-90%
+        animationX: [0, random(seed + 5) * 200 - 100, random(seed + 6) * 200 - 100, 0],
+        animationY: [0, random(seed + 7) * 150 - 75, random(seed + 8) * 150 - 75, 0],
+        animationRotate: [0, random(seed + 9) * 20 - 10, random(seed + 10) * 20 - 10, 0],
+      };
+    });
+    
+    setBees(generatedBees);
+  }, [count]);
+
+  // Don't render until client-side hydration is complete
+  if (!isClient || bees.length === 0) {
+    return <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`} />;
+  }
 
   return (
     <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
@@ -30,9 +69,9 @@ export default function FlyingBees({ count = 8, className = '' }: FlyingBeesProp
             top: `${bee.startY}%`,
           }}
           animate={{
-            x: [0, Math.random() * 200 - 100, Math.random() * 200 - 100, 0],
-            y: [0, Math.random() * 150 - 75, Math.random() * 150 - 75, 0],
-            rotate: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0],
+            x: bee.animationX,
+            y: bee.animationY,
+            rotate: bee.animationRotate,
           }}
           transition={{
             duration: bee.duration,
