@@ -14,24 +14,24 @@ export default function AnimatedBizbeesLogo({
   className = '' 
 }: AnimatedBizbeesLogoProps) {
   const sizeClasses = {
-    sm: 'w-8 h-8',
-    md: 'w-12 h-12',
-    lg: 'w-16 h-16',
-    xl: 'w-24 h-24',
+    sm: 'w-6 h-6',
+    md: 'w-10 h-10',
+    lg: 'w-14 h-14',
+    xl: 'w-20 h-20',
   };
 
   const wingSize = {
-    sm: 'w-3 h-2',
-    md: 'w-4 h-3',
-    lg: 'w-6 h-4',
-    xl: 'w-8 h-6',
+    sm: 'w-2 h-1.5',
+    md: 'w-3 h-2',
+    lg: 'w-4 h-3',
+    xl: 'w-6 h-4',
   };
 
   const dotSize = {
-    sm: 'w-1 h-1',
-    md: 'w-1.5 h-1.5',
-    lg: 'w-2 h-2',
-    xl: 'w-3 h-3',
+    sm: 'w-0.5 h-0.5',
+    md: 'w-1 h-1',
+    lg: 'w-1.5 h-1.5',
+    xl: 'w-2 h-2',
   };
 
   // Flying animation

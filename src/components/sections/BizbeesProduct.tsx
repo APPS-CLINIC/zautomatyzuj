@@ -102,7 +102,7 @@ export default function BizbeesProduct({
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 flex items-center justify-center gap-8">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 flex items-center justify-center gap-6">
             {/* Animated Bee Logo - smaller, inline with title */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
@@ -110,11 +110,24 @@ export default function BizbeesProduct({
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
-              <AnimatedBizbeesLogo size="lg" />
+              <AnimatedBizbeesLogo size="md" />
             </motion.div>
-            <span className="bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
+            <motion.span 
+              className="bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent font-black tracking-tight drop-shadow-lg"
+              animate={{
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{
+                backgroundSize: '200% 200%',
+              }}
+            >
               {title}
-            </span>
+            </motion.span>
           </h2>
           <p className="text-xl md:text-2xl text-slate-200 mb-4">
             {subtitle}
