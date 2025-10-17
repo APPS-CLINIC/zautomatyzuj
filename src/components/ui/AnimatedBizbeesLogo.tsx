@@ -73,16 +73,11 @@ export default function AnimatedBizbeesLogo({
               <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-800"></div>
               <div className="absolute top-3/4 left-0 right-0 h-0.5 bg-gray-800"></div>
             </div>
-            
-            {/* Bee face */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-1 h-1 bg-gray-800 rounded-full"></div>
-            </div>
           </motion.div>
           
           {/* Animated Wings */}
           <motion.div 
-            className={`absolute -top-1 -left-1 ${wingSize[size]} bg-gray-600/80 rounded-full`}
+            className={`absolute -top-0.5 -left-0.5 ${wingSize[size]} bg-gray-600 rounded-full`}
             animate={wingFlap}
             transition={{
               duration: 0.15,
@@ -91,7 +86,7 @@ export default function AnimatedBizbeesLogo({
             }}
           />
           <motion.div 
-            className={`absolute -top-1 -right-1 ${wingSize[size]} bg-gray-600/80 rounded-full`}
+            className={`absolute -top-0.5 -right-0.5 ${wingSize[size]} bg-gray-600 rounded-full`}
             animate={{
               ...wingFlap,
               rotate: [0, 5, -5, 2, 0], // Opposite rotation for second wing

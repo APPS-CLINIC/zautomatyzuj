@@ -29,10 +29,10 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       scale: 1,
       transition: {
         duration: 0.3,
-        ease: "easeOut"
+        ease: "easeOut" as any
       }
     }
-  };
+  } as any;
 
   const containerClasses = isUser 
     ? "flex justify-end" 

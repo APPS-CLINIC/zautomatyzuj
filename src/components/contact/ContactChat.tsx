@@ -184,7 +184,7 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
         addMessage('assistant', 'Dziękuję! Teraz mogę przetworzyć Twoją wiadomość.');
         // Wyślij oryginalną wiadomość użytkownika (jeśli była)
         if (formData) {
-          await sendMessageToN8n(formData.message || '', formData);
+          await sendMessageToN8n(message, formData);
         }
         return;
       } else {
@@ -286,10 +286,10 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
+        ease: "easeOut" as any
       }
     }
-  };
+  } as any;
 
   return (
     <div className="space-y-8">

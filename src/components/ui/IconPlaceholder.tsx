@@ -2,13 +2,15 @@
  * IconPlaceholder - SVG placeholder icons for sections
  */
 
+import React from 'react';
+
 interface IconPlaceholderProps {
   name: string;
   className?: string;
 }
 
 export default function IconPlaceholder({ name, className = 'w-6 h-6' }: IconPlaceholderProps) {
-  const icons: Record<string, JSX.Element> = {
+  const icons: Record<string, React.ReactElement> = {
     dashboard: (
       <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
         <rect x="3" y="3" width="7" height="7" rx="1" />
