@@ -49,19 +49,11 @@ const ChatInput: React.FC<ChatInputProps> = ({
       newErrors.email = 'Nieprawidłowy format email';
     }
     
-    if (message.length < 10) {
-      // This will be handled by the parent component
-    }
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSend = () => {
-    if (message.trim().length < 10) {
-      return;
-    }
-    
     if (isExpanded && !validateForm()) {
       return;
     }
@@ -79,7 +71,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
     }
   };
 
-  const canSend = message.trim().length >= 10 && 
+  const canSend = message.trim().length > 0 && 
     (!isExpanded || (formData.email && Object.keys(errors).length === 0));
 
   return (
@@ -200,9 +192,6 @@ const ChatInput: React.FC<ChatInputProps> = ({
             disabled={isLoading}
           />
           <div className="flex justify-between items-center mt-2">
-            <span className={`text-xs ${message.length < 10 ? 'text-red-400' : 'text-slate-400'}`}>
-              {message.length}/10 znaków minimum
-            </span>
             <div className="flex space-x-2">
               {message && (
                 <button
