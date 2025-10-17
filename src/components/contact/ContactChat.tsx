@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ChatBubble from './ChatBubble';
 import ChatInput from './ChatInput';
+import { getUserToken, isNewUser, markUserAsReturning } from '../../utils/userToken';
+import type { N8nWebhookPayload, N8nWebhookResponse } from '../../types/chat';
 
 interface Message {
   id: string;
@@ -20,21 +22,140 @@ interface ContactChatProps {
   showHeader?: boolean;
 }
 
+const N8N_WEBHOOK_URL = 'https://kevin133-20133.wykr.es/webhook/53b90858-0451-4042-8493-b086221b84d6/chat';
+
 const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showTyping, setShowTyping] = useState(false);
+  const [userToken, setUserToken] = useState<string>('');
+  const [isNewUserFlag, setIsNewUserFlag] = useState(true);
+  const [captchaData, setCaptchaData] = useState({
+    startTime: Date.now(),
+    mouseMovements: 0,
+    keystrokes: 0,
+    focusTime: 0,
+    lastActivity: Date.now()
+  });
+  const [captchaChallenge, setCaptchaChallenge] = useState<{
+    question: string;
+    answer: number;
+    isActive: boolean;
+  } | null>(null);
+
+  // Funkcje CAPTCHA
+  const updateCaptchaData = (field: keyof typeof captchaData, value: number) => {
+    setCaptchaData(prev => ({
+      ...prev,
+      [field]: value,
+      lastActivity: Date.now()
+    }));
+  };
+
+  const validateCaptcha = (): boolean => {
+    const now = Date.now();
+    const timeOnPage = now - captchaData.startTime;
+    const timeSinceLastActivity = now - captchaData.lastActivity;
+    
+    // Sprawdź czy użytkownik spędził wystarczająco dużo czasu na stronie (min 3 sekundy)
+    if (timeOnPage < 3000) return false;
+    
+    // Sprawdź czy użytkownik był aktywny w ciągu ostatnich 30 sekund
+    if (timeSinceLastActivity > 30000) return false;
+    
+    // Sprawdź czy użytkownik wykonał jakieś interakcje (ruch myszy lub klawiatura)
+    if (captchaData.mouseMovements < 2 && captchaData.keystrokes < 5) return false;
+    
+    return true;
+  };
+
+  // Generowanie wyzwania CAPTCHA
+  const generateCaptchaChallenge = () => {
+    const challenges = [
+      { question: "Ile to jest 7 + 3?", answer: 10 },
+      { question: "Ile to jest 15 - 8?", answer: 7 },
+      { question: "Ile to jest 4 × 2?", answer: 8 },
+      { question: "Ile to jest 12 ÷ 3?", answer: 4 },
+      { question: "Ile to jest 5 + 6?", answer: 11 },
+      { question: "Ile to jest 20 - 9?", answer: 11 },
+      { question: "Ile to jest 3 × 4?", answer: 12 },
+      { question: "Ile to jest 18 ÷ 2?", answer: 9 }
+    ];
+    
+    const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+    setCaptchaChallenge({
+      question: randomChallenge.question,
+      answer: randomChallenge.answer,
+      isActive: true
+    });
+    
+    return randomChallenge;
+  };
+
+  // Sprawdzanie odpowiedzi CAPTCHA
+  const checkCaptchaAnswer = (userAnswer: string): boolean => {
+    if (!captchaChallenge) return false;
+    
+    const answer = parseInt(userAnswer.trim());
+    const isCorrect = answer === captchaChallenge.answer;
+    
+    if (isCorrect) {
+      setCaptchaChallenge(null);
+      return true;
+    }
+    
+    return false;
+  };
+
+  // Event listeners dla CAPTCHA
+  useEffect(() => {
+    const handleMouseMove = () => {
+      updateCaptchaData('mouseMovements', captchaData.mouseMovements + 1);
+    };
+
+    const handleKeyPress = () => {
+      updateCaptchaData('keystrokes', captchaData.keystrokes + 1);
+    };
+
+    const handleFocus = () => {
+      updateCaptchaData('focusTime', Date.now());
+    };
+
+    // Dodaj event listeners
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('keypress', handleKeyPress);
+    document.addEventListener('focus', handleFocus);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('keypress', handleKeyPress);
+      document.removeEventListener('focus', handleFocus);
+    };
+  }, [captchaData.mouseMovements, captchaData.keystrokes]);
+
+  // Inicjalizacja tokenu użytkownika przy montowaniu komponentu
+  useEffect(() => {
+    const token = getUserToken();
+    const newUser = isNewUser();
+    setUserToken(token);
+    setIsNewUserFlag(newUser);
+    
+    // Zawsze wyświetl wiadomość powitalną - różną dla nowych i powracających użytkowników
+    const welcomeMessage = newUser 
+      ? 'Cześć! W czym mogę pomóc? Wybierz temat lub opisz krótko swoje potrzeby.'
+      : 'Witaj ponownie! W czym mogę pomóc?';
+    
+    setMessages([{
       id: '1',
       role: 'assistant',
-      content: 'Cześć! W czym mogę pomóc? Wybierz temat lub opisz krótko swoje potrzeby.',
+      content: welcomeMessage,
       timestamp: new Date().toLocaleTimeString('pl-PL', { 
         hour: '2-digit', 
         minute: '2-digit' 
       })
-    }
-  ]);
-  
-  const [isLoading, setIsLoading] = useState(false);
-  const [showTyping, setShowTyping] = useState(false);
+    }]);
+  }, []);
 
   const addMessage = (role: 'user' | 'assistant', content: string) => {
     const newMessage: Message = {
@@ -56,38 +177,92 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
   };
 
   const handleSend = async (message: string, formData?: ContactFormData) => {
+    // Sprawdź czy jest aktywne wyzwanie CAPTCHA
+    if (captchaChallenge?.isActive) {
+      // Sprawdź czy wiadomość to odpowiedź na wyzwanie
+      if (checkCaptchaAnswer(message)) {
+        addMessage('assistant', 'Dziękuję! Teraz mogę przetworzyć Twoją wiadomość.');
+        // Wyślij oryginalną wiadomość użytkownika (jeśli była)
+        if (formData) {
+          await sendMessageToN8n(formData.message || '', formData);
+        }
+        return;
+      } else {
+        addMessage('assistant', 'Nieprawidłowa odpowiedź. Spróbuj ponownie.');
+        return;
+      }
+    }
+
+    // Walidacja CAPTCHA - jeśli nie przejdzie, wygeneruj wyzwanie
+    if (!validateCaptcha()) {
+      const challenge = generateCaptchaChallenge();
+      addMessage('assistant', `Aby kontynuować, odpowiedz na pytanie: ${challenge.question}`);
+      return;
+    }
+
     // Add user message optimistically
     addMessage('user', message);
     
+    // Wyślij wiadomość do n8n
+    await sendMessageToN8n(message, formData);
+  };
+
+  // Funkcja do wysyłania wiadomości do n8n
+  const sendMessageToN8n = async (message: string, formData?: ContactFormData) => {
     setIsLoading(true);
     showTypingIndicator();
 
     try {
-      const response = await fetch('/api/contact', {
+      // Przygotuj payload dla n8n w oczekiwanym formacie (bez metadanych CAPTCHA)
+      const payload = {
+        action: "sendMessage",
+        sessionId: userToken,
+        chatInput: message
+      };
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+      const response = await fetch(N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          message,
-          ...formData
-        }),
+        body: JSON.stringify(payload),
+        signal: controller.signal
       });
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error('Wystąpił błąd podczas wysyłania wiadomości');
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      // Simulate response delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const data = await response.json();
       
-      // Add assistant confirmation
-      const email = formData?.email || 'Twój email';
-      addMessage('assistant', `Dzięki! Wysłaliśmy potwierdzenie na ${email}. Wrócimy z odpowiedzią niezwłocznie.`);
+      // Oznacz użytkownika jako powracającego po pierwszej wiadomości
+      if (isNewUserFlag) {
+        markUserAsReturning();
+        setIsNewUserFlag(false);
+      }
+      
+      // Wyświetl odpowiedź od n8n (n8n zwraca {output: "wiadomość"})
+      addMessage('assistant', data.output || 'Dziękuję za wiadomość! Wrócimy z odpowiedzią niezwłocznie.');
       
     } catch (error) {
-      console.error('Error sending message:', error);
-      addMessage('assistant', 'Przepraszam, wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.');
+      console.error('Error sending message to n8n:', error);
+      
+      let errorMessage = 'Przepraszam, wystąpił błąd podczas wysyłania wiadomości.';
+      
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          errorMessage = 'Przepraszam, odpowiedź trwa zbyt długo. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.';
+        } else if (error.message.includes('Failed to fetch')) {
+          errorMessage = 'Brak połączenia z internetem. Sprawdź połączenie i spróbuj ponownie.';
+        }
+      }
+      
+      addMessage('assistant', errorMessage);
     } finally {
       setIsLoading(false);
     }
