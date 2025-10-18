@@ -12,19 +12,6 @@ export const dictionary = {
     contact: 'Kontakt',
     quickContact: '⌘K – Szybki kontakt',
   },
-  hero: {
-    badge: 'Playbook automatyzacji',
-    title: 'Uwolnij przepływy pracy. Zautomatyzuj firmę z klasą.',
-    subtitle:
-      'Projektuj odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka.',
-    primaryCta: 'Umów audyt',
-    secondaryCta: 'Zobacz jak to działa',
-    highlights: [
-      'Komponowalna architektura z jasną odpowiedzialnością',
-      'Punkty kontrolne gotowe do audytu na każdym etapie',
-      'Metryki łączące cele biznesowe i technologiczne',
-    ],
-  },
   commandPalette: {
     title: 'Szybki kontakt',
     close: 'Zamknij',
@@ -354,6 +341,58 @@ export const dictionary = {
     emailPlaceholder: 'Wprowadź swój email',
     emailDisclaimer: 'Otrzymaj dostęp do najnowszych funkcjonalności za darmo na czas testów',
   },
+  hero: {
+    badge: 'Update 2.0 - AI Integration',
+    title: 'Zautomatyzuj swoje procesy biznesowe z AI',
+    subtitle: 'Projektujemy odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka',
+    primaryCta: 'Rozpocznij projekt',
+    secondaryCta: 'Zobacz demo',
+    features: {
+      title: 'Twój cyfrowy rój w akcji',
+      items: [
+        {
+          title: 'Poczta AI',
+          description: 'Inteligentne zarządzanie korespondencją biznesową',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`
+        },
+        {
+          title: 'AI Asystent',
+          description: 'Wirtualny współpracownik dostępny 24/7',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>`
+        },
+        {
+          title: 'Automatyzacja spotkań',
+          description: 'Smart scheduling i optymalizacja kalendarza',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
+        },
+        {
+          title: 'Obieg dokumentów',
+          description: 'Inteligentna segregacja i archiwizacja plików',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`
+        },
+        {
+          title: 'Faktury AI',
+          description: 'Automatyczne generowanie i śledzenie płatności',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`
+        },
+        {
+          title: 'Podsumowania spotkań',
+          description: 'AI-generated insights z każdego spotkania',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`
+        },
+        {
+          title: 'Zarządzanie czasem',
+          description: 'Inteligentne planowanie pracy i priorytetów',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12,6 12,12 16,14"></polyline></svg>`
+        },
+        {
+          title: 'Work-Life Balance',
+          description: 'Harmonijne łączenie życia zawodowego i prywatnego',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>`
+        }
+      ]
+    }
+  },
   servicesSection: {
     title: 'Jak możemy Ci <span class="text-gradient">pomóc</span>',
     subtitle: 'Od audytu po wdrożenie - kompleksowe wsparcie w automatyzacji Twojego biznesu',
@@ -473,6 +512,42 @@ export const dictionary = {
     cta: {
       text: 'Porozmawiajmy o współpracy',
       description: 'Bezpłatna 30-minutowa konsultacja',
+    },
+  },
+  chat: {
+    title: 'Szybki kontakt',
+    subtitle: 'Zadaj pytanie w czacie poniżej lub wyślij krótką wiadomość — odpowiemy bardzo szybko.',
+    welcomeMessage: 'Witaj ponownie! W czym mogę pomóc?',
+    quickActions: {
+      quote: 'Chcę wycenę projektu',
+      audit: 'Audyt procesów / AI',
+      integration: 'Integracja z moim systemem',
+      training: 'Szkolenia dla zespołu',
+    },
+    contactDetails: {
+      title: 'Dodaj szczegóły kontaktu',
+      name: 'Imię i nazwisko',
+      email: 'Adres email',
+      company: 'Nazwa firmy',
+    },
+    input: {
+      placeholder: 'Napisz wiadomość...',
+      clear: 'Wyczyść',
+    },
+    errors: {
+      networkError: 'Przepraszam, wystąpił błąd podczas wysyłania wiadomości.',
+      timeoutError: 'Przepraszam, odpowiedź trwa zbyt długo. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.',
+      connectionError: 'Brak połączenia z internetem. Sprawdź połączenie i spróbuj ponownie.',
+      captchaIncorrect: 'Nieprawidłowa odpowiedź. Spróbuj ponownie.',
+      captchaSuccess: 'Dziękuję! Teraz mogę przetworzyć Twoją wiadomość.',
+    },
+    captcha: {
+      challenge: 'Aby kontynuować, odpowiedz na pytanie:',
+    },
+    alternativeContact: {
+      text: 'Lub skontaktuj się z nami bezpośrednio:',
+      email: 'kontakt@zautomatyzuj.ai',
+      responseTime: 'Odpowiadamy w ciągu 24 godzin w dni robocze',
     },
   },
 } as const;

@@ -10,10 +10,15 @@
  */
 
 import CommandPaletteWrapper from './CommandPaletteWrapper.tsx';
+import { resolveLocale } from '../../i18n/config';
+
+// Pobierz aktualny język z URL
+const currentPath = Astro.url.pathname;
+const locale = resolveLocale(currentPath.split('/')[1]);
 ---
 
 <!-- Command Palette React Island -->
-<CommandPaletteWrapper client:only="react" />
+<CommandPaletteWrapper client:only="react" locale={locale} />
 
 <script>
   // Global keyboard shortcut handler

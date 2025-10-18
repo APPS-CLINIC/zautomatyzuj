@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, ChevronDown, ChevronUp, User, Mail, Building } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface ChatInputProps {
   onSend: (message: string, formData?: ContactFormData) => void;
@@ -19,6 +20,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
   isLoading = false, 
   placeholder = "Napisz wiadomość..." 
 }) => {
+  const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
@@ -79,10 +81,10 @@ const ChatInput: React.FC<ChatInputProps> = ({
       {/* Quick Reply Chips */}
       <div className="flex flex-wrap gap-2">
         {[
-          "Chcę wycenę projektu",
-          "Audyt procesów / AI", 
-          "Integracja z moim systemem",
-          "Szkolenia dla zespołu"
+          t('chat.quickActions.quote'),
+          t('chat.quickActions.audit'), 
+          t('chat.quickActions.integration'),
+          t('chat.quickActions.training')
         ].map((chip) => (
           <motion.button
             key={chip}
@@ -102,7 +104,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
         className="flex items-center space-x-2 text-sm text-slate-300 hover:text-white transition-colors"
         whileHover={{ x: 2 }}
       >
-        <span>Dodaj szczegóły kontaktu</span>
+        <span>{t('chat.contactDetails.title')}</span>
         {isExpanded ? (
           <ChevronUp className="w-4 h-4" />
         ) : (
@@ -130,7 +132,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                   value={formData.name || ''}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white text-sm placeholder-slate-400 focus:border-brand-primary/50 focus:ring-2 focus:ring-brand-primary/20 focus:outline-none transition-all"
-                  placeholder="Twoje imię"
+                  placeholder={t('chat.contactDetails.name')}
                 />
               </div>
               
@@ -153,7 +155,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                       ? 'border-red-500/50 focus:border-red-500/50 focus:ring-2 focus:ring-red-500/20' 
                       : 'border-white/20 focus:border-brand-primary/50 focus:ring-2 focus:ring-brand-primary/20'
                   }`}
-                  placeholder="twoj@email.com"
+                  placeholder={t('chat.contactDetails.email')}
                 />
                 {errors.email && (
                   <p className="text-xs text-red-400 mt-1">{errors.email}</p>
@@ -170,7 +172,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                   value={formData.company || ''}
                   onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
                   className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white text-sm placeholder-slate-400 focus:border-brand-primary/50 focus:ring-2 focus:ring-brand-primary/20 focus:outline-none transition-all"
-                  placeholder="Nazwa firmy"
+                  placeholder={t('chat.contactDetails.company')}
                 />
               </div>
             </div>
@@ -186,7 +188,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={placeholder}
+            placeholder={t('chat.input.placeholder')}
             className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-slate-400 resize-none focus:border-brand-primary/50 focus:ring-2 focus:ring-brand-primary/20 focus:outline-none transition-all min-h-[3rem]"
             rows={1}
             disabled={isLoading}
@@ -199,7 +201,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                   className="text-xs text-slate-400 hover:text-white transition-colors"
                   disabled={isLoading}
                 >
-                  Wyczyść
+                  {t('chat.input.clear')}
                 </button>
               )}
             </div>

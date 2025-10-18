@@ -7,6 +7,7 @@ import Services from '../../components/sections/Services.tsx';
 import CaseStudies from '../../components/sections/CaseStudies.tsx';
 import WhyUs from '../../components/sections/WhyUs.tsx';
 import ContactChat from '../../components/contact/ContactChat.tsx';
+import I18nProvider from '../../components/providers/I18nProvider.tsx';
 import { locales, resolveLocale } from '../../i18n/config';
 import { createI18nInstance } from '../../i18n/i18next';
 
@@ -36,7 +37,13 @@ const t = i18n.getFixedT(locale);
 ---
 
 <MarketingLayout lang={locale} title={metaT.title} description={metaT.description}>
-  <Hero lang={locale} />
+  <Hero 
+    lang={locale} 
+    translations={{
+      hero: t('hero', { returnObjects: true }),
+      navigation: t('navigation', { returnObjects: true })
+    }}
+  />
   <ProblemSolution 
     client:load
     title={t('problemSolution.title')}
@@ -54,6 +61,7 @@ const t = i18n.getFixedT(locale);
     description={t('bizbeesProduct.description')}
     philosophy={t('bizbeesProduct.philosophy', { returnObjects: true })}
     features={t('bizbeesProduct.features', { returnObjects: true })}
+    featuresTitle={t('hero.features.title')}
     cta={t('bizbeesProduct.cta', { returnObjects: true })}
     mockupAlt={t('bizbeesProduct.mockupAlt')}
     emailPlaceholder={t('bizbeesProduct.emailPlaceholder')}
@@ -86,6 +94,8 @@ const t = i18n.getFixedT(locale);
     ctaDescription={t('whyUs.cta.description')}
   />
   <section id="contact" aria-labelledby="contact-title" class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <ContactChat client:load />
+    <I18nProvider client:load locale={locale}>
+      <ContactChat client:load />
+    </I18nProvider>
   </section>
 </MarketingLayout>

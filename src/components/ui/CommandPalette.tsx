@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import ContactChat from '../contact/ContactChat';
+import I18nProvider from '../providers/I18nProvider';
 import { useCommandPalette } from '../providers/CommandPaletteProvider';
+import type { Locale } from '../../i18n/config';
 
 /**
  * CommandPalette.tsx - React island dla Command Palette (Cmd/Ctrl + K)
@@ -9,11 +11,14 @@ import { useCommandPalette } from '../providers/CommandPaletteProvider';
  * - Globalny dostęp z klawiatury (Cmd/Ctrl + K)
  * - Modal z interaktywnym czatem kontaktowym
  * - Obsługa Escape do zamknięcia
+ * - Obsługa wielojęzyczności
  */
 
-interface CommandPaletteProps {}
+interface CommandPaletteProps {
+  locale: Locale;
+}
 
-const CommandPalette: React.FC<CommandPaletteProps> = () => {
+const CommandPalette: React.FC<CommandPaletteProps> = ({ locale }) => {
   const { isOpen, closeCommandPalette } = useCommandPalette();
 
   // Obsługa klawiatury
@@ -53,7 +58,9 @@ const CommandPalette: React.FC<CommandPaletteProps> = () => {
         
         {/* Contact Chat - bez dodatkowego padding */}
         <div className="overflow-y-auto max-h-[90vh]">
-          <ContactChat showHeader={false} />
+          <I18nProvider locale={locale}>
+            <ContactChat showHeader={false} />
+          </I18nProvider>
         </div>
       </div>
     </div>

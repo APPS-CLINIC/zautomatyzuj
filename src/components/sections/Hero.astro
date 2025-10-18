@@ -11,86 +11,16 @@ import type { Locale } from '../../i18n/config';
 
 interface Props {
   lang: Locale;
+  translations: {
+    hero: any;
+    navigation: any;
+  };
 }
 
-const { lang } = Astro.props as Props;
-const i18n = await createI18nInstance(lang);
-const t = i18n.getFixedT(lang);
+const { lang, translations } = Astro.props as Props;
 ---
 
 <div class="landing-page">
-
-  <!-- Professional Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-logo">
-        <img src="/logo-grey.svg" alt="ZautomatyzujAI" class="logo-img" />
-      </div>
-
-      <div class="nav-menu">
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#process" class="nav-link">Process</a>
-        <a href="#cases" class="nav-link">Cases</a>
-        <a href="#training" class="nav-link">Training</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </div>
-
-      <div class="nav-actions">
-        <button class="quick-contact">
-          <span class="shortcut">⌘K</span>
-          <span>Quick contact</span>
-        </button>
-        <div class="lang-switcher">
-          <button class="lang-btn active">POLSKI</button>
-          <span class="divider">|</span>
-          <button class="lang-btn">ENGLISH</button>
-        </div>
-        <button class="theme-btn">
-          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        </button>
-        <button class="mobile-menu-btn">
-          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <div class="mobile-menu-header">
-      <img src="/logo-grey.svg" alt="ZautomatyzujAI" class="logo-img" />
-      <button class="mobile-menu-close">
-        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-    
-    <div class="mobile-nav-links">
-      <a href="#services" class="mobile-nav-link">Services</a>
-      <a href="#process" class="mobile-nav-link">Process</a>
-      <a href="#cases" class="mobile-nav-link">Cases</a>
-      <a href="#training" class="mobile-nav-link">Training</a>
-      <a href="#contact" class="mobile-nav-link">Contact</a>
-    </div>
-    
-    <div class="mobile-actions">
-      <button class="quick-contact">
-        <span class="shortcut">⌘K</span>
-        <span>Quick contact</span>
-      </button>
-      <div class="lang-switcher">
-        <button class="lang-btn active">POLSKI</button>
-        <span class="divider">|</span>
-        <button class="lang-btn">ENGLISH</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-bg">
@@ -103,20 +33,20 @@ const t = i18n.getFixedT(lang);
         <svg class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
-        <span>Update 2.0 - AI Integration</span>
+        <span>{translations.hero.badge}</span>
       </div>
 
         <h1 class="hero-title">
-        <span class="title-highlight">Zautomatyzuj</span><br class="mobile-break" /> swoje procesy biznesowe z AI
+        <span class="title-highlight">{translations.hero.title.split(' ')[0]}</span><br class="mobile-break" /> {translations.hero.title.split(' ').slice(1).join(' ')}
       </h1>
 
       <p class="hero-subtitle">
-        Projektujemy odporne automatyzacje AI z modułowymi procesami,<br />przejrzystą kontrolą jakości i nadzorem człowieka
+        {translations.hero.subtitle}
       </p>
 
       <div class="hero-cta">
         <button class="btn-primary">
-          Rozpocznij projekt
+          {translations.hero.primaryCta}
           <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
@@ -125,7 +55,7 @@ const t = i18n.getFixedT(lang);
           <svg class="play-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
           </svg>
-          Zobacz demo
+          {translations.hero.secondaryCta}
         </button>
       </div>
 
@@ -398,126 +328,6 @@ const t = i18n.getFixedT(lang);
     }
   }
 
-
-  /* Professional Navbar */
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(20px);
-  }
-
-  .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .logo-img {
-    height: 1.2rem;
-    width: auto;
-  }
-
-  .nav-menu {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .nav-link {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .nav-link:hover {
-    color: white;
-  }
-
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .quick-contact {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 0.5rem;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .quick-contact:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
-  }
-
-  .shortcut {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-
-  .lang-switcher {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .lang-btn {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  .lang-btn.active {
-    color: white;
-  }
-
-  .divider {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.75rem;
-  }
-
-  .theme-btn {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .theme-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
-  }
-
-  .icon {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
 
   /* Hero Section */
   .hero-section {
@@ -2385,80 +2195,8 @@ const t = i18n.getFixedT(lang);
     margin: 0 auto;
   }
 
-  /* Mobile Navigation */
-  .mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(20px);
-    z-index: 999;
-    padding: 2rem;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .mobile-menu.active {
-    display: flex;
-  }
-
-  .mobile-menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .mobile-menu-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-
-  .mobile-nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .mobile-nav-link {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    font-size: 1.125rem;
-    font-weight: 500;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: color 0.2s;
-  }
-
-  .mobile-nav-link:hover {
-    color: white;
-  }
-
-  .mobile-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: auto;
-  }
-
   /* Responsive */
-  @media (max-width: 1024px) {
+  @media (max-width: 640px) {
     .nav-menu {
       display: none;
     }
@@ -2486,14 +2224,6 @@ const t = i18n.getFixedT(lang);
   }
 
   @media (max-width: 768px) {
-    .quick-contact {
-      display: none;
-    }
-
-    .nav-container {
-      padding: 1rem;
-    }
-
     .hero-container {
       padding: 2rem 1rem;
     }
@@ -2651,67 +2381,6 @@ const t = i18n.getFixedT(lang);
 </style>
 
 <script>
-  // Mobile menu toggle
-  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-  const mobileMenu = document.querySelector('.mobile-menu');
-  const mobileMenuClose = document.querySelector('.mobile-menu-close');
-
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-
-  if (mobileMenuClose && mobileMenu) {
-    mobileMenuClose.addEventListener('click', () => {
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-  }
-
-  // Close mobile menu when clicking on links
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-  });
-
-  // Close mobile menu when clicking outside
-  if (mobileMenu) {
-    mobileMenu.addEventListener('click', (e) => {
-      if (e.target === mobileMenu) {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
-  }
-
-  // Quick contact functionality
-  const quickContactBtn = document.querySelector('.quick-contact');
-  if (quickContactBtn) {
-    quickContactBtn.addEventListener('click', () => {
-      // Scroll to contact section or open contact modal
-      console.log('Quick contact clicked');
-    });
-  }
-
-  // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
-    anchor.addEventListener('click', (e: Event) => {
-      e.preventDefault();
-      const target = document.querySelector((anchor as HTMLAnchorElement).getAttribute('href') || '');
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
-
   // Advanced Parallax and Section Animation Controller
   class SectionAnimator {
     sections: NodeListOf<Element>;
@@ -3078,48 +2747,7 @@ const t = i18n.getFixedT(lang);
 
   // Feature Display System Controller
   function initializeFeatureDisplay() {
-    const features = [
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`, 
-        title: 'Poczta AI', 
-        description: 'Inteligentne zarządzanie korespondencją biznesową' 
-      },
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>`, 
-        title: 'AI Asystent', 
-        description: 'Wirtualny współpracownik dostępny 24/7' 
-      },
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`, 
-        title: 'Automatyzacja spotkań', 
-        description: 'Smart scheduling i optymalizacja kalendarza' 
-      },
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`, 
-        title: 'Obieg dokumentów', 
-        description: 'Inteligentna segregacja i archiwizacja plików' 
-      },
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`, 
-        title: 'Faktury AI', 
-        description: 'Automatyczne generowanie i śledzenie płatności' 
-      },
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`, 
-        title: 'Podsumowania spotkań', 
-        description: 'AI-generated insights z każdego spotkania' 
-      },
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12,6 12,12 16,14"></polyline></svg>`, 
-        title: 'Zarządzanie czasem', 
-        description: 'Inteligentne planowanie pracy i priorytetów' 
-      },
-      { 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>`, 
-        title: 'Work-Life Balance', 
-        description: 'Harmonijne łączenie życia zawodowego i prywatnego' 
-      }
-    ];
+    const features = JSON.parse(document.getElementById('hero-features-data')?.textContent || '[]');
 
     // Check if we're on mobile or desktop
     const isMobile = window.innerWidth <= 768;
@@ -3287,3 +2915,6 @@ const t = i18n.getFixedT(lang);
     }, 4000);
   }
 </script>
+
+<!-- Hidden data for JavaScript -->
+<script id="hero-features-data" type="application/json" set:html={JSON.stringify(translations.hero.features.items)}></script>

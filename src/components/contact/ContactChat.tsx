@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import ChatBubble from './ChatBubble';
 import ChatInput from './ChatInput';
 import { getUserToken, isNewUser, markUserAsReturning } from '../../utils/userToken';
@@ -25,6 +26,7 @@ interface ContactChatProps {
 const N8N_WEBHOOK_URL = 'https://kevin133-20133.wykr.es/webhook/53b90858-0451-4042-8493-b086221b84d6/chat';
 
 const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
+  const { t, ready } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showTyping, setShowTyping] = useState(false);
@@ -143,8 +145,8 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
     
     // Zawsze wyświetl wiadomość powitalną - różną dla nowych i powracających użytkowników
     const welcomeMessage = newUser 
-      ? 'Cześć! W czym mogę pomóc? Wybierz temat lub opisz krótko swoje potrzeby.'
-      : 'Witaj ponownie! W czym mogę pomóc?';
+      ? t('chat.welcomeMessage')
+      : t('chat.welcomeMessage');
     
     setMessages([{
       id: '1',
@@ -173,7 +175,12 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
 
   const showTypingIndicator = () => {
     setShowTyping(true);
-    setTimeout(() => setShowTyping(false), 2000);
+    // Nie ustawiamy automatycznego timeoutu - wskaźnik będzie ukryty ręcznie
+    return null;
+  };
+
+  const hideTypingIndicator = () => {
+    setShowTyping(false);
   };
 
   const handleSend = async (message: string, formData?: ContactFormData) => {
@@ -181,14 +188,14 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
     if (captchaChallenge?.isActive) {
       // Sprawdź czy wiadomość to odpowiedź na wyzwanie
       if (checkCaptchaAnswer(message)) {
-        addMessage('assistant', 'Dziękuję! Teraz mogę przetworzyć Twoją wiadomość.');
+        addMessage('assistant', t('chat.errors.captchaSuccess'));
         // Wyślij oryginalną wiadomość użytkownika (jeśli była)
         if (formData) {
           await sendMessageToN8n(message, formData);
         }
         return;
       } else {
-        addMessage('assistant', 'Nieprawidłowa odpowiedź. Spróbuj ponownie.');
+        addMessage('assistant', t('chat.errors.captchaIncorrect'));
         return;
       }
     }
@@ -196,7 +203,7 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
     // Walidacja CAPTCHA - jeśli nie przejdzie, wygeneruj wyzwanie
     if (!validateCaptcha()) {
       const challenge = generateCaptchaChallenge();
-      addMessage('assistant', `Aby kontynuować, odpowiedz na pytanie: ${challenge.question}`);
+      addMessage('assistant', `${t('chat.captcha.challenge')} ${challenge.question}`);
       return;
     }
 
@@ -252,19 +259,20 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
     } catch (error) {
       console.error('Error sending message to n8n:', error);
       
-      let errorMessage = 'Przepraszam, wystąpił błąd podczas wysyłania wiadomości.';
+      let errorMessage = t('chat.errors.networkError');
       
       if (error instanceof Error) {
         if (error.name === 'AbortError') {
-          errorMessage = 'Przepraszam, odpowiedź trwa zbyt długo. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.';
+          errorMessage = t('chat.errors.timeoutError');
         } else if (error.message.includes('Failed to fetch')) {
-          errorMessage = 'Brak połączenia z internetem. Sprawdź połączenie i spróbuj ponownie.';
+          errorMessage = t('chat.errors.connectionError');
         }
       }
       
       addMessage('assistant', errorMessage);
     } finally {
       setIsLoading(false);
+      hideTypingIndicator();
     }
   };
 
@@ -293,12 +301,18 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
 
   return (
     <div className="space-y-8">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="space-y-8"
-      >
+      {!ready && (
+        <div className="text-center text-slate-400">
+          Loading...
+        </div>
+      )}
+      {ready && (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="space-y-8"
+        >
         {/* Header */}
         {showHeader && (
           <motion.div variants={itemVariants} className="text-center space-y-4">
@@ -306,10 +320,10 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
               id="contact-title"
               className="text-4xl font-bold text-gradient sm:text-5xl lg:text-6xl"
             >
-              Szybki kontakt
+              {t('chat.title')}
             </h2>
             <p className="text-lg text-slate-300 sm:text-xl max-w-2xl mx-auto">
-              Zadaj pytanie w czacie poniżej lub wyślij krótką wiadomość — odpowiemy bardzo szybko.
+              {t('chat.subtitle')}
             </p>
           </motion.div>
         )}
@@ -375,20 +389,21 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
             className="text-center text-sm text-slate-400 space-y-2"
           >
             <p>
-              Lub skontaktuj się z nami bezpośrednio: 
+              {t('chat.alternativeContact.text')} 
               <a 
                 href="mailto:kontakt@zautomatyzuj.ai" 
                 className="text-brand-primary hover:text-brand-secondary transition-colors ml-1"
               >
-                kontakt@zautomatyzuj.ai
+                {t('chat.alternativeContact.email')}
               </a>
             </p>
             <p className="text-xs">
-              Odpowiadamy w ciągu 24 godzin w dni robocze
+              {t('chat.alternativeContact.responseTime')}
             </p>
           </motion.div>
         )}
       </motion.div>
+      )}
     </div>
   );
 };

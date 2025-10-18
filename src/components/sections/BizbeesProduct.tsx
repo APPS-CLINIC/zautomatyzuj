@@ -28,6 +28,7 @@ interface BizbeesProductProps {
   description: string;
   philosophy: Philosophy;
   features: Feature[];
+  featuresTitle: string;
   cta: {
     primary: string;
     secondary: string;
@@ -44,6 +45,7 @@ export default function BizbeesProduct({
   description,
   philosophy,
   features,
+  featuresTitle,
   cta,
   mockupAlt,
   emailPlaceholder,
@@ -150,7 +152,7 @@ export default function BizbeesProduct({
             >
               <AnimatedBizbeesLogo size="lg" />
             </motion.div>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter">
               <motion.span 
                 className="bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-2xl"
                 animate={{
@@ -225,7 +227,7 @@ export default function BizbeesProduct({
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Twój cyfrowy rój w akcji
+            {featuresTitle}
           </motion.h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {features.map((feature, index) => (

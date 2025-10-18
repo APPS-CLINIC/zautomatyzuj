@@ -12,19 +12,6 @@ export const dictionary = {
     contact: 'Contact',
     quickContact: '⌘K – Quick contact',
   },
-  hero: {
-    badge: 'Automation playbook',
-    title: 'Unleash your workflows. Automate your business with finesse.',
-    subtitle:
-      'Design resilient AI automations with modular processes, transparent quality control and human oversight.',
-    primaryCta: 'Book an audit',
-    secondaryCta: 'See how it works',
-    highlights: [
-      'Composable architecture with clear ownership',
-      'Audit-ready checkpoints for every decision',
-      'Metrics that align business and engineering goals',
-    ],
-  },
   commandPalette: {
     title: 'Quick contact',
     close: 'Close',
@@ -354,6 +341,58 @@ export const dictionary = {
     emailPlaceholder: 'Enter your email',
     emailDisclaimer: 'Get access to the latest features for free during testing',
   },
+  hero: {
+    badge: 'Update 2.0 - AI Integration',
+    title: 'Automate your business processes with AI',
+    subtitle: 'We design resilient AI automations with modular processes, transparent quality control and human oversight',
+    primaryCta: 'Start project',
+    secondaryCta: 'See demo',
+    features: {
+      title: 'Your digital swarm in action',
+      items: [
+        {
+          title: 'AI Mail',
+          description: 'Intelligent business correspondence management',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`
+        },
+        {
+          title: 'AI Assistant',
+          description: 'Virtual collaborator available 24/7',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>`
+        },
+        {
+          title: 'Meeting automation',
+          description: 'Smart scheduling and calendar optimization',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
+        },
+        {
+          title: 'Document workflow',
+          description: 'Intelligent file sorting and archiving',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`
+        },
+        {
+          title: 'AI Invoices',
+          description: 'Automatic generation and payment tracking',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`
+        },
+        {
+          title: 'Meeting summaries',
+          description: 'AI-generated insights from every meeting',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>`
+        },
+        {
+          title: 'Time management',
+          description: 'Intelligent work and priority planning',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12,6 12,12 16,14"></polyline></svg>`
+        },
+        {
+          title: 'Work-Life Balance',
+          description: 'Harmonious integration of professional and private life',
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>`
+        }
+      ]
+    }
+  },
   servicesSection: {
     title: 'How We Can <span class="text-gradient">Help</span>',
     subtitle: 'From audit to implementation - comprehensive support in automating your business',
@@ -473,6 +512,42 @@ export const dictionary = {
     cta: {
       text: 'Let\'s talk about cooperation',
       description: 'Free 30-minute consultation',
+    },
+  },
+  chat: {
+    title: 'Quick contact',
+    subtitle: 'Ask a question in the chat below or send a short message — we will reply very quickly.',
+    welcomeMessage: 'Welcome back! How can I help?',
+    quickActions: {
+      quote: 'I want a project quote',
+      audit: 'Process audit / AI',
+      integration: 'Integration with my system',
+      training: 'Team training',
+    },
+    contactDetails: {
+      title: 'Add contact details',
+      name: 'Full name',
+      email: 'Email address',
+      company: 'Company name',
+    },
+    input: {
+      placeholder: 'Write a message...',
+      clear: 'Clear',
+    },
+    errors: {
+      networkError: 'Sorry, there was an error sending the message.',
+      timeoutError: 'Sorry, the response is taking too long. Please try again or contact us directly.',
+      connectionError: 'No internet connection. Please check your connection and try again.',
+      captchaIncorrect: 'Incorrect answer. Please try again.',
+      captchaSuccess: 'Thank you! Now I can process your message.',
+    },
+    captcha: {
+      challenge: 'To continue, please answer the question:',
+    },
+    alternativeContact: {
+      text: 'Or contact us directly:',
+      email: 'contact@zautomatyzuj.ai',
+      responseTime: 'We reply within 24 hours on business days',
     },
   },
 } as const;
