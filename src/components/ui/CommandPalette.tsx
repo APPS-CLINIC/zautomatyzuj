@@ -19,7 +19,7 @@ interface CommandPaletteProps {
 }
 
 const CommandPalette: React.FC<CommandPaletteProps> = ({ locale }) => {
-  const { isOpen, closeCommandPalette } = useCommandPalette();
+  const { isOpen, closeCommandPalette, preFilledContent } = useCommandPalette();
 
   // Obsługa klawiatury
   useEffect(() => {
@@ -59,7 +59,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ locale }) => {
         {/* Contact Chat - bez dodatkowego padding */}
         <div className="overflow-y-auto max-h-[90vh]">
           <I18nProvider locale={locale}>
-            <ContactChat showHeader={false} />
+            <ContactChat showHeader={false} preFilledContent={preFilledContent} />
           </I18nProvider>
         </div>
       </div>

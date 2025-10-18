@@ -5,11 +5,11 @@ export const dictionary = {
       'Projektuj odporne automatyzacje AI z modułowymi procesami, przejrzystą kontrolą jakości i nadzorem człowieka.',
   },
   nav: {
+    problemSolution: 'Problem',
+    bizbeesProduct: 'Bizbees',
     services: 'Usługi',
-    process: 'Proces',
-    cases: 'Przypadki',
-    training: 'Szkolenia',
-    contact: 'Kontakt',
+    caseStudies: 'Przypadki',
+    whyUs: 'Dlaczego my',
     quickContact: '⌘K – Szybki kontakt',
   },
   commandPalette: {
@@ -49,6 +49,12 @@ export const dictionary = {
       cancel: 'Anuluj',
       submit: 'Wyślij',
       submitting: 'Wysyłanie...',
+    },
+    preFilledPrompts: {
+      audit: 'Chciałbym umówić bezpłatny audyt procesów biznesowych w mojej firmie. Proszę o kontakt w celu ustalenia terminu.',
+      quote: 'Interesuje mnie wycena projektu automatyzacji dla mojej firmy. Proszę o szczegółową ofertę.',
+      demo: 'Chciałbym zobaczyć demo rozwiązania BizBees w akcji. Proszę o kontakt w celu umówienia prezentacji.',
+      contact: 'Mam pytania dotyczące automatyzacji procesów biznesowych. Proszę o kontakt.',
     },
   },
   services: {
@@ -340,6 +346,12 @@ export const dictionary = {
     mockupAlt: 'Interfejs BizBees - Twój cyfrowy rój AI',
     emailPlaceholder: 'Wprowadź swój email',
     emailDisclaimer: 'Otrzymaj dostęp do najnowszych funkcjonalności za darmo na czas testów',
+    subscribeButton: 'Zapisz się',
+    clickToWatchDemo: 'Kliknij aby obejrzeć demo',
+    videoNotSupported: 'Twoja przeglądarka nie obsługuje elementu video.',
+    videoDescription: 'Zobacz jak BizBees automatyzuje Twoje codzienne zadania',
+    videoTitle: 'Zobacz BizBees w akcji',
+    videoSubtitle: 'Poznaj możliwości naszego inteligentnego systemu AI',
   },
   hero: {
     badge: 'Update 2.0 - AI Integration',

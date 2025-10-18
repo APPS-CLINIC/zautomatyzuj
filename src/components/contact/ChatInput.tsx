@@ -7,6 +7,7 @@ interface ChatInputProps {
   onSend: (message: string, formData?: ContactFormData) => void;
   isLoading?: boolean;
   placeholder?: string;
+  initialMessage?: string;
 }
 
 interface ContactFormData {
@@ -18,10 +19,11 @@ interface ContactFormData {
 const ChatInput: React.FC<ChatInputProps> = ({ 
   onSend, 
   isLoading = false, 
-  placeholder = "Napisz wiadomość..." 
+  placeholder = "Napisz wiadomość...",
+  initialMessage = ''
 }) => {
   const { t } = useTranslation();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(initialMessage);
   const [isExpanded, setIsExpanded] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',

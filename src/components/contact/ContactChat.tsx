@@ -21,12 +21,26 @@ interface ContactFormData {
 
 interface ContactChatProps {
   showHeader?: boolean;
+  preFilledContent?: {
+    message?: string;
+    subject?: string;
+    action?: 'audit' | 'quote' | 'demo' | 'contact';
+  };
 }
 
 const N8N_WEBHOOK_URL = 'https://kevin133-20133.wykr.es/webhook/53b90858-0451-4042-8493-b086221b84d6/chat';
 
-const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
+const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledContent }) => {
   const { t, ready } = useTranslation();
+  
+  // Generate pre-filled message based on action
+  const getPreFilledMessage = () => {
+    if (!preFilledContent?.action) return preFilledContent?.message || '';
+    
+    const prompts = t('commandPalette.preFilledPrompts', { returnObjects: true }) as Record<string, string>;
+    return prompts[preFilledContent.action] || preFilledContent.message || '';
+  };
+  
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showTyping, setShowTyping] = useState(false);
@@ -379,6 +393,7 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true }) => {
             onSend={handleSend}
             isLoading={isLoading}
             placeholder="Napisz wiadomość..."
+            initialMessage={getPreFilledMessage()}
           />
         </motion.div>
 

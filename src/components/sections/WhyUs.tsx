@@ -56,6 +56,15 @@ export default function WhyUs({
               className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold text-lg overflow-hidden shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/50 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                const event = new CustomEvent('openCommandPalette', {
+                  detail: { 
+                    source: 'button',
+                    preFilledContent: { action: 'contact' }
+                  }
+                });
+                document.dispatchEvent(event);
+              }}
             >
               <span className="relative z-10 flex items-center gap-2">
                 {ctaText}

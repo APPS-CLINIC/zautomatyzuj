@@ -3,7 +3,7 @@
  * Enhanced with latest design trends: Bento Grid, Glassmorphism, 3D transforms
  */
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import SectionContainer from '../ui/SectionContainer';
 import AnimatedBizbeesLogo from '../ui/AnimatedBizbeesLogo';
 import FlyingBees from '../ui/FlyingBees';
@@ -36,6 +36,12 @@ interface BizbeesProductProps {
   mockupAlt: string;
   emailPlaceholder: string;
   emailDisclaimer: string;
+  subscribeButton: string;
+  clickToWatchDemo: string;
+  videoNotSupported: string;
+  videoDescription: string;
+  videoTitle: string;
+  videoSubtitle: string;
 }
 
 export default function BizbeesProduct({
@@ -49,11 +55,18 @@ export default function BizbeesProduct({
   cta,
   mockupAlt,
   emailPlaceholder,
-  emailDisclaimer
+  emailDisclaimer,
+  subscribeButton,
+  clickToWatchDemo,
+  videoNotSupported,
+  videoDescription,
+  videoTitle,
+  videoSubtitle
 }: BizbeesProductProps) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +83,14 @@ export default function BizbeesProduct({
     
     // Reset after 3 seconds
     setTimeout(() => setIsSubmitted(false), 3000);
+  };
+
+  const openVideoModal = () => {
+    setIsVideoModalOpen(true);
+  };
+
+  const closeVideoModal = () => {
+    setIsVideoModalOpen(false);
   };
 
   // Icon mapping for features
@@ -268,71 +289,55 @@ export default function BizbeesProduct({
           </div>
         </div>
 
-        {/* Enhanced CTA Section */}
+        {/* Enhanced Demo Button */}
         <motion.div
-          className="max-w-3xl mx-auto mb-20"
+          className="max-w-2xl mx-auto mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="relative p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-amber-500/5 rounded-3xl" />
-            
-            <div className="relative">
-              {/* Email Signup Form */}
-              <form onSubmit={handleEmailSubmit} className="mb-8">
-                <div className="relative">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder={emailPlaceholder}
-                    className="w-full px-8 py-5 pr-40 rounded-2xl bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-yellow-400/30 focus:border-yellow-400/50 transition-all duration-300 text-lg"
-                    required
-                  />
-                  <motion.button
-                    type="submit"
-                    disabled={isSubmitting || !email}
-                    className="absolute right-2 top-2 bottom-2 px-8 py-2 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold text-base disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:from-yellow-300 hover:to-amber-400 shadow-lg hover:shadow-xl"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {isSubmitting ? (
-                      <div className="w-6 h-6 border-2 border-gray-900/30 border-t-gray-900 rounded-full animate-spin" />
-                    ) : isSubmitted ? (
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    ) : (
-                      'Zapisz się'
-                    )}
-                  </motion.button>
-                </div>
-                <p className="mt-4 text-center text-sm text-slate-400">
-                  {emailDisclaimer}
-                </p>
-              </form>
-
-              {/* Enhanced Demo Button */}
-              <motion.button
-                className="group relative w-full px-10 py-6 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold text-xl overflow-hidden shadow-2xl shadow-yellow-400/30 hover:shadow-yellow-400/50 transition-all duration-500"
-                whileHover={{ scale: 1.03, y: -4 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  {cta.primary}
-                  <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </motion.button>
-            </div>
-          </div>
+          <motion.button
+            className="group relative w-full px-10 py-6 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold text-xl overflow-hidden shadow-2xl shadow-yellow-400/30 hover:shadow-yellow-400/50 transition-all duration-500"
+            whileHover={{ scale: 1.03, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              const event = new CustomEvent('openCommandPalette', {
+                detail: { 
+                  source: 'button',
+                  preFilledContent: { action: 'demo' }
+                }
+              });
+              document.dispatchEvent(event);
+            }}
+          >
+            <span className="relative z-10 flex items-center justify-center gap-3">
+              {cta.primary}
+              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </motion.button>
         </motion.div>
 
-        {/* Enhanced Mockup with modern design */}
+        {/* Video Section Header */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            {videoTitle}
+          </h2>
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+            {videoSubtitle}
+          </p>
+        </motion.div>
+
+        {/* Enhanced Video Section with modern design */}
         <motion.div
           className="relative max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -371,34 +376,67 @@ export default function BizbeesProduct({
               </div>
             </div>
 
-            {/* Enhanced content area */}
-            <div className="aspect-[16/10] p-8 bg-gradient-to-br from-slate-900/30 to-slate-800/30">
-              <div className="h-full rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/40 to-transparent backdrop-blur-sm flex items-center justify-center relative overflow-hidden">
-                {/* Animated grid pattern */}
-                <motion.div 
-                  className="absolute inset-0 opacity-10"
+            {/* Video content area */}
+            <div className="relative aspect-[16/10] bg-gradient-to-br from-slate-900/30 to-slate-800/30">
+              {/* Main video - playing in background */}
+              <video
+                className="w-full h-full object-cover rounded-b-3xl"
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect width='1920' height='1080' fill='%231e293b'/%3E%3C/svg%3E"
+              >
+                <source src="/bizbees.mp4" type="video/mp4" />
+                {videoNotSupported}
+              </video>
+
+              {/* Dark glassmorphism overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/50 to-slate-900/70 backdrop-blur-sm rounded-b-3xl" />
+
+              {/* Floating particles effect over video */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 rounded-full bg-yellow-400/60 backdrop-blur-sm"
+                  style={{
+                    left: `${15 + i * 12}%`,
+                    top: `${20 + i * 8}%`,
+                  }}
                   animate={{
-                    backgroundPosition: ['0px 0px', '60px 60px'],
+                    y: [0, -40, 0],
+                    opacity: [0.3, 0.8, 0.3],
+                    scale: [1, 1.2, 1],
                   }}
                   transition={{
-                    duration: 20,
+                    duration: 4 + i * 0.5,
                     repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  style={{
-                    backgroundImage: `linear-gradient(rgba(251, 191, 36, 0.3) 2px, transparent 2px), linear-gradient(90deg, rgba(251, 191, 36, 0.3) 2px, transparent 2px)`,
-                    backgroundSize: '60px 60px'
+                    ease: "easeInOut",
+                    delay: i * 0.3,
                   }}
                 />
+              ))}
 
-                {/* Enhanced center content */}
-                <div className="relative z-10">
-                  <motion.div
-                    className="w-32 h-32 rounded-3xl bg-gradient-to-br from-yellow-400/30 to-amber-500/30 backdrop-blur-xl flex items-center justify-center border-2 border-yellow-400/30 shadow-2xl"
+              {/* Play button overlay */}
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <motion.div
+                  className="text-center cursor-pointer flex flex-col items-center justify-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                  onClick={openVideoModal}
+                >
+                  <motion.button
+                    className="w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-400/60 to-amber-500/60 backdrop-blur-xl flex items-center justify-center border-2 border-yellow-400/70 shadow-2xl mb-6 hover:from-yellow-400/80 hover:to-amber-500/80 transition-all duration-300"
+                    whileHover={{ 
+                      scale: 1.1,
+                      boxShadow: "0 25px 50px -12px rgba(251, 191, 36, 0.4)"
+                    }}
+                    whileTap={{ scale: 0.95 }}
                     animate={{
                       scale: [1, 1.05, 1],
-                      rotate: [0, 5, -5, 0],
-                      borderColor: ['rgba(251, 191, 36, 0.3)', 'rgba(251, 191, 36, 0.5)', 'rgba(251, 191, 36, 0.3)'],
+                      borderColor: ['rgba(251, 191, 36, 0.7)', 'rgba(251, 191, 36, 0.9)', 'rgba(251, 191, 36, 0.7)'],
                     }}
                     transition={{
                       duration: 6,
@@ -406,49 +444,139 @@ export default function BizbeesProduct({
                       ease: "easeInOut"
                     }}
                   >
-                    <AnimatedBizbeesLogo size="md" />
-                  </motion.div>
+                    {/* Play icon */}
+                    <svg 
+                      className="w-8 h-8 text-slate-900 ml-1" 
+                      fill="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </motion.button>
                   <motion.div 
-                    className="mt-6 text-center"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
                   >
-                    <p className="text-slate-300 text-lg font-semibold mb-2">
+                    <p className="text-slate-200 text-xl font-semibold mb-2 drop-shadow-lg">
                       {mockupAlt}
                     </p>
-                    <p className="text-slate-400 text-sm">
-                      Wkrótce dostępne
+                    <p className="text-slate-300 text-sm drop-shadow-md">
+                      {clickToWatchDemo}
                     </p>
                   </motion.div>
-                </div>
-
-                {/* Floating particles effect */}
-                {[...Array(5)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full bg-yellow-400/40"
-                    style={{
-                      left: `${20 + i * 15}%`,
-                      top: `${30 + i * 10}%`,
-                    }}
-                    animate={{
-                      y: [0, -30, 0],
-                      opacity: [0.2, 0.6, 0.2],
-                    }}
-                    transition={{
-                      duration: 3 + i,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.5,
-                    }}
-                  />
-                ))}
+                </motion.div>
               </div>
+
+              {/* Subtle border glow */}
+              <div className="absolute inset-0 rounded-b-3xl border border-yellow-400/20 shadow-inner" />
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Subtle Newsletter Section */}
+      <motion.div
+        className="max-w-2xl mx-auto mt-20"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <div className="relative p-6 rounded-2xl bg-slate-800/30 backdrop-blur-sm border border-slate-700/50">
+          <div className="text-center mb-6">
+            <h3 className="text-lg font-semibold text-slate-200 mb-2">
+              Bądź na bieżąco
+            </h3>
+            <p className="text-sm text-slate-400">
+              Otrzymaj dostęp do najnowszych funkcjonalności za darmo na czas testów
+            </p>
+          </div>
+          
+          <form onSubmit={handleEmailSubmit} className="space-y-4">
+            <div className="flex gap-3">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={emailPlaceholder}
+                className="flex-1 px-4 py-3 rounded-xl bg-slate-700/50 border border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 text-sm"
+                required
+              />
+              <motion.button
+                type="submit"
+                disabled={isSubmitting || !email}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:from-blue-500 hover:to-blue-600 shadow-lg hover:shadow-blue-500/25"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {isSubmitting ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : isSubmitted ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  subscribeButton
+                )}
+              </motion.button>
+            </div>
+            <p className="text-xs text-center text-slate-500">
+              {emailDisclaimer}
+            </p>
+          </form>
+        </div>
+      </motion.div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={closeVideoModal}
+          >
+            {/* Close button */}
+            <motion.button
+              className="absolute top-6 right-6 z-60 w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white hover:bg-white/20 transition-all duration-300 flex items-center justify-center"
+              onClick={closeVideoModal}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </motion.button>
+
+            {/* Video container */}
+            <motion.div
+              className="relative w-full max-w-6xl mx-4"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Video */}
+              <video
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                controls
+                autoPlay
+                muted={false}
+                playsInline
+              >
+                <source src="/bizbees.mp4" type="video/mp4" />
+                {videoNotSupported}
+              </video>
+
+              {/* Video title overlay */}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </SectionContainer>
   );
 }

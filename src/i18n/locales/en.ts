@@ -5,11 +5,11 @@ export const dictionary = {
       'Design resilient AI automations with modular processes, transparent quality control and human oversight.',
   },
   nav: {
+    problemSolution: 'Problem',
+    bizbeesProduct: 'Bizbees',
     services: 'Services',
-    process: 'Process',
-    cases: 'Cases',
-    training: 'Training',
-    contact: 'Contact',
+    caseStudies: 'Cases',
+    whyUs: 'Why us',
     quickContact: '⌘K – Quick contact',
   },
   commandPalette: {
@@ -49,6 +49,12 @@ export const dictionary = {
       cancel: 'Cancel',
       submit: 'Submit',
       submitting: 'Submitting...',
+    },
+    preFilledPrompts: {
+      audit: 'I would like to schedule a free business process audit for my company. Please contact me to arrange a time.',
+      quote: 'I am interested in getting a quote for an automation project for my company. Please provide a detailed offer.',
+      demo: 'I would like to see a demo of BizBees in action. Please contact me to arrange a presentation.',
+      contact: 'I have questions about business process automation. Please contact me.',
     },
   },
   services: {
@@ -340,6 +346,12 @@ export const dictionary = {
     mockupAlt: 'BizBees interface - Your digital AI swarm',
     emailPlaceholder: 'Enter your email',
     emailDisclaimer: 'Get access to the latest features for free during testing',
+    subscribeButton: 'Subscribe',
+    clickToWatchDemo: 'Click to watch demo',
+    videoNotSupported: 'Your browser does not support the video element.',
+    videoDescription: 'See how BizBees automates your daily tasks',
+    videoTitle: 'See BizBees in action',
+    videoSubtitle: 'Discover the capabilities of our intelligent AI system',
   },
   hero: {
     badge: 'Update 2.0 - AI Integration',

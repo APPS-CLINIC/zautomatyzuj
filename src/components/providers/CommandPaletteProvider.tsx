@@ -12,7 +12,12 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface CommandPaletteContextType {
   isOpen: boolean;
-  openCommandPalette: () => void;
+  preFilledContent?: {
+    message?: string;
+    subject?: string;
+    action?: 'audit' | 'quote' | 'demo' | 'contact';
+  };
+  openCommandPalette: (preFilledContent?: CommandPaletteContextType['preFilledContent']) => void;
   closeCommandPalette: () => void;
   toggleCommandPalette: () => void;
 }
@@ -33,9 +38,16 @@ interface CommandPaletteProviderProps {
 
 export const CommandPaletteProvider: React.FC<CommandPaletteProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [preFilledContent, setPreFilledContent] = useState<CommandPaletteContextType['preFilledContent']>();
 
-  const openCommandPalette = () => setIsOpen(true);
-  const closeCommandPalette = () => setIsOpen(false);
+  const openCommandPalette = (content?: CommandPaletteContextType['preFilledContent']) => {
+    setPreFilledContent(content);
+    setIsOpen(true);
+  };
+  const closeCommandPalette = () => {
+    setIsOpen(false);
+    setPreFilledContent(undefined);
+  };
   const toggleCommandPalette = () => setIsOpen(prev => !prev);
 
   // Globalna obsługa klawiatury i eventów
@@ -47,8 +59,9 @@ export const CommandPaletteProvider: React.FC<CommandPaletteProviderProps> = ({ 
       }
     };
 
-    const handleOpenCommandPalette = () => {
-      openCommandPalette();
+    const handleOpenCommandPalette = (event: CustomEvent) => {
+      const content = event.detail?.preFilledContent;
+      openCommandPalette(content);
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -75,6 +88,7 @@ export const CommandPaletteProvider: React.FC<CommandPaletteProviderProps> = ({ 
 
   const value: CommandPaletteContextType = {
     isOpen,
+    preFilledContent,
     openCommandPalette,
     closeCommandPalette,
     toggleCommandPalette,
