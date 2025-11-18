@@ -224,6 +224,25 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledC
     // Add user message optimistically
     addMessage('user', message);
     
+    // Jeśli jest email w formData, wyślij do webhooka Make.com
+    if (formData?.email) {
+      try {
+        await fetch('https://hook.eu2.make.com/qyj3xxarva1dpvw11zf7x84u6m5t381g', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            source: 'zautomatyzuj',
+            wiadomosc: 'formularz kontaktowy'
+          })
+        });
+      } catch (error) {
+        console.error('Error sending email to webhook:', error);
+      }
+    }
+    
     // Wyślij wiadomość do n8n
     await sendMessageToN8n(message, formData);
   };

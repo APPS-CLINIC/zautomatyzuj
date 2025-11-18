@@ -74,6 +74,23 @@ export default function BizbeesProduct({
 
     setIsSubmitting(true);
     
+    try {
+      // Wyślij email do webhooka Make.com
+      await fetch('https://hook.eu2.make.com/qyj3xxarva1dpvw11zf7x84u6m5t381g', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          source: 'zautomatyzuj',
+          wiadomosc: 'subskrypcja newslettera'
+        })
+      });
+    } catch (error) {
+      console.error('Error sending email to webhook:', error);
+    }
+    
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     

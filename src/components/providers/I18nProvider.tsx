@@ -43,3 +43,4 @@ const I18nProvider: React.FC<I18nProviderProps> = ({ children, locale }) => {
 };
 
 export default I18nProvider;
+
