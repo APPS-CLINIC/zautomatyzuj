@@ -562,6 +562,23 @@ export const dictionary = {
       responseTime: 'We reply within 24 hours on business days',
     },
   },
+  legal: {
+    terms: {
+      title: 'ZautomatyzujAI Terms of Service',
+      lastUpdated: 'Last updated: January 30, 2024',
+      contact: 'For questions regarding these Terms of Service, please contact us at: contact@zautomatyzuj.ai.',
+    },
+    privacy: {
+      title: 'ZautomatyzujAI Privacy Policy',
+      lastUpdated: 'Last updated: January 30, 2024',
+      contact: 'For questions regarding this Privacy Policy, please contact us at: contact@zautomatyzuj.ai.',
+    },
+    disclosures: {
+      title: 'ZautomatyzujAI Cookie Policy',
+      lastUpdated: 'Last updated: January 30, 2024',
+      contact: 'For questions regarding this Cookie Policy, please contact us at: contact@zautomatyzuj.ai.',
+    },
+  },
 } as const;
 
 export type Dictionary = typeof dictionary;

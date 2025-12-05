@@ -1,0 +1,70 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import LegalContent from '../../components/legal/LegalContent.tsx';
+import { resolveLocale } from '../../i18n/config';
+
+// Import danych - uproszczona wersja, pełne dane można dodać później
+const privacyData = {
+  pl: {
+    title: 'Polityka Prywatności ZautomatyzujAI',
+    lastUpdated: 'Ostatnia aktualizacja: 30 stycznia 2024',
+    contact: 'W przypadku pytań dotyczących niniejszej Polityki Prywatności, prosimy o kontakt pod adresem: contact@zautomatyzuj.ai.',
+    sections: [
+      {
+        title: '1. Wprowadzenie',
+        content: [
+          'Niniejsza Polityka Prywatności ("Polityka") określa zasady przetwarzania i ochrony danych osobowych użytkowników strony internetowej zautomatyzuj.ai ("Strona") oraz osób kontaktujących się z ZautomatyzujAI w celu skorzystania z usług, prowadzonej przez ZautomatyzujAI z siedzibą w Polsce ("Administrator", "my", "nas", "nasz").',
+          'Polityka została opracowana zgodnie z wymogami Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych, "RODO"), ustawy z dnia 10 maja 2018 r. o ochronie danych osobowych oraz innych obowiązujących przepisów prawa.',
+          'Korzystając ze Strony lub kontaktując się z nami, użytkownik akceptuje zasady określone w niniejszej Polityce Prywatności.'
+        ]
+      }
+    ]
+  },
+  en: {
+    title: 'ZautomatyzujAI Privacy Policy',
+    lastUpdated: 'Last updated: January 30, 2024',
+    contact: 'For questions regarding this Privacy Policy, please contact us at: contact@zautomatyzuj.ai.',
+    sections: [
+      {
+        title: '1. Introduction',
+        content: [
+          'This Privacy Policy ("Policy") sets out the rules for processing and protecting personal data of users of the zautomatyzuj.ai website ("Website") and persons contacting ZautomatyzujAI to use services, operated by ZautomatyzujAI based in Poland ("Controller", "we", "us", "our").',
+          'The Policy has been developed in accordance with the requirements of Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation, "GDPR"), the Act of 10 May 2018 on the protection of personal data, and other applicable legal provisions.',
+          'By using the Website or contacting us, the user accepts the rules set out in this Privacy Policy.'
+        ]
+      }
+    ]
+  }
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'pl' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+const locale = resolveLocale(Astro.params.lang);
+const data = privacyData[locale as 'pl' | 'en'];
+const metaT = {
+  pl: {
+    title: 'Polityka Prywatności - ZautomatyzujAI',
+    description: 'Polityka prywatności ZautomatyzujAI - ochrona danych osobowych'
+  },
+  en: {
+    title: 'Privacy Policy - ZautomatyzujAI',
+    description: 'ZautomatyzujAI Privacy Policy - personal data protection'
+  }
+}[locale as 'pl' | 'en'] || metaT.pl;
+---
+
+<MarketingLayout lang={locale} title={metaT.title} description={metaT.description}>
+  <LegalContent 
+    client:load
+    sections={data.sections}
+    title={data.title}
+    lastUpdated={data.lastUpdated}
+    contact={data.contact}
+  />
+</MarketingLayout>
+

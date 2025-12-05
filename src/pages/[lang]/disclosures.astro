@@ -1,0 +1,104 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import LegalContent from '../../components/legal/LegalContent.tsx';
+import { resolveLocale } from '../../i18n/config';
+
+// Import danych cookies jako disclosures
+const disclosuresData = {
+  pl: {
+    title: 'Polityka Plików Cookie ZautomatyzujAI',
+    lastUpdated: 'Ostatnia aktualizacja: 30 stycznia 2024',
+    contact: 'W przypadku pytań dotyczących niniejszej Polityki Plików Cookie, prosimy o kontakt pod adresem: contact@zautomatyzuj.ai.',
+    sections: [
+      {
+        title: '1. Wprowadzenie',
+        content: [
+          'Niniejsza Polityka Plików Cookie ("Polityka") wyjaśnia, w jaki sposób ZautomatyzujAI z siedzibą w Polsce ("my", "nas", "nasz") wykorzystuje pliki cookie i podobne technologie na stronie internetowej zautomatyzuj.ai ("Strona").',
+          'Polityka została opracowana zgodnie z wymogami Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO), dyrektywy ePrivacy (2002/58/WE) oraz ustawy z dnia 18 lipca 2002 r. o świadczeniu usług drogą elektroniczną.',
+          'Korzystając z Serwisu, użytkownik akceptuje wykorzystanie plików cookie zgodnie z niniejszą Polityką, chyba że zmieni ustawienia przeglądarki.'
+        ]
+      },
+      {
+        title: '2. Czym są Pliki Cookie',
+        content: [
+          'Pliki cookie to małe pliki tekstowe zapisywane na urządzeniu użytkownika (komputer, tablet, smartfon) podczas przeglądania stron internetowych.',
+          'Pliki cookie umożliwiają stronie internetowej:'
+        ],
+        items: [
+          'Rozpoznanie urządzenia użytkownika przy kolejnych wizytach',
+          'Zapamiętanie preferencji użytkownika (język, ustawienia)',
+          'Analizę sposobu korzystania ze strony',
+          'Personalizację treści i reklam',
+          'Zapewnienie prawidłowego działania funkcji strony'
+        ],
+        content2: [
+          'Pliki cookie same w sobie nie identyfikują użytkownika, ale mogą być powiązane z danymi osobowymi w określonych sytuacjach.'
+        ]
+      }
+    ]
+  },
+  en: {
+    title: 'ZautomatyzujAI Cookie Policy',
+    lastUpdated: 'Last updated: January 30, 2024',
+    contact: 'For questions regarding this Cookie Policy, please contact us at: contact@zautomatyzuj.ai.',
+    sections: [
+      {
+        title: '1. Introduction',
+        content: [
+          'This Cookie Policy ("Policy") explains how ZautomatyzujAI based in Poland ("we", "us", "our") uses cookies and similar technologies on the zautomatyzuj.ai website ("Website").',
+          'The Policy has been developed in accordance with the requirements of Regulation (EU) 2016/679 of 27 April 2016 (GDPR), the ePrivacy Directive (2002/58/EC), and the Act of 18 July 2002 on the provision of services by electronic means.',
+          'By using the Service, the user accepts the use of cookies in accordance with this Policy, unless browser settings are changed.'
+        ]
+      },
+      {
+        title: '2. What are Cookies',
+        content: [
+          'Cookies are small text files stored on the user\'s device (computer, tablet, smartphone) when browsing websites.',
+          'Cookies enable the website to:'
+        ],
+        items: [
+          'Recognize the user\'s device on subsequent visits',
+          'Remember user preferences (language, settings)',
+          'Analyze how the website is used',
+          'Personalize content and ads',
+          'Ensure proper website functionality'
+        ],
+        content2: [
+          'Cookies themselves do not identify the user, but may be linked to personal data in certain situations.'
+        ]
+      }
+    ]
+  }
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'pl' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+const locale = resolveLocale(Astro.params.lang);
+const data = disclosuresData[locale as 'pl' | 'en'];
+const metaT = {
+  pl: {
+    title: 'Polityka Plików Cookie - ZautomatyzujAI',
+    description: 'Polityka plików cookie ZautomatyzujAI - informacje o wykorzystywaniu plików cookie'
+  },
+  en: {
+    title: 'Cookie Policy - ZautomatyzujAI',
+    description: 'ZautomatyzujAI Cookie Policy - information about cookie usage'
+  }
+}[locale as 'pl' | 'en'] || metaT.pl;
+---
+
+<MarketingLayout lang={locale} title={metaT.title} description={metaT.description}>
+  <LegalContent 
+    client:load
+    sections={data.sections}
+    title={data.title}
+    lastUpdated={data.lastUpdated}
+    contact={data.contact}
+  />
+</MarketingLayout>
+

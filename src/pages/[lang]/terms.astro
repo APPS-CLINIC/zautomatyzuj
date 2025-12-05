@@ -1,0 +1,37 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import LegalContent from '../../components/legal/LegalContent.tsx';
+import { resolveLocale } from '../../i18n/config';
+import { termsData } from '../../legal-docs/terms';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'pl' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+const locale = resolveLocale(Astro.params.lang);
+const data = termsData[locale as 'pl' | 'en'];
+const metaT = {
+  pl: {
+    title: 'Regulamin Usługi - ZautomatyzujAI',
+    description: 'Regulamin usługi ZautomatyzujAI - zasady korzystania z platformy'
+  },
+  en: {
+    title: 'Terms of Service - ZautomatyzujAI',
+    description: 'ZautomatyzujAI Terms of Service - platform usage rules'
+  }
+}[locale as 'pl' | 'en'] || metaT.pl;
+---
+
+<MarketingLayout lang={locale} title={metaT.title} description={metaT.description}>
+  <LegalContent 
+    client:load
+    sections={data.sections}
+    title={data.title}
+    lastUpdated={data.lastUpdated}
+    contact={data.contact}
+  />
+</MarketingLayout>
+

@@ -51,12 +51,12 @@ const { lang, translations } = Astro.props as Props;
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
         </button>
-        <button class="btn-secondary" onclick="openCommandPaletteWithAction('demo')">
+        <a href="https://bizbees.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">
           <svg class="play-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
           </svg>
           {translations.hero.secondaryCta}
-        </button>
+        </a>
       </div>
 
       <!-- Desktop Mockup -->

@@ -314,19 +314,13 @@ export default function BizbeesProduct({
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.button
-            className="group relative w-full px-10 py-6 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold text-xl overflow-hidden shadow-2xl shadow-yellow-400/30 hover:shadow-yellow-400/50 transition-all duration-500"
+          <motion.a
+            href="https://bizbees.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative w-full px-10 py-6 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold text-xl overflow-hidden shadow-2xl shadow-yellow-400/30 hover:shadow-yellow-400/50 transition-all duration-500 block text-center"
             whileHover={{ scale: 1.03, y: -4 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              const event = new CustomEvent('openCommandPalette', {
-                detail: { 
-                  source: 'button',
-                  preFilledContent: { action: 'demo' }
-                }
-              });
-              document.dispatchEvent(event);
-            }}
           >
             <span className="relative z-10 flex items-center justify-center gap-3">
               {cta.primary}
@@ -335,7 +329,7 @@ export default function BizbeesProduct({
               </svg>
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          </motion.button>
+          </motion.a>
         </motion.div>
 
         {/* Video Section Header */}

@@ -425,7 +425,7 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledC
             <p>
               {t('chat.alternativeContact.text')} 
               <a 
-                href="mailto:kontakt@zautomatyzuj.ai" 
+                href="mailto:contact@zautomatyzuj.ai" 
                 className="text-brand-primary hover:text-brand-secondary transition-colors ml-1"
               >
                 {t('chat.alternativeContact.email')}

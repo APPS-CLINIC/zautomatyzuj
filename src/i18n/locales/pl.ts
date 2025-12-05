@@ -558,8 +558,25 @@ export const dictionary = {
     },
     alternativeContact: {
       text: 'Lub skontaktuj się z nami bezpośrednio:',
-      email: 'kontakt@zautomatyzuj.ai',
+      email: 'contact@zautomatyzuj.ai',
       responseTime: 'Odpowiadamy w ciągu 24 godzin w dni robocze',
+    },
+  },
+  legal: {
+    terms: {
+      title: 'Regulamin Usługi ZautomatyzujAI',
+      lastUpdated: 'Ostatnia aktualizacja: 30 stycznia 2024',
+      contact: 'W przypadku pytań dotyczących niniejszego Regulaminu, prosimy o kontakt pod adresem: contact@zautomatyzuj.ai.',
+    },
+    privacy: {
+      title: 'Polityka Prywatności ZautomatyzujAI',
+      lastUpdated: 'Ostatnia aktualizacja: 30 stycznia 2024',
+      contact: 'W przypadku pytań dotyczących niniejszej Polityki Prywatności, prosimy o kontakt pod adresem: contact@zautomatyzuj.ai.',
+    },
+    disclosures: {
+      title: 'Polityka Plików Cookie ZautomatyzujAI',
+      lastUpdated: 'Ostatnia aktualizacja: 30 stycznia 2024',
+      contact: 'W przypadku pytań dotyczących niniejszej Polityki Plików Cookie, prosimy o kontakt pod adresem: contact@zautomatyzuj.ai.',
     },
   },
 } as const;
