@@ -5,6 +5,7 @@ import ChatBubble from './ChatBubble';
 import ChatInput from './ChatInput';
 import { getUserToken, isNewUser, markUserAsReturning } from '../../utils/userToken';
 import type { N8nWebhookPayload, N8nWebhookResponse } from '../../types/chat';
+import { useTracking } from '../../utils/posthog';
 
 interface Message {
   id: string;
@@ -32,6 +33,7 @@ const N8N_WEBHOOK_URL = 'https://kevin133-20133.wykr.es/webhook/53b90858-0451-40
 
 const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledContent }) => {
   const { t, ready } = useTranslation();
+  const { trackForm, track } = useTracking();
   
   // Generate pre-filled message based on action
   const getPreFilledMessage = () => {
@@ -224,6 +226,22 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledC
     // Add user message optimistically
     addMessage('user', message);
     
+    // Track form submission
+    if (formData?.email) {
+      trackForm('contact_chat', {
+        has_email: true,
+        has_name: !!formData.name,
+        has_company: !!formData.company,
+        message_length: message.length,
+        pre_filled_action: preFilledContent?.action,
+      });
+    } else {
+      track('chat_message_sent', {
+        message_length: message.length,
+        pre_filled_action: preFilledContent?.action,
+      });
+    }
+    
     // Jeśli jest email w formData, wyślij do webhooka Make.com
     if (formData?.email) {
       try {
@@ -289,6 +307,12 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledC
       // Wyświetl odpowiedź od n8n (n8n zwraca {output: "wiadomość"})
       addMessage('assistant', data.output || 'Dziękuję za wiadomość! Wrócimy z odpowiedzią niezwłocznie.');
       
+      // Track successful message delivery
+      track('chat_message_delivered', {
+        has_form_data: !!formData,
+        is_new_user: isNewUserFlag,
+      });
+      
     } catch (error) {
       console.error('Error sending message to n8n:', error);
       
@@ -303,6 +327,12 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledC
       }
       
       addMessage('assistant', errorMessage);
+      
+      // Track error
+      track('chat_message_error', {
+        error_type: error instanceof Error ? error.name : 'unknown',
+        error_message: error instanceof Error ? error.message : String(error),
+      });
     } finally {
       setIsLoading(false);
       hideTypingIndicator();
@@ -427,6 +457,7 @@ const ContactChat: React.FC<ContactChatProps> = ({ showHeader = true, preFilledC
               <a 
                 href="mailto:contact@zautomatyzuj.ai" 
                 className="text-brand-primary hover:text-brand-secondary transition-colors ml-1"
+                onClick={() => track('link_clicked', { link_url: 'mailto:contact@zautomatyzuj.ai', link_text: t('chat.alternativeContact.email') })}
               >
                 {t('chat.alternativeContact.email')}
               </a>

@@ -17,6 +17,7 @@
     "framer-motion": "^12.23.22",
     "i18next": "^25.5.3",
     "lucide-react": "^0.545.0",
+    "posthog-js": "^1.304.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-i18next": "^16.0.0",

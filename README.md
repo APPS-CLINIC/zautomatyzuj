@@ -38,6 +38,17 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## 📊 PostHog Analytics
+
+Aplikacja używa PostHog do trackowania eventów. Aby włączyć tracking, ustaw następujące zmienne środowiskowe:
+
+```env
+PUBLIC_POSTHOG_KEY=your_posthog_key_here
+PUBLIC_POSTHOG_HOST=https://eu.i.posthog.com
+```
+
+W Astro zmienne publiczne muszą mieć prefiks `PUBLIC_`. Jeśli zmienne nie są ustawione, PostHog będzie działał w trybie deweloperskim bez wysyłania eventów.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

@@ -8,6 +8,7 @@ import SectionContainer from '../ui/SectionContainer';
 import AnimatedBizbeesLogo from '../ui/AnimatedBizbeesLogo';
 import FlyingBees from '../ui/FlyingBees';
 import { useState, type ReactElement } from 'react';
+import { useTracking } from '../../utils/posthog';
 
 interface Feature {
   title: string;
@@ -67,6 +68,7 @@ export default function BizbeesProduct({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const { trackForm, track } = useTracking();
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,16 +100,29 @@ export default function BizbeesProduct({
     setIsSubmitting(false);
     setEmail('');
     
+    // Track newsletter subscription
+    trackForm('newsletter_subscription', {
+      source: 'bizbees_product_section',
+    });
+    
     // Reset after 3 seconds
     setTimeout(() => setIsSubmitted(false), 3000);
   };
 
   const openVideoModal = () => {
     setIsVideoModalOpen(true);
+    track('video_modal_opened', {
+      video_title: videoTitle,
+      location: 'bizbees_product_section',
+    });
   };
 
   const closeVideoModal = () => {
     setIsVideoModalOpen(false);
+    track('video_modal_closed', {
+      video_title: videoTitle,
+      location: 'bizbees_product_section',
+    });
   };
 
   // Icon mapping for features
@@ -321,6 +336,11 @@ export default function BizbeesProduct({
             className="group relative w-full px-10 py-6 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold text-xl overflow-hidden shadow-2xl shadow-yellow-400/30 hover:shadow-yellow-400/50 transition-all duration-500 block text-center"
             whileHover={{ scale: 1.03, y: -4 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => track('cta_clicked', {
+              cta_name: 'bizbees_primary',
+              cta_location: 'bizbees_product_section',
+              cta_url: 'https://bizbees.ai',
+            })}
           >
             <span className="relative z-10 flex items-center justify-center gap-3">
               {cta.primary}

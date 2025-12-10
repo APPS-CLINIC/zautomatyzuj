@@ -17,6 +17,7 @@ import ThemeToggle from '../components/ui/ThemeToggle.astro';
 import Button from '../components/ui/Button.astro';
 import CommandPalette from '../components/ui/CommandPalette.astro';
 import { createI18nInstance } from '../i18n/i18next';
+import { PostHogProvider } from '../providers/PostHogProvider.tsx';
 
 interface Props {
   readonly title: string;
@@ -53,6 +54,7 @@ const t = i18n.getFixedT(lang);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   </head>
   <body class="flex min-h-screen flex-col bg-slate-950 text-slate-100 relative">
+    <PostHogProvider client:load>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KLBMV692"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -186,16 +188,33 @@ const t = i18n.getFixedT(lang);
     
     <!-- Command Palette -->
     <CommandPalette />
+    </PostHogProvider>
   </body>
 </html>
 
 <script>
+  // PostHog tracking helper
+  function trackEvent(eventName: string, properties?: Record<string, any>) {
+    if (typeof window !== 'undefined' && (window as any).posthog) {
+      (window as any).posthog.capture(eventName, {
+        ...properties,
+        timestamp: new Date().toISOString(),
+      });
+    }
+  }
+
   // Quick contact functionality
   function initQuickContact() {
     const quickContactBtns = document.querySelectorAll('#quick-contact-btn, #mobile-quick-contact-btn');
     
     quickContactBtns.forEach(btn => {
       btn.addEventListener('click', () => {
+        // Track button click
+        trackEvent('button_clicked', {
+          button_name: 'quick_contact',
+          location: btn.id.includes('mobile') ? 'mobile_menu' : 'navbar',
+        });
+        
         // Dispatch custom event to open Command Palette
         const event = new CustomEvent('openCommandPalette', {
           detail: { source: 'button' }
@@ -214,6 +233,14 @@ const t = i18n.getFixedT(lang);
         e.preventDefault();
         const targetId = link.getAttribute('href')?.substring(1);
         const targetElement = document.getElementById(targetId || '');
+        
+        // Track navigation link click
+        trackEvent('link_clicked', {
+          link_url: link.getAttribute('href') || '',
+          link_text: link.textContent?.trim() || '',
+          link_type: 'anchor',
+          target_section: targetId || '',
+        });
         
         if (targetElement) {
           targetElement.scrollIntoView({
@@ -265,11 +292,56 @@ const t = i18n.getFixedT(lang);
     }
   }
 
+  // Track page view
+  function initPageTracking() {
+    const path = window.location.pathname;
+    const title = document.title;
+    
+    trackEvent('page_viewed', {
+      page_path: path,
+      page_title: title,
+      page_lang: path.split('/')[1] || 'pl',
+    });
+  }
+
+  // Track language switcher clicks
+  function initLanguageTracking() {
+    const langLinks = document.querySelectorAll('.lang-btn');
+    langLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href') || '';
+        const lang = href.split('/')[1] || '';
+        
+        trackEvent('language_changed', {
+          language: lang,
+          previous_lang: window.location.pathname.split('/')[1] || 'pl',
+        });
+      });
+    });
+  }
+
+  // Track footer link clicks
+  function initFooterTracking() {
+    const footerLinks = document.querySelectorAll('.footer a');
+    footerLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        trackEvent('link_clicked', {
+          link_url: link.getAttribute('href') || '',
+          link_text: link.textContent?.trim() || '',
+          link_type: 'footer',
+        });
+      });
+    });
+  }
+
   // Initialize all functionality
   function init() {
     initQuickContact();
     initSmoothScrolling();
     initMobileMenu();
+    initLanguageTracking();
+    initFooterTracking();
+    initPageTracking();
   }
 
   // Run on DOM ready
