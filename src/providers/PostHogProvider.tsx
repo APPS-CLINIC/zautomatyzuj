@@ -23,6 +23,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
               loaded: (ph) => {
                 if (import.meta.env.DEV) {
                   ph.debug();
+                  console.log('[PostHog] Initialized successfully');
                 }
                 // Make posthog available globally for utility functions
                 if (typeof window !== 'undefined') {
@@ -44,11 +45,33 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
               },
             });
           } else {
-            // Make posthog available globally even without key (for development)
-            if (typeof window !== 'undefined') {
-              (window as any).posthog = posthog;
+            // In development mode, initialize PostHog with a dummy key to enable tracking functions
+            // Events won't be sent without a valid key, but the API will be available
+            if (import.meta.env.DEV) {
+              console.log('[PostHog] Running in development mode without API key. Tracking functions available but events will not be sent.');
             }
-            setClient(posthog);
+            // Create a mock posthog instance for development
+            const mockPosthog = {
+              capture: (event: string, props?: any) => {
+                if (import.meta.env.DEV) {
+                  console.log('[PostHog] Event:', event, props);
+                }
+              },
+              identify: (userId: string, props?: any) => {
+                if (import.meta.env.DEV) {
+                  console.log('[PostHog] Identify:', userId, props);
+                }
+              },
+              reset: () => {
+                if (import.meta.env.DEV) {
+                  console.log('[PostHog] Reset');
+                }
+              },
+            };
+            if (typeof window !== 'undefined') {
+              (window as any).posthog = mockPosthog;
+            }
+            setClient(mockPosthog as any);
           }
         } catch (error) {
           console.warn('Failed to initialize PostHog:', error);
@@ -67,4 +90,5 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
 
   return <PHProvider client={client}>{children}</PHProvider>;
 }
+
 

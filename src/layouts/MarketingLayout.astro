@@ -18,6 +18,7 @@ import Button from '../components/ui/Button.astro';
 import CommandPalette from '../components/ui/CommandPalette.astro';
 import { createI18nInstance } from '../i18n/i18next';
 import { PostHogProvider } from '../providers/PostHogProvider.tsx';
+import { PostHogStatus } from '../components/ui/PostHogStatus.tsx';
 
 interface Props {
   readonly title: string;
@@ -188,6 +189,9 @@ const t = i18n.getFixedT(lang);
     
     <!-- Command Palette -->
     <CommandPalette />
+    
+    <!-- PostHog Status (dev only) -->
+    <PostHogStatus client:load />
     </PostHogProvider>
   </body>
 </html>
