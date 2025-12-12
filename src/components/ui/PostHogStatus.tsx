@@ -17,18 +17,31 @@ export function PostHogStatus() {
 
     // Check if PostHog is available
     const checkPostHog = () => {
+      const windowPosthog = (window as any).posthog;
+      
       if (posthog && typeof posthog.capture === 'function') {
+        console.log('[PostHogStatus] PostHog ready via hook');
         setStatus('ready');
-      } else if ((window as any).posthog && typeof (window as any).posthog.capture === 'function') {
+      } else if (windowPosthog && typeof windowPosthog.capture === 'function') {
+        console.log('[PostHogStatus] PostHog ready via window.posthog');
         setStatus('ready');
       } else {
+        console.warn('[PostHogStatus] PostHog not available');
+        console.warn('[PostHogStatus] posthog from hook:', posthog);
+        console.warn('[PostHogStatus] window.posthog:', windowPosthog);
+        console.warn('[PostHogStatus] PUBLIC_POSTHOG_KEY:', import.meta.env.PUBLIC_POSTHOG_KEY ? 'Set' : 'Not Set');
         setStatus('not_available');
       }
     };
 
     // Wait a bit for PostHog to initialize
     const timer = setTimeout(checkPostHog, 1000);
-    return () => clearTimeout(timer);
+    // Also check after 3 seconds in case it takes longer
+    const timer2 = setTimeout(checkPostHog, 3000);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+    };
   }, [posthog]);
 
   const sendTestEvent = () => {

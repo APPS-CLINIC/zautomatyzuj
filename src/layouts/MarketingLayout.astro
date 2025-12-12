@@ -199,11 +199,25 @@ const t = i18n.getFixedT(lang);
 <script>
   // PostHog tracking helper
   function trackEvent(eventName: string, properties?: Record<string, any>) {
-    if (typeof window !== 'undefined' && (window as any).posthog) {
-      (window as any).posthog.capture(eventName, {
-        ...properties,
-        timestamp: new Date().toISOString(),
-      });
+    if (typeof window === 'undefined') return;
+    
+    const posthog = (window as any).posthog;
+    if (posthog && typeof posthog.capture === 'function') {
+      try {
+        posthog.capture(eventName, {
+          ...properties,
+          timestamp: new Date().toISOString(),
+        });
+        if (import.meta.env.DEV) {
+          console.log('[PostHog] Event captured:', eventName, properties);
+        }
+      } catch (error) {
+        console.warn('[PostHog] Failed to capture event:', eventName, error);
+      }
+    } else {
+      if (import.meta.env.DEV) {
+        console.warn('[PostHog] PostHog not available. Event not tracked:', eventName);
+      }
     }
   }
 
