@@ -40,14 +40,20 @@ All commands are run from the root of the project, from a terminal:
 
 ## 📊 PostHog Analytics
 
-Aplikacja używa PostHog do trackowania eventów. Aby włączyć tracking, ustaw następujące zmienne środowiskowe:
+Aplikacja używa PostHog do trackowania eventów. Aby włączyć tracking, ustaw następujące zmienne środowiskowe w pliku `.env` w katalogu głównym projektu:
 
 ```env
 PUBLIC_POSTHOG_KEY=your_posthog_key_here
 PUBLIC_POSTHOG_HOST=https://eu.i.posthog.com
 ```
 
-W Astro zmienne publiczne muszą mieć prefiks `PUBLIC_`. Jeśli zmienne nie są ustawione, PostHog będzie działał w trybie deweloperskim bez wysyłania eventów.
+**Uwaga:** Kod obsługuje również prefiks `NEXT_PUBLIC_` dla kompatybilności z Next.js:
+```env
+NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key_here
+NEXT_PUBLIC_POSTHOG_HOST=https://eu.i.posthog.com
+```
+
+W Astro zmienne publiczne powinny mieć prefiks `PUBLIC_`, ale kod automatycznie sprawdzi oba prefiksy. Jeśli zmienne nie są ustawione, PostHog będzie działał w trybie deweloperskim bez wysyłania eventów.
 
 ## 👀 Want to learn more?
 

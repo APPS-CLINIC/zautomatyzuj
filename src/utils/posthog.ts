@@ -17,15 +17,31 @@ export function trackEvent(eventName: string, properties?: TrackingProperties) {
   if (typeof window === 'undefined') return;
   
   try {
-    const posthog = (window as { posthog?: { capture: (event: string, props?: TrackingProperties) => void } }).posthog;
+    const posthog = (window as { posthog?: { capture: (event: string, props?: TrackingProperties) => void; has_opted_out_capturing?: () => boolean } }).posthog;
     if (posthog) {
+      // Check if user has opted out
+      if (posthog.has_opted_out_capturing?.()) {
+        if (import.meta.env.DEV) {
+          console.warn('[PostHog] User has opted out - event not sent:', eventName);
+        }
+        return;
+      }
+      
       posthog.capture(eventName, {
         ...properties,
         timestamp: new Date().toISOString(),
       });
+      
+      if (import.meta.env.DEV) {
+        console.log('[PostHog] Event tracked:', eventName, properties);
+      }
+    } else {
+      if (import.meta.env.DEV) {
+        console.warn('[PostHog] PostHog not available - event not tracked:', eventName);
+      }
     }
   } catch (error) {
-    console.warn('Failed to track event:', error);
+    console.warn('[PostHog] Failed to track event:', eventName, error);
   }
 }
 

@@ -204,6 +204,14 @@ const t = i18n.getFixedT(lang);
     const posthog = (window as any).posthog;
     if (posthog && typeof posthog.capture === 'function') {
       try {
+        // Check if user has opted out
+        if (posthog.has_opted_out_capturing?.()) {
+          if (import.meta.env.DEV) {
+            console.warn('[PostHog] User has opted out - event not sent:', eventName);
+          }
+          return;
+        }
+        
         posthog.capture(eventName, {
           ...properties,
           timestamp: new Date().toISOString(),

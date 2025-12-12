@@ -30,6 +30,7 @@ export function PostHogStatus() {
         console.warn('[PostHogStatus] posthog from hook:', posthog);
         console.warn('[PostHogStatus] window.posthog:', windowPosthog);
         console.warn('[PostHogStatus] PUBLIC_POSTHOG_KEY:', import.meta.env.PUBLIC_POSTHOG_KEY ? 'Set' : 'Not Set');
+        console.warn('[PostHogStatus] NEXT_PUBLIC_POSTHOG_KEY:', import.meta.env.NEXT_PUBLIC_POSTHOG_KEY ? 'Set' : 'Not Set');
         setStatus('not_available');
       }
     };
@@ -45,20 +46,29 @@ export function PostHogStatus() {
   }, [posthog]);
 
   const sendTestEvent = () => {
-    if (posthog) {
-      posthog.capture('posthog_test_event', {
-        timestamp: new Date().toISOString(),
-        test: true,
-      });
-      setTestEventSent(true);
-      setTimeout(() => setTestEventSent(false), 3000);
-    } else if ((window as any).posthog) {
-      (window as any).posthog.capture('posthog_test_event', {
-        timestamp: new Date().toISOString(),
-        test: true,
-      });
-      setTestEventSent(true);
-      setTimeout(() => setTestEventSent(false), 3000);
+    const ph = posthog || (window as any).posthog;
+    if (ph && typeof ph.capture === 'function') {
+      try {
+        console.log('[PostHogStatus] Sending test event...');
+        console.log('[PostHogStatus] PostHog instance:', ph);
+        console.log('[PostHogStatus] Has opt_out_capturing:', ph.has_opted_out_capturing?.());
+        console.log('[PostHogStatus] API Host:', ph.config?.api_host);
+        console.log('[PostHogStatus] Token:', ph.config?.token?.substring(0, 10) + '...');
+        
+        ph.capture('posthog_test_event', {
+          timestamp: new Date().toISOString(),
+          test: true,
+          source: 'PostHogStatus',
+        });
+        
+        console.log('[PostHogStatus] Test event sent');
+        setTestEventSent(true);
+        setTimeout(() => setTestEventSent(false), 3000);
+      } catch (error) {
+        console.error('[PostHogStatus] Error sending test event:', error);
+      }
+    } else {
+      console.error('[PostHogStatus] PostHog not available');
     }
   };
 
@@ -90,15 +100,74 @@ export function PostHogStatus() {
           </span>
         </div>
         {status === 'ready' && (
-          <button
-            onClick={sendTestEvent}
-            className="mt-2 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs transition-colors"
-          >
-            {testEventSent ? '✓ Test Event Sent' : 'Send Test Event'}
-          </button>
+          <div className="mt-2 space-y-1">
+            <button
+              onClick={sendTestEvent}
+              className="w-full px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs transition-colors"
+            >
+              {testEventSent ? '✓ Test Event Sent' : 'Send Test Event'}
+            </button>
+            <button
+              onClick={() => {
+                const ph = posthog || (window as any).posthog;
+                if (ph && typeof ph.flush === 'function') {
+                  console.log('[PostHogStatus] Flushing events...');
+                  ph.flush();
+                  console.log('[PostHogStatus] Events flushed');
+                }
+              }}
+              className="w-full px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-xs transition-colors"
+            >
+              Flush Events (send now)
+            </button>
+            <button
+              onClick={() => {
+                const ph = posthog || (window as any).posthog;
+                if (ph) {
+                  const optedOut = ph.has_opted_out_capturing?.();
+                  if (optedOut) {
+                    ph.opt_in_capturing();
+                    console.log('[PostHogStatus] Opted in');
+                  } else {
+                    ph.opt_out_capturing();
+                    console.log('[PostHogStatus] Opted out');
+                  }
+                  // Re-check status
+                  setTimeout(() => {
+                    const checkPostHog = () => {
+                      const ph = posthog || (window as any).posthog;
+                      if (ph && typeof ph.capture === 'function') {
+                        setStatus('ready');
+                      } else {
+                        setStatus('not_available');
+                      }
+                    };
+                    checkPostHog();
+                  }, 100);
+                }
+              }}
+              className="w-full px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-xs transition-colors"
+            >
+              Toggle Opt-out
+            </button>
+          </div>
         )}
-        <div className="text-xs text-slate-400 mt-2">
-          Key: {import.meta.env.PUBLIC_POSTHOG_KEY ? '✓ Set' : '✗ Not Set'}
+        <div className="text-xs text-slate-400 mt-2 space-y-1">
+          <div>Key: {(import.meta.env.PUBLIC_POSTHOG_KEY || import.meta.env.NEXT_PUBLIC_POSTHOG_KEY) ? '✓ Set' : '✗ Not Set'}</div>
+          {status === 'ready' && (() => {
+            const ph = posthog || (window as any).posthog;
+            const hasOptedOut = ph?.has_opted_out_capturing?.();
+            const apiHost = ph?.config?.api_host;
+            return (
+              <>
+                <div>Opt-out: {hasOptedOut ? '✗ Yes (events disabled)' : '✓ No'}</div>
+                <div>API Host: {apiHost || 'Unknown'}</div>
+                <div className="text-yellow-400 mt-2">
+                  {hasOptedOut && '⚠️ User has opted out - events will not be sent'}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </div>
     </div>

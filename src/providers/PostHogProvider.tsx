@@ -15,13 +15,18 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY;
-    const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
+    // Support both Astro (PUBLIC_) and Next.js (NEXT_PUBLIC_) prefixes
+    const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY || import.meta.env.NEXT_PUBLIC_POSTHOG_KEY;
+    const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST || import.meta.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
 
     if (!posthogKey) {
       if (import.meta.env.DEV) {
-        console.warn('[PostHog] PUBLIC_POSTHOG_KEY is not set. PostHog will not track events.');
-        console.warn('[PostHog] Set PUBLIC_POSTHOG_KEY in your .env file to enable tracking.');
+        console.warn('[PostHog] PostHog key is not set. PostHog will not track events.');
+        console.warn('[PostHog] Set PUBLIC_POSTHOG_KEY (Astro) or NEXT_PUBLIC_POSTHOG_KEY (Next.js) in your .env file to enable tracking.');
+        console.warn('[PostHog] Available env vars:', {
+          PUBLIC_POSTHOG_KEY: import.meta.env.PUBLIC_POSTHOG_KEY ? 'Set' : 'Not Set',
+          NEXT_PUBLIC_POSTHOG_KEY: import.meta.env.NEXT_PUBLIC_POSTHOG_KEY ? 'Set' : 'Not Set',
+        });
       }
       setIsInitialized(true);
       return;
@@ -45,6 +50,18 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
             console.log('[PostHog] Initialized successfully');
             console.log('[PostHog] API Host:', posthogHost);
             console.log('[PostHog] Key:', posthogKey.substring(0, 10) + '...');
+            console.log('[PostHog] Has opted out:', ph.has_opted_out_capturing?.());
+            console.log('[PostHog] Config:', ph.config);
+            
+            // Listen for events being sent
+            ph.on('eventCaptured', (event) => {
+              console.log('[PostHog] Event captured:', event);
+            });
+            
+            // Listen for events being sent to server
+            ph.on('eventSent', (event) => {
+              console.log('[PostHog] Event sent to server:', event);
+            });
           }
           // Make posthog available globally for utility functions
           if (typeof window !== 'undefined') {
@@ -68,6 +85,12 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         debug: import.meta.env.DEV,
         // Persist user across sessions
         persistence: 'localStorage+cookie',
+        // Disable opt-out by default (user can still opt-out manually)
+        opt_out_capturing_by_default: false,
+        // Enable batch requests for better performance
+        batch_size: 10,
+        // Request timeout
+        request_batching: true,
       });
     } catch (error) {
       console.error('[PostHog] Failed to initialize:', error);
@@ -81,7 +104,8 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
   }
 
   // If no key is set, just render children without PostHog provider
-  if (!import.meta.env.PUBLIC_POSTHOG_KEY) {
+  const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY || import.meta.env.NEXT_PUBLIC_POSTHOG_KEY;
+  if (!posthogKey) {
     return <>{children}</>;
   }
 
