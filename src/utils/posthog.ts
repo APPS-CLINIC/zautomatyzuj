@@ -16,34 +16,78 @@ export interface TrackingProperties {
 export function trackEvent(eventName: string, properties?: TrackingProperties) {
   if (typeof window === 'undefined') return;
   
-  try {
-    const posthog = (window as { posthog?: { capture: (event: string, props?: TrackingProperties) => void; has_opted_out_capturing?: () => boolean } }).posthog;
-    if (posthog) {
-      // Check if user has opted out
-      if (posthog.has_opted_out_capturing?.()) {
-        if (import.meta.env.DEV) {
-          console.warn('[PostHog] User has opted out - event not sent:', eventName);
+  // Wait for PostHog to be ready (with timeout)
+  const waitForPostHog = (maxAttempts = 10, attempt = 0) => {
+    try {
+      const posthog = (window as { posthog?: { 
+        capture: (event: string, props?: TrackingProperties) => void; 
+        has_opted_out_capturing?: () => boolean;
+        __loaded?: boolean;
+        config?: { token?: string };
+        flush?: () => void;
+      } }).posthog;
+      
+      if (posthog && typeof posthog.capture === 'function') {
+        // Check if PostHog is actually loaded
+        if (!posthog.__loaded && !posthog.config?.token) {
+          if (import.meta.env.DEV) {
+            console.warn('[PostHog] PostHog not fully loaded yet, retrying...', eventName);
+          }
+          if (attempt < maxAttempts) {
+            setTimeout(() => waitForPostHog(maxAttempts, attempt + 1), 100);
+          }
+          return;
         }
-        return;
+        
+        // Check if user has opted out
+        if (posthog.has_opted_out_capturing?.()) {
+          if (import.meta.env.DEV) {
+            console.warn('[PostHog] User has opted out - event not sent:', eventName);
+          }
+          return;
+        }
+        
+        posthog.capture(eventName, {
+          ...properties,
+          timestamp: new Date().toISOString(),
+        });
+        
+        if (import.meta.env.DEV) {
+          console.log('[PostHog] Event tracked:', eventName, properties);
+          // Force flush in dev mode for immediate feedback
+          if (posthog.flush) {
+            posthog.flush();
+          }
+        }
+      } else {
+        if (attempt < maxAttempts) {
+          // PostHog not ready yet, retry
+          setTimeout(() => waitForPostHog(maxAttempts, attempt + 1), 100);
+        } else {
+          if (import.meta.env.DEV) {
+            console.warn('[PostHog] PostHog not available after', maxAttempts, 'attempts. Event not tracked:', eventName);
+          }
+        }
       }
-      
-      posthog.capture(eventName, {
-        ...properties,
-        timestamp: new Date().toISOString(),
-      });
-      
-      if (import.meta.env.DEV) {
-        console.log('[PostHog] Event tracked:', eventName, properties);
-      }
-    } else {
-      if (import.meta.env.DEV) {
-        console.warn('[PostHog] PostHog not available - event not tracked:', eventName);
-      }
+    } catch (error) {
+      console.warn('[PostHog] Failed to track event:', eventName, error);
     }
-  } catch (error) {
-    console.warn('[PostHog] Failed to track event:', eventName, error);
-  }
+  };
+  
+  waitForPostHog();
 }
+
+const getWindowPostHog = () => {
+  if (typeof window === 'undefined') return undefined;
+  return (window as any).posthog as
+    | (ReturnType<typeof usePostHog> & {
+        __loaded?: boolean;
+        config?: { token?: string };
+        has_opted_out_capturing?: () => boolean;
+        flush?: () => void;
+      })
+    | undefined;
+};
 
 /**
  * Identify user in PostHog
@@ -158,28 +202,39 @@ export function trackPageView(pagePath: string, pageName?: string) {
 export function useTracking() {
   const posthog = usePostHog();
 
+  const getClient = () => {
+    const client = posthog || getWindowPostHog();
+    if (!client) return undefined;
+    if (client.has_opted_out_capturing?.()) return undefined;
+    if (!client.__loaded && !client.config?.token) return undefined;
+    return client;
+  };
+
   const track = (eventName: string, properties?: TrackingProperties) => {
-    if (posthog) {
-      posthog.capture(eventName, {
-        ...properties,
-        timestamp: new Date().toISOString(),
-      });
+    const client = getClient();
+    if (!client) return;
+    client.capture(eventName, {
+      ...properties,
+      timestamp: new Date().toISOString(),
+    });
+    if (import.meta.env.DEV && client.flush) {
+      client.flush();
     }
   };
 
   const identify = (userId: string, email?: string, properties?: TrackingProperties) => {
-    if (posthog) {
-      posthog.identify(userId, {
-        email,
-        ...properties,
-      });
-    }
+    const client = getClient();
+    if (!client) return;
+    client.identify(userId, {
+      email,
+      ...properties,
+    });
   };
 
   const reset = () => {
-    if (posthog) {
-      posthog.reset();
-    }
+    const client = getClient();
+    if (!client) return;
+    client.reset();
   };
 
   const trackButton = (buttonName: string, properties?: TrackingProperties) => {
@@ -240,5 +295,4 @@ export function useTracking() {
     trackPage,
   };
 }
-
 

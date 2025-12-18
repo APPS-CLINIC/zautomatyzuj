@@ -22,7 +22,7 @@ const { lang, translations } = Astro.props as Props;
 
 <div class="landing-page">
   <!-- Hero Section -->
-  <section class="hero-section">
+  <section class="hero-section" id="hero">
     <div class="hero-bg">
       <div class="bg-gradient"></div>
       <div class="bg-grid"></div>
@@ -45,13 +45,13 @@ const { lang, translations } = Astro.props as Props;
       </p>
 
       <div class="hero-cta">
-        <button class="btn-primary" onclick="openCommandPaletteWithAction('quote')">
+        <button class="btn-primary" onclick="openCommandPaletteWithAction('quote'); trackEvent('hero_primary_cta_clicked', { location: 'hero_section', action: 'quote' });">
           {translations.hero.primaryCta}
           <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
         </button>
-        <a href="https://bizbees.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+        <a href="https://bizbees.ai" target="_blank" rel="noopener noreferrer" class="btn-secondary" onclick="trackEvent('hero_secondary_cta_clicked', { link_url: 'https://bizbees.ai', link_text: translations.hero.secondaryCta, link_type: 'external', location: 'hero_section' });">
           <svg class="play-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
           </svg>
@@ -2916,7 +2916,13 @@ const { lang, translations } = Astro.props as Props;
   }
 
   // Function to open Command Palette with specific action
-  window.openCommandPaletteWithAction = function(action) {
+  declare global {
+    interface Window {
+      openCommandPaletteWithAction: (action: string) => void;
+    }
+  }
+  
+  window.openCommandPaletteWithAction = function(action: string) {
     const event = new CustomEvent('openCommandPalette', {
       detail: { 
         source: 'button',

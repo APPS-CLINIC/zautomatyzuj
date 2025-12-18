@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, ChevronDown, ChevronUp, User, Mail, Building } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { trackEvent } from '../../utils/posthog';
 
 interface ChatInputProps {
   onSend: (message: string, formData?: ContactFormData) => void;
@@ -62,6 +63,13 @@ const ChatInput: React.FC<ChatInputProps> = ({
       return;
     }
     
+    // Track message sent
+    trackEvent('message_sent', {
+      location: 'chat_input',
+      has_contact_form: isExpanded,
+      message_length: message.trim().length,
+    });
+    
     onSend(message.trim(), isExpanded ? formData : undefined);
     setMessage('');
     setFormData({ name: '', email: '', company: '' });
@@ -90,7 +98,14 @@ const ChatInput: React.FC<ChatInputProps> = ({
         ].map((chip) => (
           <motion.button
             key={chip}
-            onClick={() => setMessage(chip)}
+            onClick={() => {
+              setMessage(chip);
+              trackEvent('button_clicked', {
+                button_name: 'quick_reply_chip',
+                chip_text: chip,
+                location: 'chat_input',
+              });
+            }}
             className="px-3 py-1.5 text-xs bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white transition-all duration-200 hover:border-brand-primary/50 hover:shadow-brand-glow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -102,7 +117,14 @@ const ChatInput: React.FC<ChatInputProps> = ({
 
       {/* Expandable Form */}
       <motion.button
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => {
+          setIsExpanded(!isExpanded);
+          trackEvent('button_clicked', {
+            button_name: 'expand_contact_form',
+            location: 'chat_input',
+            expanded: !isExpanded,
+          });
+        }}
         className="flex items-center space-x-2 text-sm text-slate-300 hover:text-white transition-colors"
         whileHover={{ x: 2 }}
       >
@@ -199,7 +221,13 @@ const ChatInput: React.FC<ChatInputProps> = ({
             <div className="flex space-x-2">
               {message && (
                 <button
-                  onClick={() => setMessage('')}
+                  onClick={() => {
+                    setMessage('');
+                    trackEvent('button_clicked', {
+                      button_name: 'clear_message',
+                      location: 'chat_input',
+                    });
+                  }}
                   className="text-xs text-slate-400 hover:text-white transition-colors"
                   disabled={isLoading}
                 >

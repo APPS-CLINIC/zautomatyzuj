@@ -56,16 +56,28 @@ export default function WhyUs({
               className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold text-lg overflow-hidden shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/50 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => {
-                const event = new CustomEvent('openCommandPalette', {
-                  detail: { 
-                    source: 'button',
-                    preFilledContent: { action: 'contact' }
-                  }
+            onClick={() => {
+              const event = new CustomEvent('openCommandPalette', {
+                detail: { 
+                  source: 'button',
+                  preFilledContent: { action: 'contact' }
+                }
+              });
+              document.dispatchEvent(event);
+              // Track button click
+              if (typeof window !== 'undefined' && (window as any).trackEvent) {
+                (window as any).trackEvent('why_us_cta_clicked', {
+                  location: 'why_us_section',
+                  action: 'contact',
                 });
-                document.dispatchEvent(event);
-              }}
-            >
+              } else if (typeof window !== 'undefined' && (window as any).posthog) {
+                (window as any).posthog.capture('why_us_cta_clicked', {
+                  location: 'why_us_section',
+                  action: 'contact',
+                });
+              }
+            }}
+          >
               <span className="relative z-10 flex items-center gap-2">
                 {ctaText}
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -186,4 +198,3 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
     </motion.div>
   );
 }
-

@@ -456,7 +456,14 @@ export default function BizbeesProduct({
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  onClick={openVideoModal}
+                  onClick={() => {
+                    openVideoModal();
+                    track('button_clicked', {
+                      button_name: 'video_play',
+                      location: 'bizbees_product_section',
+                      video_title: videoTitle,
+                    });
+                  }}
                 >
                   <motion.button
                     className="w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-400/60 to-amber-500/60 backdrop-blur-xl flex items-center justify-center border-2 border-yellow-400/70 shadow-2xl mb-6 hover:from-yellow-400/80 hover:to-amber-500/80 transition-all duration-300"
@@ -573,7 +580,13 @@ export default function BizbeesProduct({
             {/* Close button */}
             <motion.button
               className="absolute top-6 right-6 z-60 w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white hover:bg-white/20 transition-all duration-300 flex items-center justify-center"
-              onClick={closeVideoModal}
+              onClick={() => {
+                closeVideoModal();
+                track('button_clicked', {
+                  button_name: 'video_modal_close',
+                  location: 'bizbees_product_section',
+                });
+              }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -598,6 +611,30 @@ export default function BizbeesProduct({
                 autoPlay
                 muted={false}
                 playsInline
+                onPlay={() => track('video_played', {
+                  video_title: videoTitle,
+                  location: 'bizbees_product_section',
+                })}
+                onPause={() => track('video_paused', {
+                  video_title: videoTitle,
+                  location: 'bizbees_product_section',
+                })}
+                onEnded={() => track('video_ended', {
+                  video_title: videoTitle,
+                  location: 'bizbees_product_section',
+                })}
+                onTimeUpdate={(e) => {
+                  const video = e.currentTarget;
+                  const progress = Math.floor((video.currentTime / video.duration) * 100);
+                  // Track at 25%, 50%, 75%, 100%
+                  if (progress === 25 || progress === 50 || progress === 75 || progress === 100) {
+                    track('video_progress', {
+                      video_title: videoTitle,
+                      location: 'bizbees_product_section',
+                      progress_percent: progress,
+                    });
+                  }
+                }}
               >
                 <source src="/bizbees.mp4" type="video/mp4" />
                 {videoNotSupported}
